@@ -74,6 +74,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   }
   #system{
     position:relative;
+    z-index:3;isolation:isolate; /* planets order themselves by depth inside; menus stay above */
     width:min(88vmin, 640px);
     height:min(88vmin, 640px);
     width:min(88vmin, 640px, max(240px, calc(100svh - 215px)));
@@ -524,6 +525,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
 
   #surface *{backdrop-filter:none !important;-webkit-backdrop-filter:none !important;}
   .planet{will-change:transform;}
+  .planet .label{scale:calc(1 / var(--zs,1));}
 
   /* ===== GLASS + PROXIMITY GLOW (certificates menu, contact, skills) ===== */
   #surface{--sect:110,198,255;}
@@ -673,6 +675,9 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .s-hap.dragging .s-thumb{transition:none;}
   .s-hap .s-ha{color:color-mix(in srgb,var(--bg-0) calc((1 - var(--h,1))*100%),var(--star) calc(var(--h,1)*100%));}
   .s-hap .s-hb{color:color-mix(in srgb,var(--star) calc((1 - var(--h,1))*100%),var(--bg-0) calc(var(--h,1)*100%));}
+  .s-note{margin-top:0;max-height:0;opacity:0;overflow:hidden;font-size:12px;line-height:1.8;color:var(--acc);transition:opacity .3s ease,max-height .3s ease,margin-top .3s ease;}
+  .s-note.show{margin-top:8px;max-height:64px;opacity:1;}
+  @media (prefers-reduced-motion:reduce){.s-note{transition:none;}}
   @keyframes hapPop{0%{box-shadow:0 0 0 0 rgba(var(--acc-rgb),.6);}100%{box-shadow:0 0 0 16px rgba(var(--acc-rgb),0);}}
   .s-hap.pop .s-thumb{animation:hapPop .65s ease-out;}
   @media (prefers-reduced-motion:reduce){.s-hap.pop .s-thumb{animation:none;}}
@@ -692,6 +697,25 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   html[data-theme] .planet .ball{border-color:color-mix(in srgb,var(--ink-line) calc((1 - var(--lit,0))*100%),var(--acc) calc(var(--lit,0)*100%));}
   .s-row .s-state{margin-inline-start:auto;font-size:12px;color:var(--dim);}
   .s-row[aria-checked="true"] .s-state{color:var(--acc);font-weight:700;}
+  /* depth lighting: light from the top-left; nearness (--zn) sets cast shadow, rim light, inner shading and focus */
+  :root{--sh:color-mix(in srgb,#000 calc((1 - var(--t))*100%),#1d2c34 calc(var(--t)*100%));}
+  html[data-theme] .planet .ball{
+    filter:blur(calc((1 - var(--zn,.5)) * .6px));
+    box-shadow:
+      0 0 0 3px var(--bg-0),
+      calc(var(--zn,.5) * 5px + var(--tx,0) * var(--zn,.5) * 7px) calc(3px + var(--zn,.5) * 10px + var(--ty,0) * var(--zn,.5) * 7px) calc(4px + var(--zn,.5) * 14px) color-mix(in srgb,var(--sh) calc(52% - var(--zn,.5) * 22%),transparent),
+      inset 2px 2px 3px color-mix(in srgb,#fff calc(8% + var(--zn,.5) * 28%),transparent),
+      inset -2px -3px 5px color-mix(in srgb,var(--sh) calc(6% + var(--zn,.5) * 22%),transparent);}
+  /* gyroscope: --tx/--ty (-1..1) are set on #system. The orbit plane leans, planets shift by depth, shadows follow the light */
+  .s-gyro .s-thumb{transform:translateX(calc(var(--g,1)*100%));transition:transform .22s cubic-bezier(.3,.7,.3,1);}
+  .s-gyro.dragging .s-thumb{transition:none;}
+  .s-gyro .s-ga{color:color-mix(in srgb,var(--bg-0) calc((1 - var(--g,1))*100%),var(--star) calc(var(--g,1)*100%));}
+  .s-gyro .s-gb{color:color-mix(in srgb,var(--star) calc((1 - var(--g,1))*100%),var(--bg-0) calc(var(--g,1)*100%));}
+  .s-gyro.pop .s-thumb{animation:hapPop .65s ease-out;}
+  .s-status{margin-top:6px;font-size:11.5px;line-height:1.8;color:var(--dim);}
+  .s-status.warn{color:var(--acc2);}
+  #system{transform:perspective(900px) rotateX(calc(var(--ty,0) * -7deg)) rotateY(calc(var(--tx,0) * 7deg));}
+  .planet{translate:calc(var(--tx,0) * (var(--zn,.5) - .5) * -24px) calc(var(--ty,0) * (var(--zn,.5) - .5) * -24px);}
 /* fallback for browsers without color-mix(): fixed palettes per theme, discrete label colours */
 @supports not (color:color-mix(in srgb,red 50%,blue)){
   :root{--bg-0:#070b14;--bg-1:#0d1526;--star:#eef1f6;--dim:#8892a6;--panel:#0f1830;--p-intro:#6ec6ff;--p-skills:#4fd1c5;--p-certs:#b794f4;--p-jobs:#f6857d;--p-self:#8b93e0;--p-contact:#f472b6;--t1:#fff;--t2:#dce1ee;--t3:#cfd6e6;--line:rgba(255,255,255,.12);--fill:rgba(255,255,255,.06);--fill-h:rgba(255,255,255,.12);--fill-line:rgba(255,255,255,.14);--card-line:rgba(255,255,255,.08);--bar-avg:rgba(255,255,255,.32);--float-bg:rgba(15,24,48,.9);--float-bg-h:rgba(15,24,48,1);--chip-t:#bfe4ff;--acc:#3fd2c6;--acc2:#e9b44c;--ink-line:rgba(232,241,242,.40);--grid:rgba(232,241,242,.045);--grid2:rgba(232,241,242,.085);}
@@ -700,7 +724,8 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   html[data-theme="light"] .s-light,html[data-theme="dark"] .s-dark,
   .s-font[aria-checked="false"] .s-fa,.s-font[aria-checked="true"] .s-fb,
   .s-dir[aria-checked="false"] .s-da,.s-dir[aria-checked="true"] .s-db,
-  .s-hap[aria-checked="false"] .s-ha,.s-hap[aria-checked="true"] .s-hb{color:var(--bg-0);}
+  .s-hap[aria-checked="false"] .s-ha,.s-hap[aria-checked="true"] .s-hb,
+  .s-gyro[aria-checked="false"] .s-ga,.s-gyro[aria-checked="true"] .s-gb{color:var(--bg-0);}
 }
 
 
@@ -797,11 +822,23 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
       <div id="hapticRow">
         <div class="s-sep"></div>
         <div class="s-speed-head" style="margin-bottom:8px;"><span>لرزش لمسی</span></div>
-        <button type="button" class="s-theme s-hap" id="hapticToggle" role="switch" aria-checked="true" aria-label="لرزش لمسی هنگام رسیدن سیاره به نشانگر، روشن یا خاموش">
+        <button type="button" class="s-theme s-hap" id="hapticToggle" role="switch" aria-checked="true" aria-label="لرزش لمسی هنگام رسیدن سیاره به نشانگر و لمس دکمه‌ها، روشن یا خاموش">
           <span class="s-thumb" aria-hidden="true"></span>
           <span class="s-opt s-ha">خاموش</span>
           <span class="s-opt s-hb">روشن</span>
         </button>
+        <div class="s-note" id="hapticNote" aria-live="polite"></div>
+      </div>
+      <div id="gyroRow" hidden>
+        <div class="s-sep"></div>
+        <div class="s-speed-head" style="margin-bottom:8px;"><span>ژیروسکوپ (کج کردن گوشی)</span></div>
+        <button type="button" class="s-theme s-gyro" id="gyroToggle" role="switch" aria-checked="true" aria-label="حرکت مدارها و سایه‌ها با کج کردن گوشی، روشن یا خاموش">
+          <span class="s-thumb" aria-hidden="true"></span>
+          <span class="s-opt s-ga">خاموش</span>
+          <span class="s-opt s-gb">روشن</span>
+        </button>
+        <div class="s-note" id="gyroNote" aria-live="polite"></div>
+        <div class="s-status" id="gyroStatus"></div>
       </div>
       </details>
     </div>
@@ -962,13 +999,58 @@ function layoutSystem(){
     if(reduceMotion) positionPlanet(p, p.phase);
   });
 }
+/* gyroscope: tilt the phone and the orbit plane leans, planets shift by depth, shadows follow the light.
+   The neutral pose slowly follows how the phone is held, so only quick tilts show. Off for reduced-motion and mouse devices. */
+const GYRO_RANGE = 20;   // degrees of tilt that give the full effect
+const gyroCanSense = ('DeviceOrientationEvent' in window) && matchMedia('(pointer:coarse)').matches && !reduceMotion;
+const gyroSysEl = document.getElementById('system');
+let gyroOn = false, gyroRaw = null, gyroBase = null, gTx = 0, gTy = 0, _gOut = [9, 9];
+let gyroLastEvt = 0, gyroEvtCount = 0, gyroOnSince = 0;   // proof that the sensor really delivers data
+function onOrient(e){
+  if(!gyroCanSense || e.gamma == null || e.beta == null) return;
+  gyroLastEvt = performance.now(); gyroEvtCount++;
+  gyroRaw = [e.gamma, e.beta];
+  if(!gyroBase) gyroBase = gyroRaw.slice();
+  else { gyroBase[0] += (gyroRaw[0] - gyroBase[0])*.004; gyroBase[1] += (gyroRaw[1] - gyroBase[1])*.004; }
+}
+window.addEventListener('deviceorientation', onOrient, {passive:true});
+window.addEventListener('deviceorientationabsolute', onOrient, {passive:true});   // some Android devices only send this one
+function gyroStep(){
+  let tx = 0, ty = 0;
+  if(gyroOn && gyroRaw && gyroBase && (!screen.orientation || screen.orientation.angle === 0)){
+    tx = Math.max(-1, Math.min(1, (gyroRaw[0] - gyroBase[0])/GYRO_RANGE));
+    ty = Math.max(-1, Math.min(1, (gyroRaw[1] - gyroBase[1])/GYRO_RANGE));
+  }
+  gTx += (tx - gTx)*.12; gTy += (ty - gTy)*.12;
+  if(Math.abs(gTx - _gOut[0]) > .003 || Math.abs(gTy - _gOut[1]) > .003){
+    _gOut = [gTx, gTy];
+    gyroSysEl.style.setProperty('--tx', gTx.toFixed(3)); gyroSysEl.style.setProperty('--ty', gTy.toFixed(3));
+    if(document.documentElement.dataset.q === 'full'){   // the drafting grid drifts the other way, far behind everything
+      const bp = 'calc(50% + ' + (-gTx*8).toFixed(1) + 'px) ' + (-gTy*8).toFixed(1) + 'px';
+      document.body.style.backgroundPosition = bp + ',' + bp + ',' + bp + ',' + bp;
+    }
+  }
+}
+/* depth (z axis): planets swing nearer and farther while keeping their x/y. One cycle per orbit, so it
+   follows the same speed ratio as the rotation (and the drag). depthAmt 0.2 = 20% bigger when nearest,
+   20% smaller when farthest; ready to be wired to a setting later. */
+let depthAmt = 0.2;
+const DEPTH_PHASE = 0.9;   // keeps nearest/farthest from lining up with the top/bottom of the orbit
+const depthZ = ang => Math.sin(ang*Math.PI/180 + DEPTH_PHASE);
 function positionPlanet(p, angleDeg){
   const r = sysSize*p.radiusFrac;
   const rad = angleDeg*Math.PI/180;
   const x = r*Math.cos(rad)*ORBIT_SQUEEZE_X;
   const y = r*Math.sin(rad);
-  (p.el || (p.el = document.getElementById('planet-'+p.id))).style.transform =
-    `translate(-50%,-50%) translate(${x}px, ${y}px)`;
+  const z = depthZ(angleDeg), sc = 1 + depthAmt*z;
+  const el = p.el || (p.el = document.getElementById('planet-'+p.id));
+  el.style.transform = `translate(-50%,-50%) translate(${x}px, ${y}px) scale(${sc.toFixed(4)})`;
+  el.style.opacity = (0.8 + 0.1*(z + 1)).toFixed(3);          // farther = a little fainter
+  const zi = 3 + Math.round((z + 1)*2.5);                      // nearer planets draw over farther ones
+  if(p._zi !== zi){ p._zi = zi; el.style.zIndex = zi; }
+  if(p._sc === undefined || Math.abs(sc - p._sc) > .004){ p._sc = sc; el.style.setProperty('--zs', sc.toFixed(3)); }
+  const zn = (z + 1)/2;                                        // 0 = farthest, 1 = nearest: drives shadow, light and focus
+  if(p._zn === undefined || Math.abs(zn - p._zn) > .01){ p._zn = zn; el.style.setProperty('--zn', zn.toFixed(3)); }
   return {x, y};
 }
 
@@ -1045,6 +1127,7 @@ function placePlanets(){
 }
 function tick(now){
   if(viewLevel !== 'home' || document.hidden){ tickOn = false; mainLastT = null; _fLast = 0; return; }
+  gyroStep();
   if(!motionPaused && !(dragRot && dragRot.moved)){
     if(mainLastT === null) mainLastT = now;
     mainElapsed += (now - mainLastT)/1000 * speedMul * dirSign;
@@ -1071,7 +1154,15 @@ function setMotionPaused(val){
 document.getElementById('toggleMotion').addEventListener('click', ()=> setMotionPaused(!motionPaused));
 { const hapticToggle = document.getElementById('hapticToggle');
   const HAP_ON = [16, 40, 24, 40, 44];          // short, medium, long: a "rising" pattern that says "activated"
-  let hv = hapticOn ? 1 : 0, midOn = hv === 1;
+  let hv = hapticOn ? 1 : 0, midOn = hv === 1, noteT = 0;
+  const hapticNote = document.getElementById('hapticNote');
+  function showHapticNote(on){
+    clearTimeout(noteT);
+    if(!on){ hapticNote.classList.remove('show'); noteT = setTimeout(()=>{ hapticNote.textContent = ''; }, 350); return; }
+    hapticNote.textContent = 'لرزش لمسی فعال شد: با رسیدن هر سیاره به نشانگر و با لمس سیاره‌ها و دکمه‌ها حس می‌شود.';
+    hapticNote.classList.add('show');
+    noteT = setTimeout(()=>{ hapticNote.classList.remove('show'); noteT = setTimeout(()=>{ hapticNote.textContent = ''; }, 350); }, 4000);
+  }
   function applyHaptic(v, save){
     const was = hapticOn; hv = v; hapticOn = !!v; midOn = hapticOn;
     document.documentElement.style.setProperty('--h', v);
@@ -1082,7 +1173,9 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
         if(canVibrate){ try{ navigator.vibrate(HAP_ON); }catch(e){} }
         hapticToggle.classList.remove('pop'); void hapticToggle.offsetWidth; hapticToggle.classList.add('pop');
         setTimeout(()=>hapticToggle.classList.remove('pop'), 700);
+        showHapticNote(true);
       }
+      if(!v) showHapticNote(false);
     }
   }
   if(!canVibrate) document.getElementById('hapticRow').hidden = true;
@@ -1092,6 +1185,66 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
     const on = val >= .5;
     if(on !== midOn){ midOn = on; if(on && canVibrate){ try{ navigator.vibrate(8); }catch(e){} } }
   }); }
+
+{ const gyroRow = document.getElementById('gyroRow'), gyroToggle = document.getElementById('gyroToggle'), gyroNote = document.getElementById('gyroNote');
+  const needPerm = typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function';   // iPhone asks first
+  let gv = needPerm ? 0 : 1, gNoteT = 0;
+  try{ const sv = localStorage.getItem('ro-gyro'); if(sv && !needPerm) gv = sv === 'on' ? 1 : 0; }catch(e){}
+  function gNote(txt){
+    clearTimeout(gNoteT);
+    if(!txt){ gyroNote.classList.remove('show'); gNoteT = setTimeout(()=>{ gyroNote.textContent = ''; }, 350); return; }
+    gyroNote.textContent = txt; gyroNote.classList.add('show');
+    gNoteT = setTimeout(()=>{ gyroNote.classList.remove('show'); gNoteT = setTimeout(()=>{ gyroNote.textContent = ''; }, 350); }, 4000);
+  }
+  function setGyro(v, save, announce){
+    gv = v; gyroOn = !!v && gyroCanSense; if(gyroOn) gyroOnSince = performance.now();
+    document.documentElement.style.setProperty('--g', v);
+    gyroToggle.setAttribute('aria-checked', v ? 'true' : 'false');
+    if(save){ try{ localStorage.setItem('ro-gyro', v ? 'on' : 'off'); }catch(e){} }
+    if(announce && v){
+      gyroToggle.classList.remove('pop'); void gyroToggle.offsetWidth; gyroToggle.classList.add('pop');
+      setTimeout(()=>gyroToggle.classList.remove('pop'), 700);
+      gNote('با کج کردن گوشی، مدارها کمی مایل می‌شوند و سیاره‌ها و سایه‌ها به نسبت عمق جابه‌جا می‌شوند.');
+    }
+    if(!v) gNote('');
+    renderGyroStatus();
+  }
+  function applyGyro(v, save){
+    if(v && save && needPerm){
+      DeviceOrientationEvent.requestPermission().then(r=>{
+        if(r === 'granted') setGyro(1, true, true);
+        else { setGyro(0, true, false); gNote('اجازه‌ی دسترسی به حسگر داده نشد.'); }
+      }).catch(()=>{ setGyro(0, true, false); gNote('این مرورگر اجازه‌ی استفاده از حسگر را نداد.'); });
+      return;
+    }
+    setGyro(v, save, save);
+  }
+  const gyroStatus = document.getElementById('gyroStatus');
+  function renderGyroStatus(){
+    const now = performance.now(); let txt, warn = false;
+    if(!gyroOn) txt = 'خاموش';
+    else if(!window.isSecureContext){ txt = 'کروم روی آدرس غیرامن حسگر را مسدود می‌کند. صفحه را از https یا فایل محلی باز کن.'; warn = true; }
+    else if(gyroEvtCount && now - gyroLastEvt < 2000) txt = 'فعال: داده‌ی حسگر دریافت می‌شود.';
+    else if(now - gyroOnSince > 2500){ txt = gyroEvtCount ? 'ارسال داده‌ی حسگر متوقف شد؛ گوشی را کمی تکان بده.' : 'داده‌ای از حسگر نمی‌آید. در کروم: تنظیمات سایت ← حسگرهای حرکتی ← مجاز، سپس صفحه را دوباره باز کن.'; warn = true; }
+    else txt = 'در انتظار حسگر…';
+    gyroStatus.textContent = txt; gyroStatus.classList.toggle('warn', warn);
+  }
+  setInterval(()=>{ const sp = document.getElementById('settingsPanel'); if(sp && !sp.hidden && !gyroRow.hidden) renderGyroStatus(); }, 700);
+  if(gyroCanSense) gyroRow.hidden = false;
+  setGyro(gv, false, false);
+  bindSwitch(gyroToggle, '--g', ()=>gv, applyGyro);
+}
+
+/* very light tick when touching planets and buttons (controlled by the same on/off switch) */
+{ let lastTick = 0;
+  const TICK_SEL = '.planet, .back-btn, .iss-card, .ct-item, .job-card, .settings-btn, .s-row, .s-theme:not(#hapticToggle), .cc-thumb, .cc-copy, .zv-nav button, .dl-menu a, .dl-menu button';
+  document.addEventListener('pointerdown', e=>{
+    if(!hapticOn || !canVibrate || e.button > 0) return;
+    if(!e.target.closest(TICK_SEL)) return;
+    const now = performance.now(); if(now - lastTick < 60) return; lastTick = now;
+    try{ navigator.vibrate(6); }catch(_){}
+  }, true);
+}
 
 /* ---------- content data (placeholders) ---------- */
 /* ---------- variants: ?v=hr | staffing | admin  (default = general) ---------- */
