@@ -750,7 +750,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   html[data-theme="light"] .s-light,html[data-theme="dark"] .s-dark,
   .s-font[aria-checked="false"] .s-fa,.s-font[aria-checked="true"] .s-fb,
   .s-dir[aria-checked="false"] .s-da,.s-dir[aria-checked="true"] .s-db,
-  .s-hap[aria-checked="false"] .s-ha,.s-hap[aria-checked="true"] .s-hb,
+  .s-gal[aria-checked="false"] .s-gla,.s-gal[aria-checked="true"] .s-glb, .s-hap[aria-checked="false"] .s-ha,.s-hap[aria-checked="true"] .s-hb,
   .s-gyro[aria-checked="false"] .s-ga,.s-gyro[aria-checked="true"] .s-gb{color:var(--bg-0);}
 }
 
@@ -763,7 +763,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .home-stats{position:fixed;bottom:calc(68px + var(--safe-b));left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:max-content;max-width:calc(100vw - 20px);pointer-events:none;}
   .home-stats span{font-size:11.5px;padding:3px 9px;border-radius:999px;background:var(--fill);border:1px solid var(--fill-line);color:var(--t2);white-space:nowrap;}
   .home-stats b{color:var(--sun);font-weight:700;}
-  @media (max-height:560px){ .home-stats,.st-hint{display:none;} }
+  @media (max-height:560px){ .home-stats,#startHint{display:none;} }
   .settings-btn{opacity:.55;transition:opacity .2s;}
   .settings-btn:hover,.settings-btn:focus-visible,.settings-btn[aria-expanded="true"]{opacity:1;}
   .s-adv>summary{cursor:pointer;font-size:12.5px;color:var(--dim);padding:6px 0;list-style:none;}
@@ -816,15 +816,50 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
 .pr-rel{display:flex;flex-wrap:wrap;gap:8px;}
 .pr-rel button{font:inherit;font-size:12px;color:var(--t1);background:var(--fill);border:1px solid var(--ink-line);border-radius:3px;padding:5px 10px;cursor:pointer;}
 .pr-rel button:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
+
+/* top hint row: "نمای ساده · دانلود رزومه" (same quiet link style); the download menu opens downwards */
+.st-hint{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2px 8px;}
+.st-dot{opacity:.6;}
+.st-dlwrap{position:relative;display:inline-block;}
+.st-hint .dl-menu{top:calc(100% + 8px);bottom:auto;inset-inline-start:auto;left:50%;transform:translateX(-50%);pointer-events:auto;text-align:start;font-size:13px;color:var(--t1);}
+.stage-title{z-index:4;}  /* above #system so the download menu is not covered by the orbits */
+
+/* galaxy background: nebula (pure CSS, follows the theme slider through --t) + two canvases (static stars / twinkles + comet) */
+#galaxy{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    radial-gradient(60% 46% at 22% 28%,rgba(124,92,230,calc(.20*(1 - var(--t)) + .10*var(--t))),transparent 70%),
+    radial-gradient(52% 40% at 80% 66%,rgba(40,190,200,calc(.15*(1 - var(--t)) + .10*var(--t))),transparent 70%),
+    radial-gradient(40% 30% at 52% 92%,rgba(236,120,160,calc(.10*(1 - var(--t)) + .08*var(--t))),transparent 70%),
+    radial-gradient(34% 34% at 50% 50%,rgba(120,150,255,calc(.10*(1 - var(--t)))),transparent 72%),
+    linear-gradient(118deg,transparent 36%,rgba(180,200,255,calc(.07*(1 - var(--t)))) 50%,transparent 64%),
+    linear-gradient(118deg,transparent 36%,rgba(22,35,43,calc(.05*var(--t))) 50%,transparent 64%);}
+#galaxy canvas{position:absolute;inset:0;}
+#galStatic{filter:invert(var(--t));opacity:calc(.95 - .45*var(--t));}
+.s-gal .s-thumb{transform:translateX(calc(var(--gl,1)*100%));transition:transform .22s cubic-bezier(.3,.7,.3,1);}
+.s-gal.dragging .s-thumb{transition:none;}
+.s-gal .s-gla{color:color-mix(in srgb,var(--bg-0) calc((1 - var(--gl,1))*100%),var(--star) calc(var(--gl,1)*100%));}
+.s-gal .s-glb{color:color-mix(in srgb,var(--star) calc((1 - var(--gl,1))*100%),var(--bg-0) calc(var(--gl,1)*100%));}
+
+/* contact cards: value on ONE line, action ("تماس" / "پیام" / ...) at the bottom-left corner */
+html[data-theme] .ct-item{position:relative;padding-bottom:40px !important;}
+html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10.5px,3.4vw,14.5px);}
+.ct-item > .ct-go{position:absolute;left:18px;bottom:9px;padding:1px 12px;border:1px solid var(--ink-line);border-radius:3px;font-weight:700;line-height:1.8;}
 </style>
 </head>
 <body>
 
 
 
+<!-- GALAXY BACKGROUND (stars, nebula, twinkles, comet; switch in settings) -->
+<div id="galaxy" aria-hidden="true"><canvas id="galStatic"></canvas><canvas id="galFx"></canvas></div>
+
 <!-- MAIN SOLAR SYSTEM -->
 <div id="stage">
-  <div class="stage-title"><h1 class="st-name" style="margin:0">سید امین حسینی</h1><div class="st-role">کارشناس منابع انسانی</div><div class="st-hint"><span id="startHint">برای شروع روی یک سیاره بزنید ·</span> <button type="button" class="st-simple" id="simpleBtn">نمای ساده</button></div></div>
+  <div class="stage-title"><h1 class="st-name" style="margin:0">سید امین حسینی</h1><div class="st-role">کارشناس منابع انسانی</div><div class="st-hint"><span id="startHint">برای شروع روی یک سیاره بزنید</span> <button type="button" class="st-simple" id="simpleBtn">نمای ساده</button> <span class="st-dot" aria-hidden="true">·</span> <span class="st-dlwrap"><button type="button" class="st-simple" id="printBtn" aria-haspopup="true" aria-expanded="false" aria-controls="dlMenu">دانلود رزومه</button><div class="dl-menu" id="dlMenu" hidden>
+      <button type="button" class="back-btn" id="dlPdf"><span>📕 فایل PDF<small>در پنجره باز‌شده «ذخیره به‌صورت PDF» را بزنید</small></span></button>
+      <button type="button" class="back-btn" id="dlPng"><span>🖼️ تصویر PNG<small>مناسب ارسال در پیام‌رسان</small></span></button>
+      <div class="dl-note" id="dlNote">اگر کار نکرد، لینک را در Chrome یا Safari باز کنید.</div>
+    </div></span></div></div>
   <div class="settings" id="settings">
     <div class="settings-backdrop" id="settingsBackdrop" hidden></div>
     <button type="button" class="settings-btn" id="settingsBtn" aria-label="تنظیمات" aria-haspopup="true" aria-expanded="false" aria-controls="settingsPanel">⚙️</button>
@@ -842,6 +877,15 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
         <span class="s-opt s-fa" style="font-family:'BNazanin','Vazirmatn',sans-serif;">بی‌نازنین</span>
         <span class="s-opt s-fb" style="font-family:'Vazirmatn',sans-serif;">وزیرمتن</span>
       </button>
+      <div id="galRow">
+        <div class="s-sep"></div>
+        <div class="s-speed-head" style="margin-bottom:8px;"><span>کهکشان پس‌زمینه</span></div>
+        <button type="button" class="s-theme s-gal" id="galToggle" role="switch" aria-checked="true" aria-label="کهکشان پس‌زمینه شامل ستاره‌ها، چشمک و ستاره‌ی دنباله‌دار، روشن یا خاموش">
+          <span class="s-thumb" aria-hidden="true"></span>
+          <span class="s-opt s-gla">خاموش</span>
+          <span class="s-opt s-glb">روشن</span>
+        </button>
+      </div>
       <details class="s-adv"><summary>حرکت و سرعت</summary>
       <div class="s-sep"></div>
       <button class="motion-toggle" id="toggleMotion" aria-label="توقف حرکت">
@@ -890,7 +934,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
     <div class="orbit-ring-wrap" id="ringwrap-skills"><div class="ring-inner"></div></div>
     <div class="orbit-ring-wrap" id="ringwrap-certs"><div class="ring-inner"></div></div>
     <div class="orbit-ring-wrap" id="ringwrap-jobs"><div class="ring-inner"></div></div>
-    <div class="orbit-ring-wrap" id="ringwrap-processes"><div class="ring-inner"></div></div>
+    
     <div class="orbit-ring-wrap" id="ringwrap-self"><div class="ring-inner"></div></div>
 
     <div class="sun" id="sunPhoto">
@@ -909,21 +953,13 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
     <button class="planet p-jobs" id="planet-jobs" data-target="jobs" aria-label="سوابق شغلی">
       <span class="ball">💼</span><span class="label">سوابق شغلی</span>
     </button>
-    <button class="planet p-processes" id="planet-processes" data-target="processes" aria-label="فرآیندها">
-      <span class="ball">🔄</span><span class="label">فرآیندها</span>
-    </button>
     <button class="planet p-self" id="planet-self" data-target="self" aria-label="خودشناسی حرفه‌ای">
       <span class="ball">🧭</span><span class="label">خودشناسی حرفه‌ای</span>
     </button>
   </div>
   <div class="home-stats" aria-label="خلاصه دستاوردها"><span><b>۱۲۰+</b> استخدام</span><span><b>۴۰۰+</b> مصاحبه</span><span><b>تا ۲۳۰</b> نیرو</span><span><b>۰</b> شکایت</span></div>
   <div class="home-actions">
-    <button type="button" class="back-btn act-primary" id="printBtn" aria-haspopup="true" aria-expanded="false" aria-controls="dlMenu">📄 دانلود رزومه</button>
-    <div class="dl-menu" id="dlMenu" hidden>
-      <button type="button" class="back-btn" id="dlPdf"><span>📕 فایل PDF<small>در پنجره باز‌شده «ذخیره به‌صورت PDF» را بزنید</small></span></button>
-      <button type="button" class="back-btn" id="dlPng"><span>🖼️ تصویر PNG<small>مناسب ارسال در پیام‌رسان</small></span></button>
-      <div class="dl-note" id="dlNote">اگر کار نکرد، لینک را در Chrome یا Safari باز کنید.</div>
-    </div>
+    <button type="button" class="back-btn act-primary" id="procBtn">🔄 فرآیندها</button>
     <button type="button" class="back-btn" id="contactBtn">📞 تماس با من</button>
     <button type="button" class="back-btn" id="ghBtn" aria-haspopup="true" aria-expanded="false" aria-controls="ghMenu">🐙 گیت‌هاب</button>
     <div class="dl-menu gh-menu" id="ghMenu" hidden>
@@ -1013,14 +1049,23 @@ const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
    drift closer or farther apart from each other — even though the outer
    ones physically travel a longer path per lap (and so look "faster"). */
 const SYSTEM_PERIOD = 48; // seconds per full lap, shared by all planets
-const PLANETS = [
-  {id:'intro',     radiusFrac:0.220, dur:SYSTEM_PERIOD, color:'#6ec6ff', phase:0},
-  {id:'skills',    radiusFrac:0.272, dur:SYSTEM_PERIOD, color:'#4fd1c5', phase:60},
-  {id:'certs',     radiusFrac:0.324, dur:SYSTEM_PERIOD, color:'#b794f4', phase:120},
-  {id:'jobs',      radiusFrac:0.376, dur:SYSTEM_PERIOD, color:'#f6857d', phase:180},
-  {id:'processes', radiusFrac:0.428, dur:SYSTEM_PERIOD, color:'#3fd2c6', phase:240},
-  {id:'self',      radiusFrac:0.480, dur:SYSTEM_PERIOD, color:'#8b93e0', phase:300}
+/* Orbits (rings) are decoration; planets all share ONE orbit (the third ring, the middle one),
+   evenly spaced (360 / count degrees) and with the same period, so the spacing never changes. */
+const RINGS = [
+  {id:'intro',  radiusFrac:0.24, color:'#6ec6ff'},
+  {id:'skills', radiusFrac:0.30, color:'#4fd1c5'},
+  {id:'certs',  radiusFrac:0.36, color:'#b794f4'},
+  {id:'jobs',   radiusFrac:0.42, color:'#f6857d'},
+  {id:'self',   radiusFrac:0.48, color:'#8b93e0'}
 ];
+const PLANET_RING = 0.36;
+const PLANETS = [
+  {id:'intro',  color:'#6ec6ff'},
+  {id:'skills', color:'#4fd1c5'},
+  {id:'certs',  color:'#b794f4'},
+  {id:'jobs',   color:'#f6857d'},
+  {id:'self',   color:'#8b93e0'}
+].map((p,i,all)=>Object.assign(p,{radiusFrac:PLANET_RING, dur:SYSTEM_PERIOD, phase:36 + i*360/all.length}));
 
 const ORBIT_SQUEEZE_X = 0.94; // must match .orbit-ring-wrap's scaleX
 
@@ -1030,20 +1075,23 @@ function layoutSystem(){
   sysSize = sysEl.clientWidth;
   sysCX = sysEl.offsetLeft + sysEl.offsetWidth/2;   // layout coords (ignore transforms), cached
   sysCY = sysEl.offsetTop + sysEl.offsetHeight/2;
-  PLANETS.forEach(p=>{
-    const wrap = document.getElementById('ringwrap-'+p.id);
-    const pct = (p.radiusFrac*200)+'%';
+  RINGS.forEach(r=>{
+    const wrap = document.getElementById('ringwrap-'+r.id);
+    const pct = (r.radiusFrac*200)+'%';
     wrap.style.width = pct;
     wrap.style.height = pct;
+    const inner = wrap.querySelector('.ring-inner');
+    inner.style.borderColor = r.color;
+    inner.style.color = r.color;
+    inner.style.animationDuration = SYSTEM_PERIOD+'s';
+  });
+  PLANETS.forEach(p=>{
     p.el = document.getElementById('planet-'+p.id);
     p.lab = p.el.querySelector('.label');
     p.labHalf = p.lab ? p.lab.offsetWidth/2 : 0;
-    const inner = wrap.querySelector('.ring-inner');
-    inner.style.borderColor = p.color;
-    inner.style.color = p.color;
-    inner.style.animationDuration = p.dur+'s';
     if(reduceMotion) positionPlanet(p, p.phase);
   });
+
 }
 /* gyroscope: tilt the phone and the orbit plane leans, planets shift by depth, shadows follow the light.
    The neutral pose slowly follows how the phone is held, so only quick tilts show. Off for reduced-motion and mouse devices. */
@@ -1279,6 +1327,78 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
   if(gyroCanSense) gyroRow.hidden = false;
   setGyro(gv, false, false);
   bindSwitch(gyroToggle, '--g', ()=>gv, applyGyro);
+  /* default = on. Android/desktop: already on. iPhone: the sensor needs a permission prompt that only a tap can trigger, so ask once on the first tap */
+  try{ if(needPerm && gyroCanSense && !localStorage.getItem('ro-gyro')){
+    const ask = ()=>{ document.removeEventListener('click', ask, true); try{ if(!localStorage.getItem('ro-gyro')) applyGyro(1, true); }catch(e){} };
+    document.addEventListener('click', ask, true);
+  } }catch(e){}
+}
+
+/* ---------- galaxy background: static stars + nebula, a few twinkling stars, an occasional comet ---------- */
+{ const gal = document.getElementById('galaxy'), cs = document.getElementById('galStatic'), cf = document.getElementById('galFx');
+  const xs = cs.getContext('2d'), xf = cf.getContext('2d'), galToggle = document.getElementById('galToggle');
+  const root = document.documentElement, isLite = ()=>root.dataset.q === 'lite';
+  let seed = 7; const rnd = ()=>{ seed = (seed*1664525 + 1013904223) >>> 0; return seed/4294967296; };   // fixed seed: stars never jump on resize
+  const clamp01 = v => Math.min(1, Math.max(0, v));
+  const STARS = Array.from({length:520}, (_, i)=>{
+    let x, y;
+    if(rnd() < .55){ const u = rnd(), off = (rnd()+rnd()+rnd()-1.5)*.16; x = .05 + u*.9 + off*.35; y = .9 - u*.8 + off*.5; }   // denser band = the milky way
+    else { x = rnd(); y = rnd(); }
+    return {x:clamp01(x), y:clamp01(y), r:.3 + rnd()*rnd()*1.3, a:.25 + rnd()*.65, ph:rnd()*6.28, w:.6 + rnd()*1.6, tw: i%21 === 0};
+  });
+  const TW = STARS.filter(s=>s.tw);
+  let on = true, W = 0, H = 0, comet = null, nextComet = 0, raf = 0, last = 0;
+  try{ on = localStorage.getItem('ro-galaxy') !== 'off'; }catch(e){}
+  function size(){
+    const dpr = Math.min(devicePixelRatio || 1, isLite() ? 1 : 1.5); W = innerWidth; H = innerHeight;
+    [cs, cf].forEach(c=>{ c.width = Math.round(W*dpr); c.height = Math.round(H*dpr); });
+    xs.setTransform(dpr,0,0,dpr,0,0); xf.setTransform(dpr,0,0,dpr,0,0); drawStatic();
+  }
+  function drawStatic(){
+    xs.clearRect(0,0,W,H); xs.fillStyle = '#fff'; const n = isLite() ? 220 : 460;
+    for(let i = 0; i < n; i++){ const s = STARS[i]; if(s.tw) continue; xs.globalAlpha = s.a; xs.beginPath(); xs.arc(s.x*W, s.y*H, s.r, 0, 6.283); xs.fill(); }
+    xs.globalAlpha = 1;
+  }
+  function draw(now){
+    xf.clearRect(0,0,W,H);
+    const t = themeT, col = Math.round(238 + (22-238)*t)+','+Math.round(241 + (35-241)*t)+','+Math.round(246 + (43-246)*t);
+    const tw = isLite() ? TW.slice(0, Math.ceil(TW.length/2)) : TW;
+    for(const s of tw){
+      const k = .5 + .5*Math.sin(now/1000*s.w + s.ph), a = (.12 + .88*k*k)*s.a*(1 - .3*t), x = s.x*W, y = s.y*H, rad = s.r*(.8 + .7*k);
+      xf.fillStyle = 'rgba('+col+','+a.toFixed(3)+')'; xf.beginPath(); xf.arc(x, y, rad, 0, 6.283); xf.fill();
+      if(k > .86){ xf.strokeStyle = 'rgba('+col+','+(a*.6).toFixed(3)+')'; xf.lineWidth = .7; xf.beginPath();
+        xf.moveTo(x-rad*3.2, y); xf.lineTo(x+rad*3.2, y); xf.moveTo(x, y-rad*3.2); xf.lineTo(x, y+rad*3.2); xf.stroke(); }
+    }
+    if(!nextComet) nextComet = now + 4500 + rnd()*4000;
+    if(!comet && now > nextComet){
+      const dir = rnd() < .5 ? 1 : -1, ang = (20 + rnd()*18)*Math.PI/180;
+      comet = {t0:now, vx:Math.cos(ang)*dir, vy:Math.sin(ang), x:dir > 0 ? -60 : W+60, y:rnd()*H*.45, sp:Math.max(W,500)*.75, len:150};
+    }
+    if(comet){
+      const dt = (now - comet.t0)/1000, x = comet.x + comet.vx*comet.sp*dt, y = comet.y + comet.vy*comet.sp*dt;
+      if(x < -220 || x > W+220 || y > H+220){ comet = null; nextComet = now + 14000 + rnd()*18000; }
+      else {
+        const tx = x - comet.vx*comet.len, ty = y - comet.vy*comet.len, gr = xf.createLinearGradient(x, y, tx, ty);
+        gr.addColorStop(0, 'rgba('+col+',.9)'); gr.addColorStop(1, 'rgba('+col+',0)');
+        xf.strokeStyle = gr; xf.lineWidth = 1.6; xf.lineCap = 'round'; xf.beginPath(); xf.moveTo(x, y); xf.lineTo(tx, ty); xf.stroke();
+        xf.fillStyle = 'rgba('+col+',.95)'; xf.beginPath(); xf.arc(x, y, 2, 0, 6.283); xf.fill();
+      }
+    }
+  }
+  /* animate only while the galaxy is on, visible (home, tab in front) and motion is not paused; 30 fps (20 on weak devices) */
+  const shouldRun = ()=> on && !reduceMotion && !document.hidden && !stage.classList.contains('hidden') && !motionPaused;
+  function loop(now){ raf = 0; if(!shouldRun()) return; if(now - last >= (isLite() ? 50 : 33)){ last = now; draw(now); } raf = requestAnimationFrame(loop); }
+  function kick(){ if(!raf && shouldRun()) raf = requestAnimationFrame(loop); }
+  setInterval(kick, 800); document.addEventListener('visibilitychange', kick);
+  let rt = 0; addEventListener('resize', ()=>{ clearTimeout(rt); rt = setTimeout(size, 150); });
+  function applyGal(v, save){
+    on = !!v; gal.hidden = !on; root.style.setProperty('--gl', v);
+    galToggle.setAttribute('aria-checked', v ? 'true' : 'false');
+    if(!on) xf.clearRect(0,0,W,H); else setTimeout(kick, 0);   // deferred: motionPaused / stage are declared further down the script
+    if(save){ try{ localStorage.setItem('ro-galaxy', v ? 'on' : 'off'); }catch(e){} }
+  }
+  size(); applyGal(on ? 1 : 0, false);
+  bindSwitch(galToggle, '--gl', ()=>on ? 1 : 0, applyGal);
 }
 
 /* very light tick when touching planets and buttons (controlled by the same on/off switch) */
@@ -1383,26 +1503,30 @@ const CONCEPTS = {
     'ارتباطش با جذب این است که تجربه‌ی نیروی جدید از همان گفت‌وگوهای اولیه شروع می‌شود؛ شفاف بودن شرایط کار در مرحله‌ی پیشنهاد، ورود را روان‌تر می‌کند. بخشی از این کار، مثل تشکیل پرونده و قرارداد، به امور پرسنلی می‌رسد و بخشی مثل آموزش و معرفی، به واحد مربوط.']},
   socialization:{ title:'جامعه‌پذیری سازمانی', sub:'آشنایی تدریجی با فرهنگ و روابط کاری', paras:[
     'جامعه‌پذیری سازمانی فرایندی تدریجی است که در آن فرد جدید با فرهنگ، هنجارها، شیوه‌ی ارتباط و روابط کاری سازمان آشنا می‌شود و جای خود را در آن پیدا می‌کند. این کار فقط با یک جلسه‌ی معارفه یا دفترچه‌ی قوانین انجام نمی‌شود؛ بیشتر از طریق تعامل روزمره، تجربه‌ی همکاران و دیدن اینکه کارها واقعاً چگونه انجام می‌شود شکل می‌گیرد.',
-    'در عمل، معرفی یک همکار راهنما، توضیح صریح انتظارات و مسیر گزارش‌دهی و فرصت پرسیدن در هفته‌های اول به این فرایند کمک می‌کند و می‌تواند روی ماندگاری و عملکرد نیروی جدید اثر بگذارد.']}
+    'در عمل، معرفی یک همکار راهنما، توضیح صریح انتظارات و مسیر گزارش‌دهی و فرصت پرسیدن در هفته‌های اول به این فرایند کمک می‌کند و می‌تواند روی ماندگاری و عملکرد نیروی جدید اثر بگذارد.']},
+  application:{ title:'فرم درخواست استخدام', sub:'Application Form', paras:[
+    'فرم درخواست استخدام (Application Form) برگه‌ی استانداردی است که متقاضی پیش از مصاحبه آن را پر می‌کند و اطلاعات همه را به یک قالب یکسان درمی‌آورد: مشخصات و راه ارتباطی، تحصیلات، سوابق شغلی (سازمان، سمت، مدت، دلیل ترک کار)، مهارت‌ها و گواهی‌ها، انتظار حقوق، آمادگی برای شروع، وضعیت نظام وظیفه (اگر شغل لازم دارد) و معرف. چون همه‌ی فرم‌ها هم‌شکل‌اند، مقایسه‌ی متقاضیان ساده‌تر از مقایسه‌ی رزومه‌هایی است که هرکدام شکل خودشان را دارند.',
+    'ارزش اصلی فرم پیش از مصاحبه است. از روی آن می‌شود فاصله‌های زمانی در سابقه، دلیل جابه‌جایی‌ها، تناسب انتظار حقوق و شرایط شغل (شیفت، محل کار، زمان شروع) و تناسب مدارک با شرایط احراز را همان‌جا فهمید و سؤال‌های مشخص آماده کرد. رزومه فقط چیزی را نشان می‌دهد که متقاضی انتخاب کرده بنویسد؛ فرم همان سؤال‌ها را از همه می‌پرسد. دو نکته مهم است: فقط اطلاعاتی بپرسید که به شغل ربط دارد و از اطلاعات شخصی متقاضی مراقبت کنید؛ و بعد از انتخاب، اطلاعات فرم را با مدارک و سوابق تطبیق دهید.']}
 };
 const PROCESSES = [
   /* one object per process area; add more later (training, performance, compensation, labour relations ...)
      step fields: title, short (visible), points[] (process knowledge), exp (documented experience, only if true),
      concepts[] (keys of CONCEPTS, familiarity only). Old fields summary/method/skills/tools still work. */
   { key:'hiring', icon:'🔄', title:'جذب و استخدام', sub:'از نیازسنجی تا ورود به سازمان',
-    concepts:['recruiting','selection','sourcing','headhunting','ats','cbi','onboarding','socialization'],
+    concepts:['recruiting','selection','sourcing','headhunting','ats','application','cbi','onboarding','socialization'],
     steps:[
       { title:'نیازسنجی و شرح شغل', short:'پیش از هر آگهی روشن می‌شود دقیقاً چه کسی و با چه شرایطی لازم است.',
         points:['شناسایی نیاز استخدامی و هماهنگی با واحد درخواست‌کننده','تعیین عنوان شغلی، تعداد نیروی موردنیاز و شرایط احراز','تدوین یا بررسی شرح وظایف و شایستگی‌های موردنیاز','تعیین معیارهای ارزیابی و اولویت‌های غربالگری'],
         exp:'دریافت نیاز استخدامی در سوابق شغلی من آمده است.', concepts:['recruiting'] },
       { title:'تأمین و غربالگری متقاضیان', short:'متقاضیان از چند کانال پیدا می‌شوند و با معیارهای مشخص برای مصاحبه فیلتر می‌شوند.',
-        points:['تأمین متقاضی از آگهی‌های استخدامی، بانک رزومه، شبکه ارتباطی و معرفی نیرو','بررسی رزومه‌ها و تطبیق آن‌ها با شرایط احراز','غربالگری اولیه با معیارها و فیلترهای مشخص','ثبت، دسته‌بندی و پیگیری وضعیت هر متقاضی؛ در سازمان‌هایی که ATS دارند، در همان سامانه'],
-        exp:'بررسی و غربالگری رزومه‌ها در سوابق شغلی من آمده است.', concepts:['sourcing','headhunting','ats'] },
+        points:['تأمین متقاضی از آگهی‌های استخدامی، بانک رزومه، شبکه ارتباطی و معرفی نیرو','بررسی رزومه‌ها و تطبیق آن‌ها با شرایط احراز؛ معیارها از قبل به «ضروری» و «مطلوب» تقسیم می‌شوند','ارسال فرم درخواست استخدام برای تکمیل؛ اطلاعات مهم (سابقه، انتظار حقوق، زمان شروع، شیفت) پیش از مصاحبه روشن می‌شود','غربالگری اولیه با معیارها و فیلترهای مشخص و مقایسه‌ی متقاضیان در یک جدول ساده','ثبت، دسته‌بندی و پیگیری وضعیت هر متقاضی؛ در سازمان‌هایی که ATS دارند، در همان سامانه'],
+        exp:'بررسی و غربالگری رزومه‌ها در سوابق شغلی من آمده است.', concepts:['sourcing','headhunting','ats','application'] },
       { title:'مصاحبه و ارزیابی', short:'مصاحبه بر پایه شایستگی‌های شغل و شواهد رفتاری انجام و مستند می‌شود.',
-        points:['برنامه‌ریزی و هماهنگی مصاحبه‌ها','مصاحبه شایستگی‌محور و پرسیدن از نمونه‌های واقعی گذشته','الگوی STAR برای ساختاربندی پاسخ‌ها و بررسی شواهد رفتاری','ارزیابی تناسب شایستگی‌ها و مهارت‌های متقاضی با الزامات شغل','ثبت نتایج ارزیابی و مستندسازی بازخوردها'],
-        exp:'برگزاری مصاحبه‌ها در سوابق شغلی من آمده است.', concepts:['cbi','selection'] },
+        points:['برنامه‌ریزی و هماهنگی مصاحبه‌ها','مرور فرم تکمیل‌شده پیش از مصاحبه و آماده کردن سؤال‌های مشخص: فاصله‌های سابقه، دلیل ترک کار قبلی، انتظار حقوق، آمادگی شروع','مصاحبه شایستگی‌محور با نمونه‌های واقعی گذشته و الگوی STAR برای ساختاربندی پاسخ‌ها','امتیازدهی هر شایستگی با یک فرم ثابت برای همه‌ی متقاضیان، همراه با ثبت شواهد و مستندسازی بازخورد','پرهیز از خطاهای رایج: اثر هاله (یک ویژگی خوب همه‌چیز را خوب نشان دهد)، شباهت به مصاحبه‌گر و تصمیم بر پایه اولین برداشت'],
+        exp:'برگزاری مصاحبه‌ها در سوابق شغلی من آمده است.', concepts:['cbi','selection','application'] },
       { title:'انتخاب و ورود به سازمان', short:'نتیجه ارزیابی جمع‌بندی، پیشنهاد کاری اعلام و ورود نیروی جدید هماهنگ می‌شود.',
-        points:['جمع‌بندی نتایج ارزیابی و هماهنگی تصمیم نهایی','اعلام نتیجه و ارائه پیشنهاد همکاری در چارچوب اختیارات سازمان','شفاف‌سازی انتظارات درباره حقوق، مزایا، قرارداد، شیفت و شرایط کار','پیگیری پذیرش پیشنهاد و هماهنگی اقدامات پیش از ورود','ورود پایان استخدام نیست؛ آغاز Onboarding و جامعه‌پذیری سازمانی است'],
+        points:['جمع‌بندی نتایج ارزیابی و هماهنگی تصمیم نهایی','اعلام نتیجه و ارائه پیشنهاد همکاری در چارچوب اختیارات سازمان','شفاف‌سازی انتظارات درباره حقوق، مزایا، قرارداد، شیفت و شرایط کار','پیگیری پذیرش پیشنهاد و هماهنگی اقدامات پیش از ورود',
+          'تطبیق اطلاعات فرم با مدارک و سوابق (مدرک تحصیلی، سوابق بیمه، گواهی‌ها) پیش از ورود','ورود پایان استخدام نیست؛ آغاز Onboarding و جامعه‌پذیری سازمانی است'],
         exp:'تشکیل پرونده و صدور قرارداد برای نیروهای جدید در سوابق شغلی من آمده است.', concepts:['onboarding','socialization'] }
     ] }
 ];
@@ -1699,6 +1823,7 @@ document.getElementById('svPdf').addEventListener('click',()=>{ try{ window.prin
 addEventListener('hashchange', route);
 document.querySelectorAll('.planet[data-target]').forEach(btn=>btn.addEventListener('click',()=>{ setOrigin(btn); go(btn.dataset.target); }));
 document.getElementById('contactBtn').addEventListener('click',e=>{ setOrigin(e.currentTarget); go('contact'); });
+document.getElementById('procBtn').addEventListener('click',e=>{ setOrigin(e.currentTarget); go('processes'); });
 document.getElementById('backBtn').addEventListener('click',goBack);
 document.getElementById('backBtnBottom').addEventListener('click',()=>go(''));
 
