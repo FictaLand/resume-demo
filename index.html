@@ -749,7 +749,9 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
     box-shadow:0 0 12px 2px rgba(var(--acc-rgb),.6),inset 0 0 12px 1px rgba(var(--acc-rgb),.35);
     animation:ringGlow 3.6s ease-in-out infinite;animation-play-state:inherit;animation-delay:var(--gd,0s);}
   @keyframes ringGlow{0%,100%{opacity:0;}50%{opacity:1;}}
-  html[data-q="lite"] .ring-inner::after{box-shadow:none;border:2px solid rgba(var(--acc-rgb),.45);}
+  /* phones use the lite mode: no blur on big shapes, so the halo is a soft gradient band painted once (only its opacity pulses) */
+  html[data-q="lite"] .ring-inner::after{inset:-10px;box-shadow:none;border:0;
+    background:radial-gradient(closest-side,transparent calc(100% - 20px),rgba(var(--acc-rgb),.5) calc(100% - 10px),transparent 100%);}
   @keyframes gearSpin{to{transform:rotate(360deg);}}
   .settings-btn .ic{animation:gearSpin 9s linear infinite;}
   html.mpaused .settings-btn .ic{animation-play-state:paused;}
