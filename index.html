@@ -624,7 +624,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .astro{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(.94);pointer-events:none;color:var(--ink-line);opacity:.75;}
   .astro path{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke;}
   .astro .cross{opacity:.35;}
-  html[data-theme] .ring-inner{border-style:solid !important;border-width:1px !important;border-color:var(--ink-line) !important;filter:none !important;opacity:1;animation:none !important;}
+  html[data-theme] .ring-inner{border-style:solid !important;border-width:1px !important;border-color:var(--ink-line) !important;filter:none !important;opacity:1;}
   html[data-theme] #ringwrap-skills .ring-inner,html[data-theme] #ringwrap-jobs .ring-inner{border-style:dashed !important;}
   html[data-theme] .sun{background:var(--acc2);box-shadow:0 0 0 4px var(--bg-0),0 0 0 5.5px var(--acc2),0 0 0 11px var(--bg-0),0 0 0 12px var(--ink-line);}
   html[data-theme] .planet::before{inset:-14%;background:none;border:1px solid var(--acc);border-radius:50%;opacity:calc(var(--prox,0) * .95);transform:scale(calc(.85 + var(--prox,0) * .25));}
@@ -742,6 +742,22 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .pr-sec{margin-top:12px;} .pr-sec h4{margin:0 0 4px;font-size:12px;font-weight:800;color:var(--acc);}
   .pr-concept,.pr-card{padding:0;}
   #backBtn{white-space:nowrap;flex:none;}
+  /* ===== orbit rings: independent spin, visible sweep arc, alternating pulsing glow; settings gear turns in place ===== */
+  .ring-inner::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid rgb(var(--acc-rgb));pointer-events:none;
+    -webkit-mask:conic-gradient(from 0deg,transparent 0deg 285deg,#000 345deg 360deg);mask:conic-gradient(from 0deg,transparent 0deg 285deg,#000 345deg 360deg);}
+  .ring-inner::after{content:"";position:absolute;inset:-2px;border-radius:50%;pointer-events:none;opacity:0;
+    box-shadow:0 0 12px 2px rgba(var(--acc-rgb),.6),inset 0 0 12px 1px rgba(var(--acc-rgb),.35);
+    animation:ringGlow 3.6s ease-in-out infinite;animation-play-state:inherit;animation-delay:var(--gd,0s);}
+  @keyframes ringGlow{0%,100%{opacity:0;}50%{opacity:1;}}
+  html[data-q="lite"] .ring-inner::after{box-shadow:none;border:2px solid rgba(var(--acc-rgb),.45);}
+  @keyframes gearSpin{to{transform:rotate(360deg);}}
+  .settings-btn .ic{animation:gearSpin 9s linear infinite;}
+  html.mpaused .settings-btn .ic{animation-play-state:paused;}
+  @media (prefers-reduced-motion:reduce){
+    .ring-inner::before{display:none;}
+    .ring-inner::after{animation:none;opacity:0;}
+    .settings-btn .ic{animation:none;}
+  }
 /* fallback for browsers without color-mix(): fixed palettes per theme, discrete label colours */
 @supports not (color:color-mix(in srgb,red 50%,blue)){
   :root{--bg-0:#070b14;--bg-1:#0d1526;--star:#eef1f6;--dim:#8892a6;--panel:#0f1830;--p-intro:#6ec6ff;--p-skills:#4fd1c5;--p-certs:#b794f4;--p-jobs:#f6857d;--p-self:#8b93e0;--p-contact:#f472b6;--t1:#fff;--t2:#dce1ee;--t3:#cfd6e6;--line:rgba(255,255,255,.12);--fill:rgba(255,255,255,.06);--fill-h:rgba(255,255,255,.12);--fill-line:rgba(255,255,255,.14);--card-line:rgba(255,255,255,.08);--bar-avg:rgba(255,255,255,.32);--float-bg:rgba(15,24,48,.9);--float-bg-h:rgba(15,24,48,1);--chip-t:#bfe4ff;--acc:#3fd2c6;--acc2:#e9b44c;--ink-line:rgba(232,241,242,.40);--grid:rgba(232,241,242,.045);--grid2:rgba(232,241,242,.085);}
@@ -1075,7 +1091,7 @@ function layoutSystem(){
   sysSize = sysEl.clientWidth;
   sysCX = sysEl.offsetLeft + sysEl.offsetWidth/2;   // layout coords (ignore transforms), cached
   sysCY = sysEl.offsetTop + sysEl.offsetHeight/2;
-  RINGS.forEach(r=>{
+  RINGS.forEach((r,i)=>{
     const wrap = document.getElementById('ringwrap-'+r.id);
     const pct = (r.radiusFrac*200)+'%';
     wrap.style.width = pct;
@@ -1083,7 +1099,11 @@ function layoutSystem(){
     const inner = wrap.querySelector('.ring-inner');
     inner.style.borderColor = r.color;
     inner.style.color = r.color;
-    inner.style.animationDuration = SYSTEM_PERIOD+'s';
+    /* rings are independent of the planets: own period, clockwise / counter-clockwise in turn, staggered start */
+    inner.style.animationDuration = (52 + i*12)+'s';
+    inner.style.animationDirection = i % 2 ? 'reverse' : 'normal';
+    inner.style.animationDelay = (-i*13.7)+'s';
+    inner.style.setProperty('--gd', i % 2 ? '-1.8s' : '0s');          // glow pulses: odd rings opposite to even rings
   });
   PLANETS.forEach(p=>{
     p.el = document.getElementById('planet-'+p.id);
@@ -1238,6 +1258,7 @@ startTick();
 
 function setMotionPaused(val){
   motionPaused = val;
+  document.documentElement.classList.toggle('mpaused', val);
   document.querySelectorAll('.ring-inner').forEach(el=>{
     el.style.animationPlayState = val ? 'paused' : 'running';
   });
