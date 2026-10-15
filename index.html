@@ -18,8 +18,11 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 -->
-<script>(function(){var d=document.documentElement,t;try{t=localStorage.getItem('ro-theme-m')}catch(e){}
-var th=t||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark');d.setAttribute('data-theme',th);d.style.setProperty('--t',th==='light'?1:0);
+<script>/* START DEFAULTS: fixed by the owner. Keep exactly these through every future change unless he asks otherwise.
+   They apply on every load; saved choices are NOT restored for these five. glow: 0..1 where 1 = the full look and 0.5 = half. */
+var START_DEFAULTS={theme:'dark',speed:1,haptic:true,gyro:true,glow:0.5};
+(function(){var d=document.documentElement;
+var th=START_DEFAULTS.theme;d.setAttribute('data-theme',th);d.style.setProperty('--t',th==='light'?1:0);d.style.setProperty('--glw',START_DEFAULTS.glow);
 var lite=matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4;
 d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('ro-font')}catch(e){}d.setAttribute('data-font',fn==='nazanin'?'nazanin':'vazir');d.style.setProperty('--f',fn==='nazanin'?0:1);})()</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"سید امین حسینی","jobTitle":"کارشناس منابع انسانی و امور پرسنلی","address":{"@type":"PostalAddress","addressLocality":"اصفهان","addressCountry":"IR"},"sameAs":["https://www.linkedin.com/in/ahoseiny"]}</script>
@@ -359,7 +362,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .in-tl-item:last-child{padding-bottom:0;}
   .in-tl-item::before{content:"";position:absolute;inset-inline-start:-28px;top:6px;width:16px;height:16px;
     border-radius:50%;background:var(--bg-0);border:2px solid var(--p-intro);}
-  .in-tl-item:last-child::before{background:var(--p-intro);box-shadow:0 0 14px 3px rgba(110,198,255,.55);}
+  .in-tl-item:last-child::before{background:var(--p-intro);box-shadow:0 0 calc(14px * var(--glw,.5)) calc(3px * var(--glw,.5)) rgba(110,198,255,calc(.55 * var(--glw,.5)));}
   .in-tl-date{font-size:11.5px;color:var(--p-intro);}
   .in-tl-title{font-size:14px;font-weight:700;color:var(--t1);line-height:1.7;}
   .in-tl-org{font-size:12.5px;color:var(--t2);line-height:1.7;}
@@ -421,13 +424,13 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .s-speed{padding:4px 12px 8px;color:var(--star);}
   .s-speed-head{display:flex;align-items:center;justify-content:space-between;font-size:14px;margin-bottom:6px;}
   .s-speed-head output{font-weight:700;font-size:13px;direction:ltr;}
-  #speedRange{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;direction:ltr;touch-action:none;cursor:pointer;}
-  #speedRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--p-intro) var(--fill-pct,50%),var(--fill-h) var(--fill-pct,50%));}
-  #speedRange::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);box-shadow:0 2px 6px rgba(0,0,0,.35);}
-  #speedRange::-moz-range-track{height:6px;border-radius:3px;background:var(--fill-h);}
-  #speedRange::-moz-range-progress{height:6px;border-radius:3px;background:var(--p-intro);}
-  #speedRange::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);}
-  #speedRange:focus-visible{outline:2px solid var(--p-intro);outline-offset:4px;border-radius:8px;}
+  #speedRange,#glowRange{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;direction:ltr;touch-action:none;cursor:pointer;}
+  #speedRange::-webkit-slider-runnable-track,#glowRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--p-intro) var(--fill-pct,50%),var(--fill-h) var(--fill-pct,50%));}
+  #speedRange::-webkit-slider-thumb,#glowRange::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);box-shadow:0 2px 6px rgba(0,0,0,.35);}
+  #speedRange::-moz-range-track,#glowRange::-moz-range-track{height:6px;border-radius:3px;background:var(--fill-h);}
+  #speedRange::-moz-range-progress,#glowRange::-moz-range-progress{height:6px;border-radius:3px;background:var(--p-intro);}
+  #speedRange::-moz-range-thumb,#glowRange::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);}
+  #speedRange:focus-visible,#glowRange:focus-visible{outline:2px solid var(--p-intro);outline-offset:4px;border-radius:8px;}
   .s-ticks{display:flex;justify-content:space-between;direction:ltr;font-size:11px;color:var(--dim);margin-top:2px;}
   .settings-panel .motion-toggle:hover{background:var(--fill-h);}
   
@@ -627,7 +630,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   html[data-theme] .ring-inner{border-style:solid !important;border-width:1px !important;border-color:var(--ink-line) !important;filter:none !important;opacity:1;}
   html[data-theme] #ringwrap-skills .ring-inner,html[data-theme] #ringwrap-jobs .ring-inner{border-style:dashed !important;}
   html[data-theme] .sun{background:var(--acc2);box-shadow:0 0 0 4px var(--bg-0),0 0 0 5.5px var(--acc2),0 0 0 11px var(--bg-0),0 0 0 12px var(--ink-line);}
-  html[data-theme] .planet::before{inset:-14%;background:none;border:1px solid var(--acc);border-radius:50%;opacity:calc(var(--prox,0) * .95);transform:scale(calc(.85 + var(--prox,0) * .25));}
+  html[data-theme] .planet::before{inset:-14%;background:none;border:1px solid var(--acc);border-radius:50%;opacity:calc(var(--prox,0) * .95 * var(--glw,.5));transform:scale(calc(.85 + var(--prox,0) * .25));}
   html[data-theme] .planet .ball{border-radius:50%;background:var(--panel);border:1.5px solid var(--ink-line);color:var(--acc);filter:none;box-shadow:0 0 0 3px var(--bg-0);}
   html[data-theme] .planet .label{position:absolute;background:var(--panel);border:1px solid var(--ink-line);border-radius:3px;box-shadow:none;text-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;padding:3px 9px;color:var(--t1);font-weight:700;}
   html[data-theme] .planet .label::before{content:"";position:absolute;top:-9px;left:50%;width:1px;height:8px;background:var(--ink-line);}
@@ -743,12 +746,12 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .pr-concept,.pr-card{padding:0;}
   #backBtn{white-space:nowrap;flex:none;}
   /* ===== orbit rings: independent spin, visible sweep arc, alternating pulsing glow; settings gear turns in place ===== */
-  .ring-inner::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid rgb(var(--acc-rgb));pointer-events:none;
+  .ring-inner::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid rgb(var(--acc-rgb));pointer-events:none;opacity:var(--glw,.5);
     -webkit-mask:conic-gradient(from 0deg,transparent 0deg 285deg,#000 345deg 360deg);mask:conic-gradient(from 0deg,transparent 0deg 285deg,#000 345deg 360deg);}
   .ring-inner::after{content:"";position:absolute;inset:-2px;border-radius:50%;pointer-events:none;opacity:0;
     box-shadow:0 0 12px 2px rgba(var(--acc-rgb),.6),inset 0 0 12px 1px rgba(var(--acc-rgb),.35);
     animation:ringGlow 3.6s ease-in-out infinite;animation-play-state:inherit;animation-delay:var(--gd,0s);}
-  @keyframes ringGlow{0%,100%{opacity:0;}50%{opacity:1;}}
+  @keyframes ringGlow{0%,100%{opacity:0;}50%{opacity:var(--glw,.5);}}
   /* phones use the lite mode: no blur on big shapes, so the halo is a soft gradient band painted once (only its opacity pulses) */
   html[data-q="lite"] .ring-inner::after{inset:-10px;box-shadow:none;border:0;
     background:radial-gradient(closest-side,transparent calc(100% - 20px),rgba(var(--acc-rgb),.5) calc(100% - 10px),transparent 100%);}
@@ -760,6 +763,10 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
     .ring-inner::after{animation:none;opacity:0;}
     .settings-btn .ic{animation:none;}
   }
+  /* glow lever (--glw): chart bars, skill dots and step numbers glow in proportion */
+  html[data-theme] .bar-fill:not(.avg){box-shadow:0 0 calc(14px * var(--glw,.5)) calc(1px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.7 * var(--glw,.5)));}
+  html[data-theme] .sk-dots i.on{box-shadow:0 0 calc(9px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.85 * var(--glw,.5)));}
+  html[data-theme] .pr-num{box-shadow:0 0 calc(12px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.6 * var(--glw,.5)));}
 /* fallback for browsers without color-mix(): fixed palettes per theme, discrete label colours */
 @supports not (color:color-mix(in srgb,red 50%,blue)){
   :root{--bg-0:#070b14;--bg-1:#0d1526;--star:#eef1f6;--dim:#8892a6;--panel:#0f1830;--p-intro:#6ec6ff;--p-skills:#4fd1c5;--p-certs:#b794f4;--p-jobs:#f6857d;--p-self:#8b93e0;--p-contact:#f472b6;--t1:#fff;--t2:#dce1ee;--t3:#cfd6e6;--line:rgba(255,255,255,.12);--fill:rgba(255,255,255,.06);--fill-h:rgba(255,255,255,.12);--fill-line:rgba(255,255,255,.14);--card-line:rgba(255,255,255,.08);--bar-avg:rgba(255,255,255,.32);--float-bg:rgba(15,24,48,.9);--float-bg-h:rgba(15,24,48,1);--chip-t:#bfe4ff;--acc:#3fd2c6;--acc2:#e9b44c;--ink-line:rgba(232,241,242,.40);--grid:rgba(232,241,242,.045);--grid2:rgba(232,241,242,.085);}
@@ -903,6 +910,12 @@ html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(1
           <span class="s-opt s-gla">خاموش</span>
           <span class="s-opt s-glb">روشن</span>
         </button>
+      </div>
+      <div class="s-sep"></div>
+      <div class="s-speed" role="group" aria-label="میزان درخشش">
+        <div class="s-speed-head"><span>میزان درخشش</span><output id="glowVal">۵۰٪</output></div>
+        <input type="range" id="glowRange" min="0" max="100" step="5" value="50" aria-label="میزان درخشش، از خاموش تا درخشان">
+        <div class="s-ticks" aria-hidden="true"><span>خاموش</span><span>درخشان</span></div>
       </div>
       <details class="s-adv"><summary>حرکت و سرعت</summary>
       <div class="s-sep"></div>
@@ -1200,14 +1213,14 @@ if(document.fonts && document.fonts.ready) document.fonts.ready.then(layoutSyste
 
 let motionPaused = false;
 let dirSign = 1; // 1 = clockwise, -1 = counter-clockwise (settings)
-let speedMul = 1; // 1 = normal; changed from the settings menu in 0.25 steps
+let speedMul = START_DEFAULTS.speed; // 1 = normal; changed from the settings menu in 0.25 steps
 const systemEl = document.getElementById('system');
 let _qDone = document.documentElement.dataset.q==='lite', _fLast = 0, _fSum = 0, _fN = 0;
 let mainElapsed = 0, mainLastT = null, tickOn = false, manualT = 0, dragRot = null, suppressClick = false;
 /* The loop only runs while the home screen is visible and the tab is active. */
 /* haptic tick when a planet reaches the pointer (setting ro-haptic; row hidden where navigator.vibrate is missing, e.g. iPhone) */
 const canVibrate = typeof navigator.vibrate === 'function';
-let hapticOn = true; try{ hapticOn = localStorage.getItem('ro-haptic') !== 'off'; }catch(e){}
+let hapticOn = START_DEFAULTS.haptic;
 const astroEl = document.querySelector('.astro');
 let _ptrLast = -1;
 function buzz(){ if(hapticOn && canVibrate){ try{ navigator.vibrate(12); }catch(e){} } }
@@ -1305,8 +1318,7 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
 
 { const gyroRow = document.getElementById('gyroRow'), gyroToggle = document.getElementById('gyroToggle'), gyroNote = document.getElementById('gyroNote');
   const needPerm = typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function';   // iPhone asks first
-  let gv = needPerm ? 0 : 1, gNoteT = 0;
-  try{ const sv = localStorage.getItem('ro-gyro'); if(sv && !needPerm) gv = sv === 'on' ? 1 : 0; }catch(e){}
+  let gv = needPerm ? 0 : (START_DEFAULTS.gyro ? 1 : 0), gNoteT = 0;
   function gNote(txt){
     clearTimeout(gNoteT);
     if(!txt){ gyroNote.classList.remove('show'); gNoteT = setTimeout(()=>{ gyroNote.textContent = ''; }, 350); return; }
@@ -1351,10 +1363,10 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
   setGyro(gv, false, false);
   bindSwitch(gyroToggle, '--g', ()=>gv, applyGyro);
   /* default = on. Android/desktop: already on. iPhone: the sensor needs a permission prompt that only a tap can trigger, so ask once on the first tap */
-  try{ if(needPerm && gyroCanSense && !localStorage.getItem('ro-gyro')){
-    const ask = ()=>{ document.removeEventListener('click', ask, true); try{ if(!localStorage.getItem('ro-gyro')) applyGyro(1, true); }catch(e){} };
+  if(needPerm && gyroCanSense && START_DEFAULTS.gyro){
+    const ask = ()=>{ document.removeEventListener('click', ask, true); applyGyro(1, true); };
     document.addEventListener('click', ask, true);
-  } }catch(e){}
+  }
 }
 
 /* ---------- galaxy background: static stars + nebula, a few twinkling stars, an occasional comet ---------- */
@@ -2086,7 +2098,7 @@ themeToggle.addEventListener('pointercancel', endDrag);
 themeToggle.addEventListener('click', e=>{ if(e.detail === 0) applyTheme(themeT > .5 ? 'dark' : 'light', true); });
 applyTheme(document.documentElement.getAttribute('data-theme'), false, true);
 /* follow the device theme live until the visitor picks one manually */
-try{ matchMedia('(prefers-color-scheme: light)').addEventListener('change', e=>{ let m=null; try{ m=localStorage.getItem('ro-theme-m'); }catch(_){} if(!m) applyTheme(e.matches?'light':'dark'); }); }catch(e){}
+/* (the start theme is fixed by START_DEFAULTS; the device theme is not followed) */
 
 /* ---------- settings menu ---------- */
 const settingsBtn = document.getElementById('settingsBtn');
@@ -2170,8 +2182,18 @@ speedRange.addEventListener('input', ()=>{
   try{ localStorage.setItem('ro-speed', speedMul); }catch(e){}
   renderSpeed();
 });
-try{ const v = parseFloat(localStorage.getItem('ro-speed')); if(v) speedMul = clampSpeed(v); }catch(e){}
+speedMul = clampSpeed(START_DEFAULTS.speed);   // always starts from the default, saved speed is not restored
 renderSpeed();
+/* glow lever: --glw scales every glow in the file (ring pulses and arcs, pointer ring on planets, timeline node, chart bars, skill dots, step numbers) */
+{ const glowRange = document.getElementById('glowRange'), glowVal = document.getElementById('glowVal');
+  function setGlow(pct){
+    document.documentElement.style.setProperty('--glw', (pct/100).toFixed(2));
+    glowVal.textContent = faNum(Math.round(pct)) + '٪'; glowRange.value = pct;
+    glowRange.style.setProperty('--fill-pct', pct + '%');
+  }
+  glowRange.addEventListener('input', ()=>setGlow(+glowRange.value));
+  setGlow(START_DEFAULTS.glow*100);
+}
 document.getElementById('printCerts').innerHTML = CERTS.map(c=>`<li>${c.title} — ${PRINT_ISSUER[c.issuer]} — <bdi>${c.date}</bdi></li>`).join('');
 if(/[?&]view=simple/.test(location.search) && !location.hash) history.replaceState(null,'',location.pathname+location.search+'#simple');
 route();
