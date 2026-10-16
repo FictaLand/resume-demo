@@ -424,13 +424,13 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .s-speed{padding:4px 12px 8px;color:var(--star);}
   .s-speed-head{display:flex;align-items:center;justify-content:space-between;font-size:14px;margin-bottom:6px;}
   .s-speed-head output{font-weight:700;font-size:13px;direction:ltr;}
-  #speedRange,#glowRange{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;direction:ltr;touch-action:none;cursor:pointer;}
-  #speedRange::-webkit-slider-runnable-track,#glowRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--p-intro) var(--fill-pct,50%),var(--fill-h) var(--fill-pct,50%));}
-  #speedRange::-webkit-slider-thumb,#glowRange::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);box-shadow:0 2px 6px rgba(0,0,0,.35);}
-  #speedRange::-moz-range-track,#glowRange::-moz-range-track{height:6px;border-radius:3px;background:var(--fill-h);}
-  #speedRange::-moz-range-progress,#glowRange::-moz-range-progress{height:6px;border-radius:3px;background:var(--p-intro);}
-  #speedRange::-moz-range-thumb,#glowRange::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);}
-  #speedRange:focus-visible,#glowRange:focus-visible{outline:2px solid var(--p-intro);outline-offset:4px;border-radius:8px;}
+  #speedRange,#glowRange,#conRange{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;direction:ltr;touch-action:none;cursor:pointer;}
+  #speedRange::-webkit-slider-runnable-track,#glowRange::-webkit-slider-runnable-track,#conRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--p-intro) var(--fill-pct,50%),var(--fill-h) var(--fill-pct,50%));}
+  #speedRange::-webkit-slider-thumb,#glowRange::-webkit-slider-thumb,#conRange::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);box-shadow:0 2px 6px rgba(0,0,0,.35);}
+  #speedRange::-moz-range-track,#glowRange::-moz-range-track,#conRange::-moz-range-track{height:6px;border-radius:3px;background:var(--fill-h);}
+  #speedRange::-moz-range-progress,#glowRange::-moz-range-progress,#conRange::-moz-range-progress{height:6px;border-radius:3px;background:var(--p-intro);}
+  #speedRange::-moz-range-thumb,#glowRange::-moz-range-thumb,#conRange::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);}
+  #speedRange:focus-visible,#glowRange:focus-visible,#conRange:focus-visible{outline:2px solid var(--p-intro);outline-offset:4px;border-radius:8px;}
   .s-ticks{display:flex;justify-content:space-between;direction:ltr;font-size:11px;color:var(--dim);margin-top:2px;}
   .settings-panel .motion-toggle:hover{background:var(--fill-h);}
   
@@ -878,6 +878,25 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
 html[data-theme] .ct-item{position:relative;padding-bottom:40px !important;}
 html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(10.5px,3.4vw,14.5px);}
 .ct-item > .ct-go{position:absolute;left:18px;bottom:9px;padding:1px 12px;border:1px solid var(--ink-line);border-radius:3px;font-weight:700;line-height:1.8;}
+
+/* back button stays at the top while scrolling.
+   Simple view: only the back button is sticky (the contact / PDF buttons scroll away with the page).
+   Inner pages: the top bar never scrolls; once the page is scrolled the long title folds away and only the back button stays. */
+.sv-top{position:sticky;position:-webkit-sticky;top:0;z-index:3;display:flex;justify-content:center;padding:calc(8px + var(--safe-t)) 14px 8px;background:var(--float-bg);border-bottom:1px solid var(--line);}
+html[data-theme] .sv-bar{position:static;background:none;border-bottom:0;padding:10px 14px 0;}
+.sv-top .back-btn{position:static;display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;}
+html[data-theme] .sv-top #svBack{justify-content:center;min-width:min(80vw,270px);font-size:14.5px;font-weight:800;padding:8px 20px;background:var(--acc);color:var(--bg-0);border-color:var(--acc);}
+html[data-theme] .sv-top #svBack:hover{background:color-mix(in srgb,var(--acc) 85%,#fff);}
+#surface .surface-title{max-width:100%;transition:opacity .2s ease,max-width .25s ease;}
+#surface.scrolled .surface-title{opacity:0;max-width:0;overflow:hidden;white-space:nowrap;pointer-events:none;}
+#surface.scrolled .top-bar{margin-bottom:10px;gap:0;}
+
+/* constellation picker + its own glow slider */
+.s-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;border:1px solid var(--fill-line);background:var(--fill);border-radius:3px;}
+.s-seg button{font:inherit;font-size:12.5px;padding:8px 2px;border:0;border-radius:3px;background:transparent;color:var(--t2);cursor:pointer;white-space:nowrap;}
+.s-seg button[aria-checked="true"]{background:var(--star);color:var(--bg-0);font-weight:700;}
+.s-seg button:focus-visible{outline:2px solid var(--acc);outline-offset:1px;}
+#conGlowBox.dis{opacity:.45;}
 </style>
 </head>
 <body>
@@ -919,6 +938,21 @@ html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(1
           <span class="s-opt s-gla">خاموش</span>
           <span class="s-opt s-glb">روشن</span>
         </button>
+      </div>
+      <div id="conRow">
+        <div class="s-sep"></div>
+        <div class="s-speed-head" style="margin-bottom:8px;"><span>صورت فلکی پس‌زمینه</span></div>
+        <div class="s-seg" id="conSel" role="radiogroup" aria-label="انتخاب صورت فلکی پس‌زمینه">
+          <button type="button" role="radio" aria-checked="false" data-k="none">بدون</button>
+          <button type="button" role="radio" aria-checked="true" data-k="orion">جبار</button>
+          <button type="button" role="radio" aria-checked="false" data-k="ursa">دب اکبر</button>
+          <button type="button" role="radio" aria-checked="false" data-k="scorpius">عقرب</button>
+        </div>
+        <div class="s-speed" id="conGlowBox" role="group" aria-label="درخشش صورت فلکی" style="margin-top:12px;">
+          <div class="s-speed-head"><span>درخشش صورت فلکی</span><output id="conVal">۱۰۰٪</output></div>
+          <input type="range" id="conRange" min="0" max="200" step="10" value="100" aria-label="درخشش صورت فلکی، از خاموش تا بسیار درخشان">
+          <div class="s-ticks" aria-hidden="true"><span>خاموش</span><span>بسیار درخشان</span></div>
+        </div>
       </div>
       <div class="s-sep"></div>
       <div class="s-speed" role="group" aria-label="میزان درخشش">
@@ -1022,8 +1056,8 @@ html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(1
 
 <!-- SIMPLE VIEW (plain, no animation; for recruiters) -->
 <div id="simpleView" role="region" aria-label="نمای ساده رزومه">
+  <div class="sv-top"><button type="button" class="back-btn" id="svBack">→ بازگشت به نمایش تعاملی</button></div>
   <div class="sv-bar">
-    <button type="button" class="back-btn" id="svBack">→ بازگشت به نمایش تعاملی</button>
     <div class="sv-actions">
       <a class="back-btn" href="tel:+989104309260">📞 تماس</a>
       <a class="back-btn" href="https://wa.me/989104309260" target="_blank" rel="noopener noreferrer">واتساپ</a>
@@ -1391,12 +1425,49 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
     return {x:clamp01(x), y:clamp01(y), r:.3 + rnd()*rnd()*1.3, a:.25 + rnd()*.65, ph:rnd()*6.28, w:.6 + rnd()*1.6, tw: i%21 === 0};
   });
   const TW = STARS.filter(s=>s.tw);
+  /* three famous constellations, simplified shapes: [x, y, brightness 0..1] and line pairs */
+  const CONS = {
+    orion:{ rot:-8, stars:[[.50,.06,.5],[.30,.20,1],[.72,.22,.8],[.40,.50,.8],[.51,.48,.9],[.62,.46,.7],[.33,.84,.7],[.76,.80,1],[.505,.60,.45],[.51,.68,.55]],
+            lines:[[0,1],[0,2],[1,3],[2,5],[3,4],[4,5],[3,6],[5,7],[4,8],[8,9]] },
+    ursa:{ rot:6, stars:[[.88,.28,1],[.84,.56,.8],[.60,.62,.7],[.56,.38,.6],[.38,.34,.9],[.22,.44,.8],[.06,.66,.8]],
+            lines:[[0,1],[1,2],[2,3],[3,0],[3,4],[4,5],[5,6]] },
+    scorpius:{ rot:-4, stars:[[.70,.10,.6],[.60,.18,.7],[.56,.28,.5],[.50,.42,1],[.44,.48,.5],[.38,.60,.7],[.32,.70,.5],[.34,.80,.5],[.44,.88,.6],[.56,.90,.8],[.64,.84,.5],[.68,.74,.6],[.72,.66,.9],[.76,.72,.7]],
+            lines:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13]] }
+  };
+  Object.values(CONS).forEach(C=>{ const xs = C.stars.map(s=>s[0]), ys = C.stars.map(s=>s[1]); C.wide = (Math.max(...xs)-Math.min(...xs)) > (Math.max(...ys)-Math.min(...ys))*1.3;
+    C.cx = (Math.min(...xs)+Math.max(...xs))/2; C.cy = (Math.min(...ys)+Math.max(...ys))/2; C.span = Math.max(Math.max(...xs)-Math.min(...xs), Math.max(...ys)-Math.min(...ys)); });
+  let conKey = 'orion', conGlow = 100;       // glow 0..200 % (100 = normal); independent of the base glow lever
+  try{ const k = localStorage.getItem('ro-const'); if(k === 'none' || CONS[k]) conKey = k; const g = parseInt(localStorage.getItem('ro-conglow'),10); if(g >= 0 && g <= 200) conGlow = g; }catch(e){}
+  function drawCon(now, col, t){
+    const C = CONS[conKey]; if(!C || conGlow <= 0) return;
+    const g = conGlow/100, lite = isLite(), portrait = H > W*1.15;
+    /* wide shapes (the Big Dipper) are turned upright on phones so they can be drawn much larger; then fit the shape into ~92% x 64% of the screen (below the title, above the bottom buttons) */
+    const rot = (C.rot + (portrait && C.wide ? -80 : 0))*Math.PI/180, co = Math.cos(rot), si = Math.sin(rot);
+    const R0 = C.stars.map(s=>{ const dx = s[0]-C.cx, dy = s[1]-C.cy; return [dx*co - dy*si, dx*si + dy*co, s[2]]; });
+    const rx = R0.map(s=>s[0]), ry = R0.map(s=>s[1]), rw = Math.max(...rx)-Math.min(...rx), rh = Math.max(...ry)-Math.min(...ry), mx = (Math.max(...rx)+Math.min(...rx))/2, my = (Math.max(...ry)+Math.min(...ry))/2;
+    const sc = Math.min(W*.92/rw, H*.64/rh), cx = W/2, cy = H*.5;
+    const hal = Math.round(190 + (12-190)*t)+','+Math.round(215 + (128-215)*t)+','+Math.round(255 + (120-255)*t);
+    const P = R0.map(s=>[cx + (s[0]-mx)*sc, cy + (s[1]-my)*sc, s[2]]);
+    xf.strokeStyle = 'rgba('+col+','+(.2 + .16*Math.min(g,1.6)).toFixed(3)+')'; xf.lineWidth = 1.2; xf.beginPath();
+    C.lines.forEach(l=>{ xf.moveTo(P[l[0]][0], P[l[0]][1]); xf.lineTo(P[l[1]][0], P[l[1]][1]); }); xf.stroke();
+    P.forEach((p, i)=>{
+      const m = p[2], pulse = .86 + .14*Math.sin(now/1000*(.8 + m) + i), a = Math.min(1, (.35 + .5*m)*g*pulse), R = (7 + 16*m)*(.5 + .5*Math.min(g,2));
+      if(lite){ xf.fillStyle = 'rgba('+hal+','+(a*.22).toFixed(3)+')'; xf.beginPath(); xf.arc(p[0], p[1], R*.6, 0, 6.283); xf.fill(); }
+      else { const gr = xf.createRadialGradient(p[0], p[1], 0, p[0], p[1], R); gr.addColorStop(0, 'rgba('+hal+','+(a*.6).toFixed(3)+')'); gr.addColorStop(1, 'rgba('+hal+',0)');
+             xf.fillStyle = gr; xf.beginPath(); xf.arc(p[0], p[1], R, 0, 6.283); xf.fill(); }
+      xf.fillStyle = 'rgba('+col+','+Math.min(1, .6 + .4*g*m).toFixed(3)+')'; xf.beginPath(); xf.arc(p[0], p[1], 1.2 + 1.6*m, 0, 6.283); xf.fill();
+      if(m > .85 && g > 1){ xf.strokeStyle = 'rgba('+col+','+(.35*(g-1)).toFixed(3)+')'; xf.lineWidth = .8; xf.beginPath();
+        xf.moveTo(p[0]-R*.9, p[1]); xf.lineTo(p[0]+R*.9, p[1]); xf.moveTo(p[0], p[1]-R*.9); xf.lineTo(p[0], p[1]+R*.9); xf.stroke(); }
+    });
+  }
+  /* repaint once when the loop is not running (paused motion, reduced motion, setting changed). deferred: themeT is declared further down */
+  let dn = 0; function drawNow(){ clearTimeout(dn); dn = setTimeout(()=>{ if(on && !raf && W) draw(performance.now()); }, 0); }
   let on = true, W = 0, H = 0, comet = null, nextComet = 0, raf = 0, last = 0;
   try{ on = localStorage.getItem('ro-galaxy') !== 'off'; }catch(e){}
   function size(){
     const dpr = Math.min(devicePixelRatio || 1, isLite() ? 1 : 1.5); W = innerWidth; H = innerHeight;
     [cs, cf].forEach(c=>{ c.width = Math.round(W*dpr); c.height = Math.round(H*dpr); });
-    xs.setTransform(dpr,0,0,dpr,0,0); xf.setTransform(dpr,0,0,dpr,0,0); drawStatic();
+    xs.setTransform(dpr,0,0,dpr,0,0); xf.setTransform(dpr,0,0,dpr,0,0); drawStatic(); drawNow();
   }
   function drawStatic(){
     xs.clearRect(0,0,W,H); xs.fillStyle = '#fff'; const n = isLite() ? 220 : 460;
@@ -1413,6 +1484,7 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
       if(k > .86){ xf.strokeStyle = 'rgba('+col+','+(a*.6).toFixed(3)+')'; xf.lineWidth = .7; xf.beginPath();
         xf.moveTo(x-rad*3.2, y); xf.lineTo(x+rad*3.2, y); xf.moveTo(x, y-rad*3.2); xf.lineTo(x, y+rad*3.2); xf.stroke(); }
     }
+    drawCon(now, col, t);
     if(!nextComet) nextComet = now + 4500 + rnd()*4000;
     if(!comet && now > nextComet){
       const dir = rnd() < .5 ? 1 : -1, ang = (20 + rnd()*18)*Math.PI/180;
@@ -1441,6 +1513,23 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
     if(!on) xf.clearRect(0,0,W,H); else setTimeout(kick, 0);   // deferred: motionPaused / stage are declared further down the script
     if(save){ try{ localStorage.setItem('ro-galaxy', v ? 'on' : 'off'); }catch(e){} }
   }
+  /* constellation settings: picker + own glow slider (saved: ro-const, ro-conglow) */
+  const conBtns = [...document.querySelectorAll('#conSel button')], conRange = document.getElementById('conRange'), conVal = document.getElementById('conVal'), conBox = document.getElementById('conGlowBox');
+  function setCon(k, save){
+    if(k !== 'none' && !CONS[k]) k = 'none'; conKey = k;
+    conBtns.forEach(x=>x.setAttribute('aria-checked', x.dataset.k === k ? 'true' : 'false'));
+    conRange.disabled = k === 'none'; conBox.classList.toggle('dis', k === 'none');
+    if(save){ try{ localStorage.setItem('ro-const', k); }catch(e){} }
+    drawNow();
+  }
+  function setConGlow(v, save){
+    conGlow = v; conVal.textContent = String(v).replace(/\d/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]) + '٪';   // own digit conversion: faNum is declared further down conRange.value = v; conRange.style.setProperty('--fill-pct', (v/2) + '%');
+    if(save){ try{ localStorage.setItem('ro-conglow', String(v)); }catch(e){} }
+    drawNow();
+  }
+  conBtns.forEach(x=>x.addEventListener('click', ()=>setCon(x.dataset.k, true)));
+  conRange.addEventListener('input', ()=>setConGlow(+conRange.value, true));
+  setConGlow(conGlow, false); setCon(conKey, false);
   size(); applyGal(on ? 1 : 0, false);
   bindSwitch(galToggle, '--gl', ()=>on ? 1 : 0, applyGal);
 }
@@ -1767,11 +1856,13 @@ function showSurface(halo){
   stage.classList.add('hidden');
   surface.classList.remove('closing');
   surface.classList.add('active');
-  surfaceBody.scrollTop = 0;
+  surfaceBody.scrollTop = 0; surface.classList.remove('scrolled');
   iconize(surfaceBody);
   startCardProx();
   if(fromHome) growSurface();
 }
+/* long titles fold away when the page is scrolled (hysteresis avoids flicker when the bar changes height) */
+surfaceBody.addEventListener('scroll', ()=>{ const y = surfaceBody.scrollTop; if(y > 40) surface.classList.add('scrolled'); else if(y < 8) surface.classList.remove('scrolled'); }, {passive:true});
 function openSurface(key){
   const data = CONTENT[key];
   surfaceTitle.textContent = data.title;
