@@ -639,7 +639,6 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .iss-ico .ic,.ct-ico .ic,.jb-ico .ic{width:56%;height:56%;vertical-align:baseline;}
   html[data-theme] .st-name{font-size:22px;font-weight:800;letter-spacing:-.2px;}
   html[data-theme] .st-role{display:inline-block;font-size:13px;font-weight:700;color:var(--acc);border-top:1px solid var(--ink-line);padding-top:3px;margin-top:5px;}
-  .sheet-tag{margin-inline-start:auto;font-size:11px;line-height:1.6;padding:2px 9px;border:1px solid var(--ink-line);color:var(--dim);white-space:nowrap;}
   html[data-theme] .card,html[data-theme] .card:not(.in-hero),html[data-theme] .card.ci-head,html[data-theme] .sk-list .card,html[data-theme] .iss-card,html[data-theme] .ct-item,html[data-theme] .card.ct-item{
     position:relative;overflow:visible;background:var(--panel) !important;border:1px solid var(--ink-line) !important;border-radius:4px !important;box-shadow:none !important;}
   html[data-theme] .card::before,html[data-theme] .iss-card::before,html[data-theme] .ct-item::before,html[data-theme] .sk-list .card::before{
@@ -767,6 +766,16 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   html[data-theme] .bar-fill:not(.avg){box-shadow:0 0 calc(14px * var(--glw,.5)) calc(1px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.7 * var(--glw,.5)));}
   html[data-theme] .sk-dots i.on{box-shadow:0 0 calc(9px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.85 * var(--glw,.5)));}
   html[data-theme] .pr-num{box-shadow:0 0 calc(12px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.6 * var(--glw,.5)));}
+  /* simple view: the way back is the first and most prominent thing, centred on top */
+  html[data-theme] .sv-bar{flex-direction:column;align-items:center;gap:8px;}
+  html[data-theme] .sv-actions{justify-content:center;}
+  html[data-theme] .sv-bar #svBack{align-self:center;justify-content:center;min-width:min(80vw,270px);font-size:14.5px;font-weight:800;padding:10px 20px;
+    background:var(--acc);color:var(--bg-0);border-color:var(--acc);}
+  html[data-theme] .sv-bar #svBack:hover{background:color-mix(in srgb,var(--acc) 85%,#fff);}
+  /* settings button frame: a very faint glow that follows the glow lever (--glw) */
+  html[data-theme] .settings-btn{
+    box-shadow:0 0 calc(12px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.3 * var(--glw,.5))), inset 0 0 calc(6px * var(--glw,.5)) rgba(var(--acc-rgb),calc(.12 * var(--glw,.5)));
+    border-color:color-mix(in srgb,var(--fill-line) calc((1 - var(--glw,.5) * .35) * 100%),var(--acc) calc(var(--glw,.5) * .35 * 100%));}
 /* fallback for browsers without color-mix(): fixed palettes per theme, discrete label colours */
 @supports not (color:color-mix(in srgb,red 50%,blue)){
   :root{--bg-0:#070b14;--bg-1:#0d1526;--star:#eef1f6;--dim:#8892a6;--panel:#0f1830;--p-intro:#6ec6ff;--p-skills:#4fd1c5;--p-certs:#b794f4;--p-jobs:#f6857d;--p-self:#8b93e0;--p-contact:#f472b6;--t1:#fff;--t2:#dce1ee;--t3:#cfd6e6;--line:rgba(255,255,255,.12);--fill:rgba(255,255,255,.06);--fill-h:rgba(255,255,255,.12);--fill-line:rgba(255,255,255,.14);--card-line:rgba(255,255,255,.08);--bar-avg:rgba(255,255,255,.32);--float-bg:rgba(15,24,48,.9);--float-bg-h:rgba(15,24,48,1);--chip-t:#bfe4ff;--acc:#3fd2c6;--acc2:#e9b44c;--ink-line:rgba(232,241,242,.40);--grid:rgba(232,241,242,.045);--grid2:rgba(232,241,242,.085);}
@@ -1005,7 +1014,7 @@ html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(1
   <div class="surface-bg" id="surfaceBg"></div>
   <div class="top-bar">
     <button class="back-btn" id="backBtn">→ بازگشت</button>
-    <div class="surface-title" id="surfaceTitle"></div><div class="sheet-tag" id="sheetTag"></div>
+    <div class="surface-title" id="surfaceTitle"></div>
   </div>
   <div class="surface-body" id="surfaceBody"></div>
   <button class="back-btn floating-back" id="backBtnBottom">🏠 صفحه اصلی</button>
@@ -1014,7 +1023,7 @@ html[data-theme] .ct-v{white-space:nowrap;overflow-wrap:normal;font-size:clamp(1
 <!-- SIMPLE VIEW (plain, no animation; for recruiters) -->
 <div id="simpleView" role="region" aria-label="نمای ساده رزومه">
   <div class="sv-bar">
-    <button type="button" class="back-btn" id="svBack">→ نمای تعاملی</button>
+    <button type="button" class="back-btn" id="svBack">→ بازگشت به نمایش تعاملی</button>
     <div class="sv-actions">
       <a class="back-btn" href="tel:+989104309260">📞 تماس</a>
       <a class="back-btn" href="https://wa.me/989104309260" target="_blank" rel="noopener noreferrer">واتساپ</a>
@@ -1759,7 +1768,6 @@ function showSurface(halo){
   surface.classList.remove('closing');
   surface.classList.add('active');
   surfaceBody.scrollTop = 0;
-  { const k=(location.hash.slice(1)||'').split('/')[0], n={intro:1,skills:2,certs:3,jobs:4,processes:5,self:6,contact:7}[k]; document.getElementById('sheetTag').textContent = n ? 'شیت '+faNum(n)+' از ۷' : ''; }
   iconize(surfaceBody);
   startCardProx();
   if(fromHome) growSurface();
