@@ -20,9 +20,9 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="رزومه تعاملی سید امین حسینی: صفحه اصلی با مدارها و سیاره‌ها">
 <script>/* start defaults */
-var START_DEFAULTS={theme:'dark',speed:1,haptic:true,gyro:true,glow:0.5};
+var START_DEFAULTS={theme:'dark',speed:1,haptic:true,gyro:true,glow:0.5,galaxy:100,orbits:50,constellation:0};
 (function(){var d=document.documentElement;
-var th=START_DEFAULTS.theme;d.setAttribute('data-theme',th);d.style.setProperty('--t',th==='light'?1:0);d.style.setProperty('--glw',START_DEFAULTS.glow);
+var th=START_DEFAULTS.theme;d.setAttribute('data-theme',th);d.style.setProperty('--t',th==='light'?1:0);d.style.setProperty('--glw',START_DEFAULTS.glow);d.style.setProperty('--orb',START_DEFAULTS.orbits/100);d.style.setProperty('--gal',START_DEFAULTS.galaxy/100);
 var lite=matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4;
 d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('ro-font')}catch(e){}d.setAttribute('data-font',fn==='nazanin'?'nazanin':'vazir');d.style.setProperty('--f',fn==='nazanin'?0:1);})()</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"سید امین حسینی","jobTitle":"کارشناس منابع انسانی و امور پرسنلی","address":{"@type":"PostalAddress","addressLocality":"اصفهان","addressCountry":"IR"},"sameAs":["https://www.linkedin.com/in/ahoseiny"]}</script>
@@ -424,13 +424,13 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .s-speed{padding:4px 12px 8px;color:var(--star);}
   .s-speed-head{display:flex;align-items:center;justify-content:space-between;font-size:14px;margin-bottom:6px;}
   .s-speed-head output{font-weight:700;font-size:13px;direction:ltr;}
-  #speedRange,#glowRange,#conRange{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;direction:ltr;touch-action:none;cursor:pointer;}
-  #speedRange::-webkit-slider-runnable-track,#glowRange::-webkit-slider-runnable-track,#conRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--p-intro) var(--fill-pct,50%),var(--fill-h) var(--fill-pct,50%));}
-  #speedRange::-webkit-slider-thumb,#glowRange::-webkit-slider-thumb,#conRange::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);box-shadow:0 2px 6px rgba(0,0,0,.35);}
-  #speedRange::-moz-range-track,#glowRange::-moz-range-track,#conRange::-moz-range-track{height:6px;border-radius:3px;background:var(--fill-h);}
-  #speedRange::-moz-range-progress,#glowRange::-moz-range-progress,#conRange::-moz-range-progress{height:6px;border-radius:3px;background:var(--p-intro);}
-  #speedRange::-moz-range-thumb,#glowRange::-moz-range-thumb,#conRange::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);}
-  #speedRange:focus-visible,#glowRange:focus-visible,#conRange:focus-visible{outline:2px solid var(--p-intro);outline-offset:4px;border-radius:8px;}
+  #speedRange,#glowRange,#conRange,#galRange,#orbRange{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;direction:ltr;touch-action:none;cursor:pointer;}
+  #speedRange::-webkit-slider-runnable-track,#glowRange::-webkit-slider-runnable-track,#conRange::-webkit-slider-runnable-track,#galRange::-webkit-slider-runnable-track,#orbRange::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--p-intro) var(--fill-pct,50%),var(--fill-h) var(--fill-pct,50%));}
+  #speedRange::-webkit-slider-thumb,#glowRange::-webkit-slider-thumb,#conRange::-webkit-slider-thumb,#galRange::-webkit-slider-thumb,#orbRange::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);box-shadow:0 2px 6px rgba(0,0,0,.35);}
+  #speedRange::-moz-range-track,#glowRange::-moz-range-track,#conRange::-moz-range-track,#galRange::-moz-range-track,#orbRange::-moz-range-track{height:6px;border-radius:3px;background:var(--fill-h);}
+  #speedRange::-moz-range-progress,#glowRange::-moz-range-progress,#conRange::-moz-range-progress,#galRange::-moz-range-progress,#orbRange::-moz-range-progress{height:6px;border-radius:3px;background:var(--p-intro);}
+  #speedRange::-moz-range-thumb,#glowRange::-moz-range-thumb,#conRange::-moz-range-thumb,#galRange::-moz-range-thumb,#orbRange::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--star);border:3px solid var(--p-intro);}
+  #speedRange:focus-visible,#glowRange:focus-visible,#conRange:focus-visible,#galRange:focus-visible,#orbRange:focus-visible{outline:2px solid var(--p-intro);outline-offset:4px;border-radius:8px;}
   .s-ticks{display:flex;justify-content:space-between;direction:ltr;font-size:11px;color:var(--dim);margin-top:2px;}
   .settings-panel .motion-toggle:hover{background:var(--fill-h);}
   
@@ -745,12 +745,13 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .pr-concept,.pr-card{padding:0;}
   #backBtn{white-space:nowrap;flex:none;}
   /* ===== orbit rings: independent spin, visible sweep arc, alternating pulsing glow; settings gear turns in place ===== */
-  .ring-inner::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid rgb(var(--acc-rgb));pointer-events:none;opacity:var(--glw,.5);
+  .ring-inner::before{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid rgb(var(--acc-rgb));pointer-events:none;opacity:var(--orb,.5);
     -webkit-mask:conic-gradient(from 0deg,transparent 0deg 285deg,#000 345deg 360deg);mask:conic-gradient(from 0deg,transparent 0deg 285deg,#000 345deg 360deg);}
   .ring-inner::after{content:"";position:absolute;inset:-2px;border-radius:50%;pointer-events:none;opacity:0;
     box-shadow:0 0 12px 2px rgba(var(--acc-rgb),.6),inset 0 0 12px 1px rgba(var(--acc-rgb),.35);
-    animation:ringGlow 3.6s ease-in-out infinite;animation-play-state:inherit;animation-delay:var(--gd,0s);}
-  @keyframes ringGlow{0%,100%{opacity:0;}50%{opacity:var(--glw,.5);}}
+    }
+ .ring-inner.glowing::after{animation:ringGlow var(--gdur,2.4s) ease-in-out 1 both;}
+  @keyframes ringGlow{0%,100%{opacity:0;}50%{opacity:var(--orb,.5);}}
   /* phones use the lite mode: no blur on big shapes, so the halo is a soft gradient band painted once (only its opacity pulses) */
   html[data-q="lite"] .ring-inner::after{inset:-10px;box-shadow:none;border:0;
     background:radial-gradient(closest-side,transparent calc(100% - 20px),rgba(var(--acc-rgb),.5) calc(100% - 10px),transparent 100%);}
@@ -759,7 +760,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   html.mpaused .settings-btn .ic{animation-play-state:paused;}
   @media (prefers-reduced-motion:reduce){
     .ring-inner::before{display:none;}
-    .ring-inner::after{animation:none;opacity:0;}
+    .ring-inner::after,.ring-inner.glowing::after{animation:none;opacity:0;}
     .settings-btn .ic{animation:none;}
   }
   /* glow lever (--glw): chart bars, skill dots and step numbers glow in proportion */
@@ -808,7 +809,7 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
 /* fallback for browsers without color-mix(): fixed palettes per theme, discrete label colours */
 @supports not (color:color-mix(in srgb,red 50%,blue)){
   :root{--bg-0:#070b14;--bg-1:#0d1526;--star:#eef1f6;--dim:#8892a6;--panel:#0f1830;--p-intro:#6ec6ff;--p-skills:#4fd1c5;--p-certs:#b794f4;--p-jobs:#f6857d;--p-self:#8b93e0;--p-contact:#f472b6;--t1:#fff;--t2:#dce1ee;--t3:#cfd6e6;--line:rgba(255,255,255,.12);--fill:rgba(255,255,255,.06);--fill-h:rgba(255,255,255,.12);--fill-line:rgba(255,255,255,.14);--card-line:rgba(255,255,255,.08);--bar-avg:rgba(255,255,255,.32);--float-bg:rgba(15,24,48,.9);--float-bg-h:rgba(15,24,48,1);--chip-t:#bfe4ff;--acc:#3fd2c6;--acc2:#e9b44c;--ink-line:rgba(232,241,242,.40);--grid:rgba(232,241,242,.045);--grid2:rgba(232,241,242,.085);}
-  html[data-theme="light"]{--bg-0:#d7e4f6;--bg-1:#eef4ff;--star:#14213b;--dim:#586a88;--panel:#f3f7ff;--p-intro:#0b78c2;--p-skills:#0d8f83;--p-certs:#7443c4;--p-jobs:#d24b41;--p-self:#4650bd;--p-contact:#c22c83;--t1:#0d1a33;--t2:#2a3a58;--t3:#34456a;--line:rgba(20,40,90,.14);--fill:rgba(20,40,90,.06);--fill-h:rgba(20,40,90,.12);--fill-line:rgba(20,40,90,.2);--card-line:rgba(20,40,90,.1);--bar-avg:rgba(20,40,90,.28);--float-bg:rgba(238,244,255,.96);--float-bg-h:#eef4ff;--chip-t:#0b6aa8;--acc:#0c8078;--acc2:#b06f0e;--ink-line:rgba(22,35,43,.46);--grid:rgba(22,35,43,.06);--grid2:rgba(22,35,43,.11);}
+  html[data-theme="light"]{--bg-0:#d7e4f6;--bg-1:#eef4ff;--star:#14213b;--dim:#586a88;--panel:#f3f7ff;--p-intro:#0b78c2;--p-skills:#0d8f83;--p-certs:#7443c4;--p-jobs:#d24b41;--p-self:#4650bd;--p-contact:#c22c83;--t1:#0d1a33;--t2:#2a3a58;--t3:#34456a;--line:rgba(20,40,90,.14);--fill:rgba(20,40,90,.06);--fill-h:rgba(20,40,90,.12);--fill-line:rgba(20,40,90,.2);--card-line:rgba(20,40,90,.1);--bar-avg:rgba(20,40,90,.28);--float-bg:rgba(238,244,255,.96);--float-bg-h:#eef4ff;--chip-t:#0b6aa8;--acc:#096f68;--acc2:#b06f0e;--ink-line:rgba(22,35,43,.46);--grid:rgba(22,35,43,.06);--grid2:rgba(22,35,43,.11);}
   .s-opt{color:var(--star);}
   html[data-theme="light"] .s-light,html[data-theme="dark"] .s-dark,
   .s-font[aria-checked="false"] .s-fa,.s-font[aria-checked="true"] .s-fb,
@@ -948,6 +949,22 @@ html[data-rot="ccw"] .settings-btn .ic{animation-direction:reverse;}
 .cg-box p{margin:0;}
 .cg-act{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
 .cg-act .back-btn{width:100%;justify-content:center;text-decoration:none;}
+
+/* galaxy: one slider (0 = off) scales nebula, stars, twinkles and comet together */
+#galaxy{opacity:var(--gal,1);}
+/* home buttons: processes + tools on the first row, contact + GitHub on the second */
+.home-actions{flex-wrap:wrap;justify-content:center;width:calc(100vw - 24px);max-width:420px;}
+.ha-break{flex-basis:100%;height:0;}
+/* bigger touch targets without changing how things look */
+.planet::after{content:"";position:absolute;inset:-12px;border-radius:50%;}
+.st-simple{padding:13px 4px;margin:-13px -4px;}
+/* tools page */
+.tl-list{display:grid;gap:10px;}
+.tl-item h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px;}
+main#app{display:contents;}
+/* the home buttons now take two rows: lift the stats chips above them and keep the hint text on its own line */
+.home-stats{bottom:calc(114px + var(--safe-b));}
+#startHint{flex-basis:100%;text-align:center;}
 </style>
 </head>
 <body>
@@ -959,6 +976,7 @@ html[data-rot="ccw"] .settings-btn .ic{animation-direction:reverse;}
 <div id="conLayer" aria-hidden="true"><canvas id="conFx"></canvas></div>
 
 <!-- MAIN SOLAR SYSTEM -->
+<main id="app">
 <div id="stage">
   <div class="stage-title"><h1 class="st-name" style="margin:0">سید امین حسینی</h1><div class="st-role">کارشناس منابع انسانی</div><div class="st-hint"><span id="startHint">برای شروع روی یک سیاره بزنید</span> <button type="button" class="st-simple" id="simpleBtn">نمای ساده</button> <span class="st-dot" aria-hidden="true">·</span> <span class="st-dlwrap"><button type="button" class="st-simple" id="printBtn" aria-haspopup="true" aria-expanded="false" aria-controls="dlMenu">دانلود رزومه</button><div class="dl-menu" id="dlMenu" hidden>
       <button type="button" class="back-btn" id="dlPdf"><span>📕 فایل PDF<small>در پنجره باز‌شده «ذخیره به‌صورت PDF» را بزنید</small></span></button>
@@ -1010,29 +1028,35 @@ html[data-rot="ccw"] .settings-btn .ic{animation-direction:reverse;}
       </button>
       <div id="galRow">
         <div class="s-sep"></div>
-        <div class="s-speed-head" style="margin-bottom:8px;"><span>کهکشان پس‌زمینه</span></div>
-        <button type="button" class="s-theme s-gal" id="galToggle" role="switch" aria-checked="true" aria-label="کهکشان پس‌زمینه شامل ستاره‌ها، چشمک و ستاره‌ی دنباله‌دار، روشن یا خاموش">
-          <span class="s-thumb" aria-hidden="true"></span>
-          <span class="s-opt s-gla">خاموش</span>
-          <span class="s-opt s-glb">روشن</span>
-        </button>
+        <div class="s-speed" role="group" aria-label="کهکشان پس‌زمینه">
+          <div class="s-speed-head"><span>کهکشان پس‌زمینه</span><output id="galVal">۱۰۰٪</output></div>
+          <input type="range" id="galRange" min="0" max="100" step="5" value="100" aria-label="روشنایی کهکشان و شهاب، از خاموش تا کامل">
+          <div class="s-ticks" aria-hidden="true"><span>خاموش</span><span>کامل</span></div>
+        </div>
       </div>
       <div id="conRow">
         <div class="s-sep"></div>
         <div class="s-speed-head" style="margin-bottom:8px;"><span>صورت فلکی پس‌زمینه</span></div>
         <div class="s-seg" id="conSel" role="radiogroup" aria-label="انتخاب صورت فلکی پس‌زمینه">
-          <button type="button" role="radio" aria-checked="false" data-k="none">خاموش</button>
           <button type="button" role="radio" aria-checked="true" data-k="orion">جبار</button>
           <button type="button" role="radio" aria-checked="false" data-k="ursa">دب اکبر</button>
           <button type="button" role="radio" aria-checked="false" data-k="scorpius">عقرب</button>
         </div>
         <div class="s-speed" id="conGlowBox" role="group" aria-label="درخشش صورت فلکی" style="margin-top:12px;">
-          <div class="s-speed-head"><span>درخشش صورت فلکی</span><output id="conVal">۱۰۰٪</output></div>
-          <input type="range" id="conRange" min="20" max="100" step="10" value="100" aria-label="درخشش صورت فلکی، از ۲۰ تا ۱۰۰ درصد">
-          <div class="s-ticks" aria-hidden="true"><span>۲۰٪</span><span>۱۰۰٪</span></div>
+          <div class="s-speed-head"><span>درخشش صورت فلکی</span><output id="conVal">خاموش</output></div>
+          <input type="range" id="conRange" min="0" max="100" step="5" value="0" aria-label="درخشش صورت فلکی، از خاموش تا کامل">
+          <div class="s-ticks" aria-hidden="true"><span>خاموش</span><span>کامل</span></div>
         </div>
       </div>
-      <div class="s-sep"></div>
+      <div id="orbRow">
+          <div class="s-sep"></div>
+          <div class="s-speed" role="group" aria-label="مدارها">
+            <div class="s-speed-head"><span>مدارها (تپش و چرخش)</span><output id="orbVal">۵۰٪</output></div>
+            <input type="range" id="orbRange" min="0" max="100" step="5" value="50" aria-label="درخشش مدارها، از خاموش تا کامل">
+            <div class="s-ticks" aria-hidden="true"><span>خاموش</span><span>کامل</span></div>
+          </div>
+        </div>
+        <div class="s-sep"></div>
       <div class="s-speed" role="group" aria-label="میزان درخشش">
         <div class="s-speed-head"><span>میزان درخشش</span><output id="glowVal">۵۰٪</output></div>
         <input type="range" id="glowRange" min="0" max="100" step="5" value="50" aria-label="میزان درخشش، از خاموش تا درخشان">
@@ -1094,6 +1118,8 @@ html[data-rot="ccw"] .settings-btn .ic{animation-direction:reverse;}
   <div class="home-stats" aria-label="خلاصه دستاوردها"><span><b>۱۲۰+</b> استخدام</span><span><b>۴۰۰+</b> مصاحبه</span><span><b>تا ۲۳۰</b> نیرو</span><span><b>۰</b> شکایت</span></div>
   <div class="home-actions">
     <button type="button" class="back-btn act-primary" id="procBtn">🔄 فرآیندها</button>
+    <button type="button" class="back-btn" id="toolsBtn">🧮 ابزارها</button>
+    <span class="ha-break" aria-hidden="true"></span>
     <button type="button" class="back-btn" id="contactBtn">📞 تماس با من</button>
     <button type="button" class="back-btn" id="ghBtn" aria-haspopup="true" aria-expanded="false" aria-controls="ghMenu">🐙 گیت‌هاب</button>
     <div class="dl-menu gh-menu" id="ghMenu" hidden>
@@ -1129,6 +1155,7 @@ html[data-rot="ccw"] .settings-btn .ic{animation-direction:reverse;}
 </div>
 
 <!-- ZOOM OVERLAY -->
+</main>
 <div id="callGuard" class="cg" role="dialog" aria-modal="true" aria-labelledby="cgText" hidden>
   <div class="cg-box">
     <p id="cgText">الان خارج از ساعت ۸ تا ۱۸ است. مطمئنید می‌خواهید همین حالا تماس بگیرید؟ در این ساعت‌ها پیام (واتساپ، تلگرام یا ایمیل) مناسب‌تر است.</p>
@@ -1484,7 +1511,7 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
 
 /* ---------- galaxy background: static stars + nebula, a few twinkling stars, an occasional comet ---------- */
 { const gal = document.getElementById('galaxy'), cs = document.getElementById('galStatic'), cf = document.getElementById('galFx');
-  const xs = cs.getContext('2d'), xf = cf.getContext('2d'), cc = document.getElementById('conFx'), xc = cc.getContext('2d'), galToggle = document.getElementById('galToggle');
+  const xs = cs.getContext('2d'), xf = cf.getContext('2d'), cc = document.getElementById('conFx'), xc = cc.getContext('2d');
   const root = document.documentElement, isLite = ()=>root.dataset.q === 'lite';
   let seed = 7; const rnd = ()=>{ seed = (seed*1664525 + 1013904223) >>> 0; return seed/4294967296; };   // fixed seed: stars never jump on resize
   const clamp01 = v => Math.min(1, Math.max(0, v));
@@ -1506,8 +1533,8 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
   };
   Object.values(CONS).forEach(C=>{ const xs = C.stars.map(s=>s[0]), ys = C.stars.map(s=>s[1]); C.wide = (Math.max(...xs)-Math.min(...xs)) > (Math.max(...ys)-Math.min(...ys))*1.3;
     C.cx = (Math.min(...xs)+Math.max(...xs))/2; C.cy = (Math.min(...ys)+Math.max(...ys))/2; C.span = Math.max(Math.max(...xs)-Math.min(...xs), Math.max(...ys)-Math.min(...ys)); });
-  let conKey = 'orion', conGlow = 100;       // glow 20..100 % (100 = full); independent of the base glow lever
-  try{ const k = localStorage.getItem('ro-const'); if(k === 'none' || CONS[k]) conKey = k; const g = parseInt(localStorage.getItem('ro-conglow'),10); if(g >= 20) conGlow = Math.min(100, g); /* older saved values above 100 are brought back into range */ }catch(e){}
+  let conKey = 'orion', conGlow = START_DEFAULTS.constellation;   // starts OFF; glow 0..100 (0 = off)
+  try{ const k = localStorage.getItem('ro-const'); if(CONS[k]) conKey = k; }catch(e){}
   function drawCon(now, col, t){
     const C = CONS[conKey]; if(!C || conGlow <= 0) return;
     const g = conGlow/100, lite = isLite(), portrait = H > W*1.15;
@@ -1530,7 +1557,7 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
         xc.moveTo(p[0]-R*.9, p[1]); xc.lineTo(p[0]+R*.9, p[1]); xc.moveTo(p[0], p[1]-R*.9); xc.lineTo(p[0], p[1]+R*.9); xc.stroke(); }
     });
   }
-  const conActive = ()=> conKey !== 'none' && conGlow > 0;
+  const conActive = ()=> conGlow > 0;
   function drawConLayer(now){
     xc.clearRect(0,0,W,H); if(!conActive()) return;
     const t = themeT, col = Math.round(238 + (22-238)*t)+','+Math.round(241 + (35-241)*t)+','+Math.round(246 + (43-246)*t);
@@ -1539,7 +1566,7 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
   /* repaint once when the loop is not running (paused motion, reduced motion, setting changed). deferred: themeT is declared further down */
   let dn = 0; function drawNow(){ clearTimeout(dn); dn = setTimeout(()=>{ if(!raf && W){ const n = performance.now(); if(on) draw(n); drawConLayer(n); } kick(); }, 0); }
   let on = true, W = 0, H = 0, comet = null, nextComet = 0, raf = 0, last = 0;
-  try{ on = localStorage.getItem('ro-galaxy') !== 'off'; }catch(e){}
+  on = START_DEFAULTS.galaxy > 0;
   function size(){
     const dpr = Math.min(devicePixelRatio || 1, isLite() ? 1 : 1.5); W = innerWidth; H = innerHeight;
     [cs, cf, cc].forEach(c=>{ c.width = Math.round(W*dpr); c.height = Math.round(H*dpr); });
@@ -1582,33 +1609,31 @@ document.getElementById('toggleMotion').addEventListener('click', ()=> setMotion
   function kick(){ if(!raf && shouldRun()) raf = requestAnimationFrame(loop); }
   setInterval(kick, 800); document.addEventListener('visibilitychange', kick);
   let rt = 0; addEventListener('resize', ()=>{ clearTimeout(rt); rt = setTimeout(size, 150); });
-  function applyGal(v, save){
-    on = !!v; gal.hidden = !on; root.style.setProperty('--gl', v);
-    galToggle.setAttribute('aria-checked', v ? 'true' : 'false');
-    if(!on) xf.clearRect(0,0,W,H); else setTimeout(kick, 0);   // deferred: motionPaused / stage are declared further down the script
-    if(save){ try{ localStorage.setItem('ro-galaxy', v ? 'on' : 'off'); }catch(e){} }
+  function fa1(n){ return String(n).replace(/\d/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]); }   // own digit conversion: faNum is declared further down
+  const galRange = document.getElementById('galRange'), galVal = document.getElementById('galVal');
+  function setGalaxy(pct){
+    pct = Math.min(100, Math.max(0, pct)); on = pct > 0; gal.hidden = !on;
+    root.style.setProperty('--gal', (pct/100).toFixed(2));
+    galVal.textContent = pct === 0 ? 'خاموش' : fa1(pct) + '٪'; galRange.value = pct; galRange.style.setProperty('--fill-pct', pct + '%');
+    if(!on) xf.clearRect(0,0,W,H); else setTimeout(kick, 0);
   }
   /* constellation settings: picker + own glow slider (saved: ro-const, ro-conglow) */
   const conBtns = [...document.querySelectorAll('#conSel button')], conRange = document.getElementById('conRange'), conVal = document.getElementById('conVal'), conBox = document.getElementById('conGlowBox');
   function setCon(k, save){
-    if(k !== 'none' && !CONS[k]) k = 'none'; conKey = k;
+    if(!CONS[k]) k = 'orion'; conKey = k;
     conBtns.forEach(x=>x.setAttribute('aria-checked', x.dataset.k === k ? 'true' : 'false'));
-    conRange.disabled = k === 'none'; conBox.classList.toggle('dis', k === 'none');
     if(save){ try{ localStorage.setItem('ro-const', k); }catch(e){} }
     drawNow();
   }
-  function setConGlow(v, save){
-    v = Math.min(100, Math.max(20, v));
-    conGlow = v; conVal.textContent = String(v).replace(/\d/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]) + '٪';   // own digit conversion: faNum is declared further down
-    conRange.value = v; conRange.style.setProperty('--fill-pct', ((v-20)/80*100) + '%');
-    if(save){ try{ localStorage.setItem('ro-conglow', String(v)); }catch(e){} }
-    drawNow();
+  function setConGlow(v){
+    v = Math.min(100, Math.max(0, v)); conGlow = v;
+    conVal.textContent = v === 0 ? 'خاموش' : fa1(v) + '٪'; conRange.value = v; conRange.style.setProperty('--fill-pct', v + '%');
+    drawNow(); setTimeout(kick, 0);
   }
-  conBtns.forEach(x=>x.addEventListener('click', ()=>setCon(x.dataset.k, true)));
-  conRange.addEventListener('input', ()=>setConGlow(+conRange.value, true));
-  setConGlow(conGlow, false); setCon(conKey, false);
-  size(); applyGal(on ? 1 : 0, false);
-  bindSwitch(galToggle, '--gl', ()=>on ? 1 : 0, applyGal);
+  conBtns.forEach(x=>x.addEventListener('click', ()=>{ setCon(x.dataset.k, true); if(conGlow === 0) setConGlow(70); }));
+  conRange.addEventListener('input', ()=>setConGlow(+conRange.value));
+  setConGlow(conGlow); setCon(conKey, false);
+  size(); setGalaxy(START_DEFAULTS.galaxy); galRange.addEventListener('input', ()=>setGalaxy(+galRange.value));
 }
 
 /* very light tick when touching planets and buttons (controlled by the same on/off switch) */
@@ -1899,6 +1924,11 @@ const CONTENT = {
     halo:'rgba(246,133,125,.18)',
     html: jobsMenuHTML
   },
+  tools: { title:'ابزارها', halo:'rgba(110,198,255,.18)', html:`<div class="tl-list">
+      <div class="card tl-item"><h3>🧮 محاسبه مالیات حقوق</h3></div>
+      <div class="card tl-item"><h3>🧮 محاسبه دستمزد</h3></div>
+      <div class="card tl-item"><h3>🧮 محاسبه حق بیمه تامین اجتماعی</h3></div>
+    </div>` },
   contact: {
     title:'ارتباط با من',
     halo:'rgba(244,114,182,.18)',
@@ -2084,6 +2114,7 @@ addEventListener('hashchange', route);
 document.querySelectorAll('.planet[data-target]').forEach(btn=>btn.addEventListener('click',()=>{ setOrigin(btn); go(btn.dataset.target); }));
 document.getElementById('contactBtn').addEventListener('click',e=>{ setOrigin(e.currentTarget); go('contact'); });
 document.getElementById('procBtn').addEventListener('click',e=>{ setOrigin(e.currentTarget); go('processes'); });
+document.getElementById('toolsBtn').addEventListener('click',e=>{ setOrigin(e.currentTarget); go('tools'); });
 document.getElementById('backBtn').addEventListener('click',goBack);
 document.getElementById('backBtnBottom').addEventListener('click',()=>go(''));
 
@@ -2426,7 +2457,7 @@ document.getElementById('printCerts').innerHTML = CERTS.map(c=>`<li>${c.title} �
 if(/[?&]view=simple/.test(location.search) && !location.hash) history.replaceState(null,'',location.pathname+location.search+'#simple');
 route();
 bootRoute = false;
-var IC = {"🔄": "<rect x=\"3\" y=\"3\" width=\"8\" height=\"6\" rx=\"1\"/><rect x=\"13\" y=\"15\" width=\"8\" height=\"6\" rx=\"1\"/><path d=\"M7 9v4a2 2 0 0 0 2 2h4M11 6h4a2 2 0 0 1 2 2v7\"/>", "💡": "<path d=\"M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z\"/>", "🐙": "<path d=\"M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14\"/>", "🌐": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\"/>", "📳": "<rect x=\"8\" y=\"3\" width=\"8\" height=\"18\" rx=\"2\"/><path d=\"M4 8v8M20 8v8M2 10.5v3M22 10.5v3\"/>", "🪪": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16c.6-1.6 2-2.4 3-2.4s2.4.8 3 2.4M14 10h4M14 13h3\"/>", "🛠": "<path d=\"M14.7 6.3a4 4 0 0 0-5 5L3.5 17.5a1.6 1.6 0 0 0 2.3 2.3l6.2-6.2a4 4 0 0 0 5-5l-2.4 2.4-2-.6-.6-2z\"/>", "📜": "<path d=\"M8 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z\"/><path d=\"M8 9h8M8 13h6\"/>", "💼": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18\"/>", "🧭": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2 5-5 2 2-5z\"/>", "⚙": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.3 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z\"/>", "☀": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4\"/>", "🌙": "<path d=\"M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z\"/>", "📄": "<path d=\"M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"/><path d=\"M14 3v5h5M9 13h6M9 17h6\"/>", "🖼": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"1.6\"/><path d=\"M4 18l5-5 4 4 3-3 4 4\"/>", "📞": "<path d=\"M5 4h3l2 5-2 1.5a11 11 0 0 0 5.5 5.5L15 14l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z\"/>", "🏠": "<path d=\"M4 11l8-7 8 7M6 10v9a1 1 0 0 0 1 1h3v-5h4v5h3a1 1 0 0 0 1-1v-9\"/>", "🎯": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.2\"/>", "📑": "<rect x=\"5\" y=\"6\" width=\"11\" height=\"15\" rx=\"1\"/><path d=\"M8 3h9a1 1 0 0 1 1 1v13M8 11h5M8 15h5\"/>", "📊": "<path d=\"M4 20V10M10 20V4M16 20v-7M22 20H2\"/>", "💻": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 20h20\"/>", "🤝": "<circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 6.5a3 3 0 0 1 0 5.5M18 14.5c2 .7 3.5 2.5 3.5 5.5\"/>", "🧾": "<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 8h6M9 12h6\"/>", "🦺": "<path d=\"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z\"/><path d=\"M8.5 12l2.5 2.5 4.5-5\"/>", "🛡": "<path d=\"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z\"/>", "🗂": "<path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>", "🔑": "<circle cx=\"8\" cy=\"15\" r=\"4\"/><path d=\"M11 12l9-9M16 7l3 3M14 9l2 2\"/>", "🏭": "<path d=\"M3 21V10l6 3V10l6 3V6h3v15zM3 21h18\"/>", "🏆": "<path d=\"M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 21h8M10 17h4\"/>", "🏗": "<path d=\"M5 21V8M5 8h14M5 8l6-4M19 8v4M17 12h4v3h-4zM3 21h6\"/>", "✅": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7 5.3-5.6\"/>", "🏙": "<path d=\"M4 21V9l5-3v15M9 21V4l7 3v14M16 21v-9l4 2v7M3 21h18\"/>", "⚖": "<path d=\"M12 4v16M6 20h12M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z\"/>", "🎓": "<path d=\"M2 9l10-5 10 5-10 5zM6 11.5V16c2 2 10 2 12 0v-4.5\"/>", "🎬": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M3 11h18M7 6l3 5M12 6l3 5\"/>", "🏛": "<path d=\"M3 9l9-5 9 5M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 21h18M3 18h18\"/>", "💬": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "⏱": "<circle cx=\"12\" cy=\"13\" r=\"8\"/><path d=\"M12 9v4l3 2M9 3h6\"/>", "📅": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M4 10h16M8 3v4M16 3v4\"/>", "⏸": "<path d=\"M8 5v14M16 5v14\"/>", "▶": "<path d=\"M7 5l12 7-12 7z\"/>", "📕": "<path d=\"M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"/><path d=\"M14 3v5h5M9 13h6M9 17h6\"/>", "📁": "<path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>", "⏳": "<circle cx=\"12\" cy=\"13\" r=\"8\"/><path d=\"M12 9v4l3 2M9 3h6\"/>"};
+var IC = {"🧮": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"2\"/><path d=\"M8 7h8\"/><path d=\"M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 18h.01M12 18h.01\"/>", "🔄": "<rect x=\"3\" y=\"3\" width=\"8\" height=\"6\" rx=\"1\"/><rect x=\"13\" y=\"15\" width=\"8\" height=\"6\" rx=\"1\"/><path d=\"M7 9v4a2 2 0 0 0 2 2h4M11 6h4a2 2 0 0 1 2 2v7\"/>", "💡": "<path d=\"M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z\"/>", "🐙": "<path d=\"M8 8l-4 4 4 4M16 8l4 4-4 4M14 5l-4 14\"/>", "🌐": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18\"/>", "📳": "<rect x=\"8\" y=\"3\" width=\"8\" height=\"18\" rx=\"2\"/><path d=\"M4 8v8M20 8v8M2 10.5v3M22 10.5v3\"/>", "🪪": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><circle cx=\"9\" cy=\"11\" r=\"2\"/><path d=\"M6 16c.6-1.6 2-2.4 3-2.4s2.4.8 3 2.4M14 10h4M14 13h3\"/>", "🛠": "<path d=\"M14.7 6.3a4 4 0 0 0-5 5L3.5 17.5a1.6 1.6 0 0 0 2.3 2.3l6.2-6.2a4 4 0 0 0 5-5l-2.4 2.4-2-.6-.6-2z\"/>", "📜": "<path d=\"M8 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z\"/><path d=\"M8 9h8M8 13h6\"/>", "💼": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 13h18\"/>", "🧭": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M15.5 8.5l-2 5-5 2 2-5z\"/>", "⚙": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19 12a7 7 0 0 0-.1-1.2l2-1.5-2-3.4-2.3.9a7 7 0 0 0-2-1.2L14.3 3h-4l-.4 2.6a7 7 0 0 0-2 1.2l-2.3-.9-2 3.4 2 1.5A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.5 2 3.4 2.3-.9a7 7 0 0 0 2 1.2l.4 2.6h4l.4-2.6a7 7 0 0 0 2-1.2l2.3.9 2-3.4-2-1.5c.1-.4.1-.8.1-1.2z\"/>", "☀": "<circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4\"/>", "🌙": "<path d=\"M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z\"/>", "📄": "<path d=\"M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"/><path d=\"M14 3v5h5M9 13h6M9 17h6\"/>", "🖼": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"2\"/><circle cx=\"9\" cy=\"10\" r=\"1.6\"/><path d=\"M4 18l5-5 4 4 3-3 4 4\"/>", "📞": "<path d=\"M5 4h3l2 5-2 1.5a11 11 0 0 0 5.5 5.5L15 14l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z\"/>", "🏠": "<path d=\"M4 11l8-7 8 7M6 10v9a1 1 0 0 0 1 1h3v-5h4v5h3a1 1 0 0 0 1-1v-9\"/>", "🎯": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><circle cx=\"12\" cy=\"12\" r=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"1.2\"/>", "📑": "<rect x=\"5\" y=\"6\" width=\"11\" height=\"15\" rx=\"1\"/><path d=\"M8 3h9a1 1 0 0 1 1 1v13M8 11h5M8 15h5\"/>", "📊": "<path d=\"M4 20V10M10 20V4M16 20v-7M22 20H2\"/>", "💻": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 20h20\"/>", "🤝": "<circle cx=\"9\" cy=\"8\" r=\"3\"/><path d=\"M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 6.5a3 3 0 0 1 0 5.5M18 14.5c2 .7 3.5 2.5 3.5 5.5\"/>", "🧾": "<path d=\"M6 3h12v18l-3-2-3 2-3-2-3 2z\"/><path d=\"M9 8h6M9 12h6\"/>", "🦺": "<path d=\"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z\"/><path d=\"M8.5 12l2.5 2.5 4.5-5\"/>", "🛡": "<path d=\"M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z\"/>", "🗂": "<path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>", "🔑": "<circle cx=\"8\" cy=\"15\" r=\"4\"/><path d=\"M11 12l9-9M16 7l3 3M14 9l2 2\"/>", "🏭": "<path d=\"M3 21V10l6 3V10l6 3V6h3v15zM3 21h18\"/>", "🏆": "<path d=\"M8 4h8v5a4 4 0 0 1-8 0zM8 6H4v1a4 4 0 0 0 4 4M16 6h4v1a4 4 0 0 1-4 4M12 13v4M8 21h8M10 17h4\"/>", "🏗": "<path d=\"M5 21V8M5 8h14M5 8l6-4M19 8v4M17 12h4v3h-4zM3 21h6\"/>", "✅": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7 5.3-5.6\"/>", "🏙": "<path d=\"M4 21V9l5-3v15M9 21V4l7 3v14M16 21v-9l4 2v7M3 21h18\"/>", "⚖": "<path d=\"M12 4v16M6 20h12M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0z\"/>", "🎓": "<path d=\"M2 9l10-5 10 5-10 5zM6 11.5V16c2 2 10 2 12 0v-4.5\"/>", "🎬": "<rect x=\"3\" y=\"6\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M3 11h18M7 6l3 5M12 6l3 5\"/>", "🏛": "<path d=\"M3 9l9-5 9 5M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 21h18M3 18h18\"/>", "💬": "<path d=\"M4 5h16v11H9l-5 4z\"/>", "⏱": "<circle cx=\"12\" cy=\"13\" r=\"8\"/><path d=\"M12 9v4l3 2M9 3h6\"/>", "📅": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"15\" rx=\"2\"/><path d=\"M4 10h16M8 3v4M16 3v4\"/>", "⏸": "<path d=\"M8 5v14M16 5v14\"/>", "▶": "<path d=\"M7 5l12 7-12 7z\"/>", "📕": "<path d=\"M7 3h7l5 5v12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z\"/><path d=\"M14 3v5h5M9 13h6M9 17h6\"/>", "📁": "<path d=\"M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/>", "⏳": "<circle cx=\"12\" cy=\"13\" r=\"8\"/><path d=\"M12 9v4l3 2M9 3h6\"/>"};
 const EMO = /([\u23F1-\u23F8\u2600\u2696\u2699\u25B6]|[\u{1F300}-\u{1FAFF}])\uFE0F?/gu;
 function iconNode(k){ const v=document.createElementNS('http://www.w3.org/2000/svg','svg'); v.setAttribute('viewBox','0 0 24 24'); v.setAttribute('class','ic'); v.setAttribute('aria-hidden','true'); v.innerHTML=IC[k]; return v; }
 function iconize(root){
@@ -2520,6 +2551,30 @@ iconize(document.body);
   };
   settingsBtn.addEventListener('pointerup', end); settingsBtn.addEventListener('pointercancel', end);
   settingsBtn.addEventListener('click', e=>{ if(suppress){ e.stopImmediatePropagation(); e.preventDefault(); } }, true);
+}
+
+/* ---------- orbits: one slider (0 = off) for the pulsing glow and the turning sweep arc.
+   Pulses run one ring at a time, in a shuffled order and with varying length (never more than two overlap), so the page stays light. ---------- */
+{ const orbRange = document.getElementById('orbRange'), orbVal = document.getElementById('orbVal'), rings = [...document.querySelectorAll('.ring-inner')], root = document.documentElement;
+  let level = START_DEFAULTS.orbits, bag = [], timer = 0, last = -1;
+  const canPulse = ()=> level > 0 && !reduceMotion && !document.hidden && !stage.classList.contains('hidden') && !motionPaused;
+  function pulse(){
+    timer = 0; if(!canPulse()){ timer = setTimeout(pulse, 1200); return; }
+    if(!bag.length){ bag = rings.map((_, i)=>i).sort(()=>Math.random() - .5); if(bag[0] === last && bag.length > 1) bag.push(bag.shift()); }
+    const i = bag.shift(); last = i; const el = rings[i], d = (1800 + Math.random()*1800) / speedMul;
+    el.style.setProperty('--gdur', d.toFixed(0) + 'ms'); el.classList.remove('glowing'); void el.offsetWidth; el.classList.add('glowing');
+    el.addEventListener('animationend', ()=>el.classList.remove('glowing'), {once:true});
+    timer = setTimeout(pulse, d*.62 + Math.random()*400);
+  }
+  function schedule(ms){ clearTimeout(timer); timer = setTimeout(pulse, ms); }
+  function setOrbits(pct){
+    level = Math.min(100, Math.max(0, pct)); root.style.setProperty('--orb', (level/100).toFixed(2));
+    orbVal.textContent = level === 0 ? 'خاموش' : faNum(level) + '٪'; orbRange.value = level; orbRange.style.setProperty('--fill-pct', level + '%');
+    if(level === 0){ clearTimeout(timer); rings.forEach(r=>r.classList.remove('glowing')); } else schedule(700);
+  }
+  orbRange.addEventListener('input', ()=>setOrbits(+orbRange.value));
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && level > 0) schedule(600); });
+  setOrbits(START_DEFAULTS.orbits);
 }
 </script>
 </body>
