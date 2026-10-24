@@ -2,6 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
+<meta name="version" content="1.5">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>سید امین حسینی | کارشناس منابع انسانی</title>
 <meta name="description" content="رزومه تعاملی سید امین حسینی، کارشناس منابع انسانی و امور پرسنلی (Generalist HR) در اصفهان: جذب و استخدام، قراردادها، حقوق و دستمزد و بیمه تامین اجتماعی.">
@@ -399,6 +400,9 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .settings-btn{position:relative;z-index:1;width:44px;height:44px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;
     background:var(--fill);border:1px solid var(--fill-line);color:var(--star);backdrop-filter:blur(4px);}
   .settings-btn:focus-visible{outline:2px solid var(--p-intro);outline-offset:2px;}
+  .settings-btn{display:block;}
+  .settings-cap{display:block;width:44px;margin-top:3px;text-align:center;white-space:nowrap;font-size:10.5px;line-height:1.3;color:var(--dim);pointer-events:none;}
+  .ver-tag{position:fixed;left:12px;top:calc(12px + var(--safe-t) + 47px);font-size:10.5px;line-height:1.3;color:var(--dim);direction:ltr;unicode-bidi:isolate;pointer-events:none;}
   .settings-panel{position:absolute;top:calc(100% + 8px);right:0;width:min(260px, calc(100vw - 24px));display:flex;flex-direction:column;z-index:1;gap:4px;
     padding:10px;border-radius:16px;background:var(--float-bg);border:1px solid var(--fill-line);
     box-shadow:0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(8px);}
@@ -824,9 +828,40 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   #startHint.gone{display:none;}
   .st-simple{pointer-events:auto;background:none;border:0;padding:2px 4px;font:inherit;color:var(--p-intro);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
   .st-simple:focus-visible{outline:2px solid var(--p-intro);outline-offset:2px;border-radius:4px;}
-  .home-stats{position:fixed;bottom:calc(68px + var(--safe-b));left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;width:max-content;max-width:calc(100vw - 20px);pointer-events:none;}
-  .home-stats span{font-size:11.5px;padding:3px 9px;border-radius:999px;background:var(--fill);border:1px solid var(--fill-line);color:var(--t2);white-space:nowrap;}
-  .home-stats b{color:var(--sun);font-weight:700;}
+  .home-stats{position:fixed;bottom:calc(68px + var(--safe-b));left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-wrap:wrap;gap:9px;justify-content:center;width:max-content;max-width:calc(100vw - 16px);pointer-events:none;}
+  .stat{pointer-events:auto;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-width:70px;min-height:52px;padding:7px 12px;border-radius:17px;font:inherit;color:var(--t2);cursor:pointer;-webkit-tap-highlight-color:transparent;
+    background:linear-gradient(160deg,rgba(245,185,66,.20),rgba(255,255,255,.05));border:1px solid rgba(245,185,66,.42);
+    box-shadow:0 4px 14px rgba(0,0,0,.22);animation:statBreath 3.4s ease-in-out infinite;}
+  .stat b{font-size:17px;line-height:1.25;font-weight:800;color:var(--sun);}
+  .stat small{font-size:10.5px;line-height:1.3;}
+  .stat::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;box-shadow:0 0 16px 3px rgba(245,185,66,.6);opacity:.12;animation:statGlow 3.4s ease-in-out infinite;}
+  .stat:nth-child(2),.stat:nth-child(2)::after{animation-delay:.85s;} .stat:nth-child(3),.stat:nth-child(3)::after{animation-delay:1.7s;} .stat:nth-child(4),.stat:nth-child(4)::after{animation-delay:2.55s;}
+  .stat:hover,.stat:focus-visible,.stat:active{animation:none;transform:scale(1.09);}
+  .stat:hover::after,.stat:focus-visible::after,.stat:active::after{animation:none;opacity:1;}
+  .stat:focus-visible{outline:2px solid var(--sun);outline-offset:3px;}
+  #stage.hidden .stat,#stage.hidden .stat::after{animation-play-state:paused;}
+  @keyframes statBreath{0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+  @keyframes statGlow{0%,100%{opacity:.1;}50%{opacity:.95;}}
+  @media (prefers-reduced-motion:reduce){ .stat,.stat::after{animation:none;} .stat::after{opacity:.3;} }
+  html[data-theme="light"] .stat{background:linear-gradient(160deg,rgba(245,170,40,.30),rgba(255,255,255,.6));border-color:rgba(190,120,10,.5);box-shadow:0 4px 12px rgba(150,100,20,.18);}
+  html[data-theme="light"] .stat b{color:#8a5200;}
+  html[data-theme="light"] .stat::after{box-shadow:0 0 16px 3px rgba(235,150,20,.55);}
+
+  #statOv{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(4,8,16,.58);}
+  #statOv[hidden]{display:none;}
+  .st-card{position:relative;width:min(92vw,430px);padding:26px 22px 20px;border-radius:24px;text-align:center;outline:none;
+    background:linear-gradient(150deg,rgba(245,185,66,.18),rgba(255,255,255,.04) 55%),var(--float-bg);border:1px solid rgba(245,185,66,.45);box-shadow:0 20px 60px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18);}
+  .st-num{font-size:46px;line-height:1.2;font-weight:800;color:var(--sun);}
+  .st-num.zero{font-size:72px;line-height:1;}
+  .st-card h3{margin:2px 0 10px;font-size:17px;color:var(--t1);}
+  .st-card p{margin:0 0 18px;font-size:14.5px;line-height:2.05;color:var(--t2);text-align:justify;text-align-last:center;}
+  .st-x{position:absolute;top:8px;inset-inline-start:10px;width:34px;height:34px;border-radius:50%;border:0;background:var(--fill);color:var(--t1);font-size:22px;line-height:1;cursor:pointer;}
+  .st-home{font:inherit;font-size:14px;padding:10px 18px;border-radius:999px;border:0;cursor:pointer;background:var(--star);color:var(--bg-0);font-weight:700;}
+  .st-x:focus-visible,.st-home:focus-visible{outline:2px solid var(--sun);outline-offset:2px;}
+  html[data-theme="light"] #statOv{background:rgba(20,40,80,.35);}
+  html[data-theme="light"] .st-num{color:#8a5200;}
+  html[data-theme="light"] .st-card{background:linear-gradient(150deg,rgba(245,170,40,.22),rgba(255,255,255,.7) 60%),var(--panel);border-color:rgba(190,120,10,.45);}
+  @media print{ #statOv,.home-stats{display:none !important;} }
   @media (max-height:560px){ .home-stats,#startHint{display:none;} }
   .settings-btn{opacity:.55;transition:opacity .2s;}
   .settings-btn:hover,.settings-btn:focus-visible,.settings-btn[aria-expanded="true"]{opacity:1;}
@@ -967,6 +1002,12 @@ html[data-theme] .home-actions .back-btn .ic{width:15px;height:15px;}
 main#app{display:contents;}
 /* the home buttons now take two rows: lift the stats chips above them and keep the hint text on its own line */
 #startHint{flex-basis:100%;text-align:center;}
+
+/* version label + "in progress" badges */
+.ver-line{margin-top:10px;text-align:center;font-size:11px;color:var(--dim);}
+.tl-item{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.tl-badge{flex:none;font-size:11px;padding:2px 9px;border:1px solid var(--ink-line);border-radius:999px;color:var(--dim);white-space:nowrap;}
+#simpleView .ver-line{margin-top:18px;padding-bottom:calc(16px + var(--safe-b,0px));}
 </style>
 </head>
 <body>
@@ -988,6 +1029,8 @@ main#app{display:contents;}
   <div class="settings" id="settings">
     <div class="settings-backdrop" id="settingsBackdrop" hidden></div>
     <button type="button" class="settings-btn" id="settingsBtn" aria-label="تنظیمات" aria-haspopup="true" aria-expanded="false" aria-controls="settingsPanel">⚙️</button>
+    <span class="settings-cap" aria-hidden="true">تنظیمات</span>
+    <span class="ver-tag" aria-hidden="true">v.1.5.6</span>
     <div class="settings-panel" id="settingsPanel" hidden>
       <div class="settings-title">تنظیمات</div>
       <div class="s-speed-head" style="margin-bottom:8px;"><span>تم</span></div>
@@ -1086,7 +1129,8 @@ main#app{display:contents;}
       </div>
       </div></details>
       </div>
-    </div>
+      <div class="ver-line" aria-hidden="true"></div>
+</div>
   </div>
   <div id="system">
     <svg class="astro" viewBox="-50 -50 100 100" aria-hidden="true"><path d="M0.00 -48.60L0.00 -51.00M4.24 -48.42L4.33 -49.51M8.44 -47.86L8.63 -48.94M12.58 -46.94L12.86 -48.01M16.62 -45.67L17.00 -46.70M20.54 -44.05L21.00 -45.04M24.30 -42.09L25.50 -44.17M27.88 -39.81L28.51 -40.71M31.24 -37.23L31.95 -38.07M34.37 -34.37L35.14 -35.14M37.23 -31.24L38.07 -31.95M39.81 -27.88L40.71 -28.51M42.09 -24.30L44.17 -25.50M44.05 -20.54L45.04 -21.00M45.67 -16.62L46.70 -17.00M46.94 -12.58L48.01 -12.86M47.86 -8.44L48.94 -8.63M48.42 -4.24L49.51 -4.33M48.60 -0.00L51.00 -0.00M48.42 4.24L49.51 4.33M47.86 8.44L48.94 8.63M46.94 12.58L48.01 12.86M45.67 16.62L46.70 17.00M44.05 20.54L45.04 21.00M42.09 24.30L44.17 25.50M39.81 27.88L40.71 28.51M37.23 31.24L38.07 31.95M34.37 34.37L35.14 35.14M31.24 37.23L31.95 38.07M27.88 39.81L28.51 40.71M24.30 42.09L25.50 44.17M20.54 44.05L21.00 45.04M16.62 45.67L17.00 46.70M12.58 46.94L12.86 48.01M8.44 47.86L8.63 48.94M4.24 48.42L4.33 49.51M0.00 48.60L0.00 51.00M-4.24 48.42L-4.33 49.51M-8.44 47.86L-8.63 48.94M-12.58 46.94L-12.86 48.01M-16.62 45.67L-17.00 46.70M-20.54 44.05L-21.00 45.04M-24.30 42.09L-25.50 44.17M-27.88 39.81L-28.51 40.71M-31.24 37.23L-31.95 38.07M-34.37 34.37L-35.14 35.14M-37.23 31.24L-38.07 31.95M-39.81 27.88L-40.71 28.51M-42.09 24.30L-44.17 25.50M-44.05 20.54L-45.04 21.00M-45.67 16.62L-46.70 17.00M-46.94 12.58L-48.01 12.86M-47.86 8.44L-48.94 8.63M-48.42 4.24L-49.51 4.33M-48.60 0.00L-51.00 0.00M-48.42 -4.24L-49.51 -4.33M-47.86 -8.44L-48.94 -8.63M-46.94 -12.58L-48.01 -12.86M-45.67 -16.62L-46.70 -17.00M-44.05 -20.54L-45.04 -21.00M-42.09 -24.30L-44.17 -25.50M-39.81 -27.88L-40.71 -28.51M-37.23 -31.24L-38.07 -31.95M-34.37 -34.37L-35.14 -35.14M-31.24 -37.23L-31.95 -38.07M-27.88 -39.81L-28.51 -40.71M-24.30 -42.09L-25.50 -44.17M-20.54 -44.05L-21.00 -45.04M-16.62 -45.67L-17.00 -46.70M-12.58 -46.94L-12.86 -48.01M-8.44 -47.86L-8.63 -48.94M-4.24 -48.42L-4.33 -49.51"/><path d="M0.00 -22.00L11.00 19.05L-19.05 -11.00L22.00 -0.00L-19.05 11.00L11.00 -19.05L0.00 22.00L-11.00 -19.05L19.05 11.00L-22.00 0.00L19.05 -11.00L-11.00 19.05Z"/><path d="M0.00 -22.00L11.00 -19.05L19.05 -11.00L22.00 -0.00L19.05 11.00L11.00 19.05L0.00 22.00L-11.00 19.05L-19.05 11.00L-22.00 0.00L-19.05 -11.00L-11.00 -19.05Z"/><path d="M3.62 -13.52L3.62 13.52L-9.90 -9.90L13.52 3.62L-13.52 3.62L9.90 -9.90L-3.62 13.52L-3.62 -13.52L9.90 9.90L-13.52 -3.62L13.52 -3.62L-9.90 9.90Z"/><path d="M-50 0H50M0 -50V50" class="cross"/><path class="mk acc" d="M-1.7 -53.2L1.7 -53.2L0 -50.4Z"/></svg>
@@ -1117,7 +1161,7 @@ main#app{display:contents;}
       <span class="ball">🧭</span><span class="label">خودشناسی حرفه‌ای</span>
     </button>
   </div>
-  <div class="home-stats" aria-label="خلاصه دستاوردها"><span><b>۱۲۰+</b> استخدام</span><span><b>۴۰۰+</b> مصاحبه</span><span><b>تا ۲۳۰</b> نیرو</span><span><b>۰</b> شکایت</span></div>
+  <div class="home-stats" role="group" aria-label="خلاصه دستاوردها (برای جزئیات بزنید)"><button type="button" class="stat" data-k="hires" aria-haspopup="dialog"><b>۱۲۰+</b><small>استخدام</small></button><button type="button" class="stat" data-k="interviews" aria-haspopup="dialog"><b>۴۰۰+</b><small>مصاحبه</small></button><button type="button" class="stat" data-k="staff" aria-haspopup="dialog"><b>تا ۲۳۰</b><small>نیرو</small></button><button type="button" class="stat" data-k="complaints" aria-haspopup="dialog"><b>۰</b><small>شکایت</small></button></div>
   <div class="home-actions">
     <button type="button" class="back-btn act-primary" id="procBtn">🔄 فرآیندها</button>
     <button type="button" class="back-btn act-primary" id="toolsBtn">🧮 ابزارها</button>
@@ -1146,13 +1190,24 @@ main#app{display:contents;}
   <div class="sv-top"><button type="button" class="back-btn" id="svBack">→ بازگشت به نمایش تعاملی</button></div>
   <div class="sv-bar">
     <div class="sv-actions">
-      <a class="back-btn" href="tel:+989104309260">📞 تماس</a>
-      <a class="back-btn" href="https://wa.me/989104309260" target="_blank" rel="noopener noreferrer">واتساپ</a>
-      <a class="back-btn" href="mailto:seyedaminhoseiny@gmail.com">ایمیل</a>
+      <a class="back-btn" href="https://jobvision.ir/cv/93722118-124129" target="_blank" rel="noopener noreferrer">رزومه در جاب‌ویژن</a>
+      <a class="back-btn" href="https://www.e-estekhdam.com/cv/hoseiny" target="_blank" rel="noopener noreferrer">رزومه در ای‌استخدام</a>
       <button type="button" class="back-btn act-primary" id="svPdf">📄 PDF</button>
     </div>
   </div>
   <article class="sv-doc"></article>
+  <div class="ver-line" aria-hidden="true"></div>
+</div>
+
+<!-- ACHIEVEMENT CARD (opens from the home stats) -->
+<div id="statOv" hidden>
+  <div class="st-card" role="dialog" aria-modal="true" aria-labelledby="stTitle" tabindex="-1">
+    <button type="button" class="st-x" id="stX" aria-label="بستن">×</button>
+    <div class="st-num" id="stNum"></div>
+    <h3 id="stTitle"></h3>
+    <p id="stText"></p>
+    <button type="button" class="st-home" id="stHome">🏠 بازگشت به صفحه اصلی</button>
+  </div>
 </div>
 
 <!-- ZOOM OVERLAY -->
@@ -1926,9 +1981,9 @@ const CONTENT = {
     html: jobsMenuHTML
   },
   tools: { title:'ابزارها', halo:'rgba(110,198,255,.18)', html:`<div class="tl-list">
-      <div class="card tl-item"><h3>🧮 محاسبه مالیات حقوق</h3></div>
-      <div class="card tl-item"><h3>🧮 محاسبه دستمزد</h3></div>
-      <div class="card tl-item"><h3>🧮 محاسبه حق بیمه تامین اجتماعی</h3></div>
+      <div class="card tl-item"><h3>🧮 محاسبه مالیات حقوق</h3><span class="tl-badge">در حال تکمیل</span></div>
+      <div class="card tl-item"><h3>🧮 محاسبه دستمزد</h3><span class="tl-badge">در حال تکمیل</span></div>
+      <div class="card tl-item"><h3>🧮 محاسبه حق بیمه تامین اجتماعی</h3><span class="tl-badge">در حال تکمیل</span></div>
     </div>` },
   contact: {
     title:'ارتباط با من',
@@ -2577,6 +2632,48 @@ iconize(document.body);
   document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && level > 0) schedule(600); });
   setOrbits(START_DEFAULTS.orbits);
 }
+
+/* public version label (settings panel + simple view); change only here */
+const APP_VERSION = '۱٫۵٫۶';
+document.querySelectorAll('.ver-line').forEach(e=>{ e.innerHTML = 'نسخه <bdi>' + APP_VERSION + '</bdi> · در حال تکمیل'; });
+</script>
+<script>
+/* achievement cards: open from the home stats; backdrop click, Esc, X or the home button closes */
+(function(){
+  const D={
+    complaints:{n:'۰',t:'شکایت ثبت‌شده',p:'چهار سال تجربه در رسیدگی به امور کارکنان، بدون حتی یک شکایت ثبت‌شده از سوی کارکنان در حوزه‌هایی مانند حقوق و دستمزد، بیمه، مالیات، مزایا، مرخصی و سایر امور پرسنلی. تأکید بر پیگیری دقیق امور، رعایت ضوابط و پاسخ‌گویی به مسائل کارکنان.'},
+    staff:{n:'تا ۲۳۰',t:'نیروی تحت پیمان',p:'عهده‌داری امور اداری و منابع انسانی کارکنان تحت پیمان، تا سقف ۲۳۰ نفر؛ شامل پیگیری امور پرسنلی و قراردادها، کارکرد، حقوق و بیمه و مستندات مرتبط، با هدف تداوم بدون وقفه در انجام امور کارکنان.'},
+    interviews:{n:'۴۰۰+',t:'مصاحبه و غربالگری',p:'بررسی و غربالگری صدها درخواست همکاری و رزومه، ارزیابی اولیه متقاضیان و تطبیق شرایط آنان با نیازهای سازمان؛ با هدف افزایش دقت و تناسب در فرایند جذب و انتخاب نیروی انسانی.'},
+    hires:{n:'۱۲۰+',t:'استخدام موفق',p:'اجرای فرایند جذب و استخدام از ابتدا تا ورود نیروی جدید به سازمان؛ شامل پیگیری مراحل انتخاب، هماهنگی مدارک و قرارداد، تشکیل پرونده و اقدامات مرتبط با ورود و جامعه‌پذیری سازمانی (Onboarding).'}
+  };
+  const ov=document.getElementById('statOv'), card=ov.querySelector('.st-card'), $=id=>document.getElementById(id);
+  const calm=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let last=null, busy=false;
+  function open(k,btn){
+    const d=D[k]; if(!d||!ov.hidden) return;
+    $('stNum').textContent=d.n; $('stNum').classList.toggle('zero',k==='complaints'); $('stTitle').textContent=d.t; $('stText').textContent=d.p;
+    ov.hidden=false; last=btn;
+    if(!calm()){
+      const r=btn.getBoundingClientRect(), c=card.getBoundingClientRect();
+      card.style.transformOrigin=(r.left+r.width/2-c.left)+'px '+(r.top+r.height/2-c.top)+'px';
+      card.animate([{transform:'scale(.25)',opacity:0},{transform:'scale(1)',opacity:1}],{duration:260,easing:'cubic-bezier(.22,1,.36,1)'});
+      ov.animate([{opacity:0},{opacity:1}],{duration:200});
+    }
+    card.focus({preventScroll:true});
+  }
+  function close(){
+    if(ov.hidden||busy) return;
+    const done=()=>{ ov.hidden=true; busy=false; if(last) last.focus({preventScroll:true}); };
+    if(calm()){ done(); return; }
+    busy=true;
+    ov.animate([{opacity:1},{opacity:0}],{duration:150}).onfinish=done;
+    card.animate([{transform:'scale(1)',opacity:1},{transform:'scale(.9)',opacity:0}],{duration:150});
+  }
+  document.querySelectorAll('.stat').forEach(b=>b.addEventListener('click',()=>open(b.dataset.k,b)));
+  ov.addEventListener('click',e=>{ if(e.target===ov) close(); });
+  $('stX').addEventListener('click',close); $('stHome').addEventListener('click',close);
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&!ov.hidden){ e.stopImmediatePropagation(); close(); } },true);
+})();
 </script>
 </body>
 </html>
