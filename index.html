@@ -999,6 +999,46 @@ html[data-theme] .home-actions .back-btn .ic{width:15px;height:15px;}
 /* tools page */
 .tl-list{display:grid;gap:10px;}
 .tl-item h3{margin:0;font-size:15px;display:flex;align-items:center;gap:8px;}
+.tl-open{width:100%;font:inherit;color:inherit;text-align:start;cursor:pointer;}
+.tl-badge.ok{color:var(--acc,var(--p-intro));border-color:var(--acc,var(--p-intro));}
+/* insurance calculator: one screen, only the input table scrolls */
+.surface-body.fit{display:flex;flex-direction:column;overflow:hidden;min-height:0;padding-bottom:calc(66px + var(--safe-b,0px));}
+.ins{display:flex;flex-direction:column;gap:8px;flex:1;min-height:0;}
+.ins-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;font-size:12.5px;line-height:1.8;color:var(--t2);}
+.ins-top p{margin:0;}
+.ins-clear{flex:none;font:inherit;font-size:12px;padding:4px 11px;border:1px solid var(--ink-line,var(--fill-line));background:var(--fill);color:var(--t1);border-radius:3px;cursor:pointer;}
+.ins-table{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;border:1px solid var(--ink-line,var(--fill-line));border-radius:3px;background:var(--panel);}
+.ins-table details+details{border-top:1px solid var(--ink-line,var(--fill-line));}
+.ins-table summary{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:8px;padding:10px 12px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;color:var(--t1);background:var(--panel);}
+.ins-table summary::-webkit-details-marker{display:none;}
+.ins-table summary::before{content:"▸";font-size:12px;color:var(--dim);transition:transform .15s;}
+.ins-table details[open]>summary::before{transform:rotate(90deg);}
+.ins-table summary span:first-of-type{flex:1;}
+.ins-sub{font-weight:400;font-size:12px;color:var(--dim);direction:ltr;unicode-bidi:isolate;}
+.ins-row{display:flex;align-items:center;gap:10px;padding:5px 12px;border-top:1px solid rgba(128,128,128,.16);}
+.ins-row label{flex:1;font-size:13.5px;color:var(--t2);}
+.ins-row input{width:min(48%,190px);font:inherit;font-size:15px;direction:ltr;text-align:left;padding:7px 9px;border:1px solid var(--ink-line,var(--fill-line));border-radius:3px;background:var(--fill);color:var(--t1);}
+.ins-row input:focus{outline:2px solid var(--acc,var(--p-intro));outline-offset:0;}
+.ins-res{margin:0;padding:6px 12px;list-style:none;border:1px solid var(--acc,var(--p-intro));border-radius:3px;background:var(--panel);}
+.ins-res li{display:flex;align-items:baseline;gap:8px;padding:5px 0;font-size:13px;color:var(--t2);}
+.ins-res li+li{border-top:1px dashed rgba(128,128,128,.28);}
+.ins-res .n{flex:none;width:16px;color:var(--dim);}
+.ins-res .k{flex:1;}
+.ins-res .v{font-size:15.5px;font-weight:700;color:var(--t1);direction:ltr;unicode-bidi:isolate;}
+.ins-res li:nth-child(n+3) .v{color:var(--acc,var(--p-intro));}
+.ins-res .u{font-size:10.5px;color:var(--dim);}
+.ins-hint{margin:0;padding:6px 12px 8px;font-size:12px;line-height:1.8;color:var(--dim);}
+.tx-ded{display:flex;align-items:flex-start;gap:7px;font-size:12px;line-height:1.7;color:var(--t2);cursor:pointer;}
+.tx-ded input{margin-top:4px;accent-color:var(--acc,var(--p-intro));}
+.tx-res{width:100%;border-collapse:collapse;border:1px solid var(--acc,var(--p-intro));background:var(--panel);font-size:12.5px;color:var(--t2);}
+.tx-res th{padding:5px 6px;font-size:11.5px;font-weight:700;color:var(--dim);border-bottom:1px solid var(--ink-line,var(--fill-line));}
+.tx-res td{padding:4px 6px;border-top:1px dashed rgba(128,128,128,.28);}
+.tx-res th:first-child,.tx-res td:first-child{text-align:start;}
+.tx-res td+td,.tx-res th+th{text-align:left;}
+.tx-res td+td{direction:ltr;unicode-bidi:isolate;white-space:nowrap;font-weight:700;color:var(--t1);}
+.tx-res tr.fin td{font-size:14px;color:var(--acc,var(--p-intro));border-top:1px solid var(--acc,var(--p-intro));}
+@media (max-height:660px){ .tx-res td{padding:2px 6px;} .tx-res{font-size:12px;} .tx-ded{font-size:11.5px;line-height:1.5;} }
+@media (max-height:660px){ .ins-res li{padding:3px 0;font-size:12px;} .ins-res .v{font-size:14px;} .ins-top{font-size:11.5px;line-height:1.6;} }
 main#app{display:contents;}
 /* the home buttons now take two rows: lift the stats chips above them and keep the hint text on its own line */
 #startHint{flex-basis:100%;text-align:center;}
@@ -1030,7 +1070,7 @@ main#app{display:contents;}
     <div class="settings-backdrop" id="settingsBackdrop" hidden></div>
     <button type="button" class="settings-btn" id="settingsBtn" aria-label="تنظیمات" aria-haspopup="true" aria-expanded="false" aria-controls="settingsPanel">⚙️</button>
     <span class="settings-cap" aria-hidden="true">تنظیمات</span>
-    <span class="ver-tag" aria-hidden="true">v.1.5.6</span>
+    <span class="ver-tag" aria-hidden="true">v.1.6.0</span>
     <div class="settings-panel" id="settingsPanel" hidden>
       <div class="settings-title">تنظیمات</div>
       <div class="s-speed-head" style="margin-bottom:8px;"><span>تم</span></div>
@@ -1981,9 +2021,9 @@ const CONTENT = {
     html: jobsMenuHTML
   },
   tools: { title:'ابزارها', halo:'rgba(110,198,255,.18)', html:`<div class="tl-list">
-      <div class="card tl-item"><h3>🧮 محاسبه مالیات حقوق</h3><span class="tl-badge">در حال تکمیل</span></div>
+      <button type="button" class="card tl-item tl-open" data-tool="tax"><h3>🧮 محاسبه مالیات حقوق</h3><span class="tl-badge ok">آماده</span></button>
       <div class="card tl-item"><h3>🧮 محاسبه دستمزد</h3><span class="tl-badge">در حال تکمیل</span></div>
-      <div class="card tl-item"><h3>🧮 محاسبه حق بیمه تامین اجتماعی</h3><span class="tl-badge">در حال تکمیل</span></div>
+      <button type="button" class="card tl-item tl-open" data-tool="insurance"><h3>🧮 محاسبه حق بیمه تامین اجتماعی</h3><span class="tl-badge ok">آماده</span></button>
     </div>` },
   contact: {
     title:'ارتباط با من',
@@ -2063,6 +2103,7 @@ function shrinkSurface(){
 }
 function showSurface(halo){
   const fromHome = !surface.classList.contains('active') || surface.classList.contains('closing');
+  surfaceBody.classList.remove('fit');
   surfaceBg.style.setProperty('--halo', halo);
   const tm = halo.match(/rgba\((\d+,\s*\d+,\s*\d+)/); if(tm) surface.style.setProperty('--sect', tm[1]);
   stage.classList.add('hidden');
@@ -2081,8 +2122,113 @@ function openSurface(key){
   viewLevel='surface';
   surfaceBody.innerHTML = typeof data.html === 'function' ? data.html() : data.html;
   if(key==='jobs') surfaceBody.querySelectorAll('.job-card').forEach(b=>b.addEventListener('click',()=>go('jobs/'+b.dataset.job)));
+  if(key==='tools') surfaceBody.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>go('tools/'+b.dataset.tool)));
   if(key==='processes') surfaceBody.querySelectorAll('.proc-card').forEach(b=>b.addEventListener('click',()=>go('processes/'+b.dataset.proc)));
   showSurface(data.halo);
+}
+/* ---------- tool: social-security premium calculator (all amounts in rials) ---------- */
+const INS_IN = ['حقوق ثابت','مزد سنوات','اضافه‌کاری','شب‌کاری','نوبت‌کاری','تعطیل‌کاری','جمعه‌کاری','حق تاهل','فوق‌العاده شغلی','حق تخصص','حق مسکن','بن کارگری','سختی آب‌وهوا','حق جذب'];
+const INS_EX = ['حق عائله‌مندی (اولاد)','مزایای پایان کار','هزینه سفر','حق ماموریت','عیدی','سنوات','پاداش افزایش تولید','خسارت اخراج','حق شیر','بازخرید ایام مرخصی'];
+const INS_OUT = ['جمع کل دستمزد (مشمول و غیرمشمول)','جمع اقلام مشمول','جمع کل حق بیمه (۳۰٪ از اقلام مشمول)','حق بیمه سهم کارفرما (۲۳٪ از اقلام مشمول)','حق بیمه سهم کارگر (۷٪ از اقلام مشمول)'];
+const FA_D = '۰۱۲۳۴۵۶۷۸۹', AR_D = '٠١٢٣٤٥٦٧٨٩';
+const insFa = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'٬').replace(/\d/g,d=>FA_D[d]);
+const insLatin = v => v.replace(/[۰-۹]/g,d=>FA_D.indexOf(d)).replace(/[٠-٩]/g,d=>AR_D.indexOf(d));
+const insPct = (a,p) => Math.floor((a*p + 50)/100);   // percent of a, rounded to the nearest rial
+function openInsurance(){
+  surfaceTitle.textContent = 'ابزارها ← حق بیمه تامین اجتماعی';
+  viewLevel = 'tool';
+  const rows = (arr,g) => arr.map((t,i)=>`<div class="ins-row"><label for="ins-${g}${i}">${t}</label><input id="ins-${g}${i}" data-g="${g}" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" enterkeyhint="next" dir="ltr" placeholder="۰"></div>`).join('');
+  surfaceBody.innerHTML = `<div class="ins">
+    <div class="ins-top"><p>همه‌ی مبالغ به <b>ریال</b> است. خالی گذاشتن هر ردیف به معنی <b>۰</b> بودن آن مقدار است.</p><button type="button" class="ins-clear" id="insClear">پاک کردن</button></div>
+    <div class="ins-table" id="insTable">
+      <details open><summary><span>اقلام مشمول حق بیمه (${insFa(INS_IN.length)} مورد)</span><span class="ins-sub" id="insSubA">۰</span></summary>${rows(INS_IN,'a')}</details>
+      <details><summary><span>اقلام غیرمشمول (${insFa(INS_EX.length)} مورد)</span><span class="ins-sub" id="insSubB">۰</span></summary>${rows(INS_EX,'b')}</details>
+    </div>
+    <ol class="ins-res" aria-live="polite">${INS_OUT.map((t,i)=>`<li><span class="n">${FA_D[i+1]}</span><span class="k">${t}</span><b class="v" id="insR${i+1}">۰</b><span class="u">ریال</span></li>`).join('')}</ol>
+  </div>`;
+  showSurface('rgba(110,198,255,.18)');
+  surfaceBody.classList.add('fit');
+  const table = surfaceBody.querySelector('#insTable');
+  const inputs = Array.from(table.querySelectorAll('input'));
+  const calc = ()=>{
+    let A = 0, B = 0;
+    inputs.forEach(i=>{ const n = +(i.dataset.v || 0); if(i.dataset.g === 'a') A += n; else B += n; });
+    const total = insPct(A,30), emp = insPct(A,23), wor = total - emp;   // employer + worker always equals the total
+    [A + B, A, total, emp, wor].forEach((n,i)=>{ surfaceBody.querySelector('#insR'+(i+1)).textContent = insFa(n); });
+    surfaceBody.querySelector('#insSubA').textContent = insFa(A);
+    surfaceBody.querySelector('#insSubB').textContent = insFa(B);
+  };
+  const fmt = inp=>{
+    const digitsBefore = insLatin(inp.value.slice(0, inp.selectionStart || 0)).replace(/\D/g,'').length;
+    const raw = insLatin(inp.value).replace(/\D/g,'').replace(/^0+(?=\d)/,'').slice(0,12);
+    inp.dataset.v = raw; inp.value = raw ? insFa(raw) : '';
+    let c = 0, cnt = 0; while(c < inp.value.length && cnt < digitsBefore){ if(FA_D.includes(inp.value[c])) cnt++; c++; }
+    try{ inp.setSelectionRange(c,c); }catch(e){}
+  };
+  table.addEventListener('input', e=>{ if(e.target.tagName === 'INPUT'){ fmt(e.target); calc(); } });
+  table.addEventListener('keydown', e=>{
+    if(e.key !== 'Enter' || e.target.tagName !== 'INPUT') return;
+    e.preventDefault();
+    const next = inputs[inputs.indexOf(e.target) + 1];
+    if(next){ const d = next.closest('details'); if(d) d.open = true; next.focus(); } else e.target.blur();
+  });
+  surfaceBody.querySelector('#insClear').addEventListener('click', ()=>{ inputs.forEach(i=>{ i.value = ''; i.dataset.v = ''; }); calc(); });
+}
+/* ---------- tool: salary income-tax calculator, 1405 (all amounts in rials) ---------- */
+const TX_EXEMPT_IDX = [3,5,2,7];                                  // from INS_EX: حق ماموریت، سنوات، هزینه سفر، خسارت اخراج
+const TX_TAXABLE = [...INS_IN.map(t=>[t,1]), ...INS_EX.filter((t,i)=>!TX_EXEMPT_IDX.includes(i)).map(t=>[t,0]), ['مزایای مستمر',0], ['مزایای غیرمستمر',0]];
+const TX_EXEMPT = TX_EXEMPT_IDX.map(i=>INS_EX[i]);
+const TX_GOODS = ['کالا (مورد ۱)','کالا (مورد ۲)'];
+const TX_TH = [400000000n,800000000n,1000000000n,1200000000n,1400000000n], TX_RT = [0n,10n,15n,20n,25n,30n];   // monthly brackets; annual = x12
+const TX_CAP_A = 800000000n;                                       // goods exempt per year: 2/12 of the 4.8 billion-rial annual exemption
+const txProg = (x,k)=>{ let sum = 0n, lo = 0n; for(let i=0;i<6;i++){ const hi = i<5 ? TX_TH[i]*k : null; const top = (hi===null || x<hi) ? x : hi; if(top>lo) sum += (top-lo)*TX_RT[i]; if(hi===null || x<=hi) break; lo = hi; } return (sum + 50n)/100n; };
+function openTax(){
+  surfaceTitle.textContent = 'ابزارها ← مالیات حقوق';
+  viewLevel = 'tool';
+  const row = (t,g,i,n,ins)=>`<div class="ins-row"><label for="tx-${g}${i}">${t}</label><input id="tx-${g}${i}" data-g="${g}" ${ins?'data-i="1" ':''}type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off" enterkeyhint="next" dir="ltr" placeholder="۰"></div>`;
+  const R = ['جمع کل دستمزد و مزایا','جمع اقلام غیرمشمول','کالای مازاد بر سقف','مبلغ مشمول مالیات','مالیات پلکانی','مالیات مقطوع ۱۰٪ کالا','مالیات نهایی حقوق'];
+  surfaceBody.innerHTML = `<div class="ins">
+    <div class="ins-top"><p>همه‌ی مبالغ به <b>ریال</b> و ماهانه است؛ خالی گذاشتن هر ردیف به معنی <b>۰</b> است. ستون سالانه = ۱۲ برابر ماهانه با جدول سالانه ۱۴۰۵.</p><button type="button" class="ins-clear" id="txClear">پاک کردن</button></div>
+    <label class="tx-ded"><input type="checkbox" id="txDed"><span>کسر حق بیمه سهم کارگر (۷٪ اقلام مشمول بیمه) از مبلغ مشمول مالیات</span></label>
+    <div class="ins-table" id="insTable">
+      <details open><summary><span>اقلام مشمول مالیات (${insFa(TX_TAXABLE.length)} مورد)</span><span class="ins-sub" id="txSubA">۰</span></summary>${TX_TAXABLE.map((x,i)=>row(x[0],'a',i,0,x[1])).join('')}</details>
+      <details><summary><span>اقلام غیرمشمول مالیات (${insFa(TX_EXEMPT.length)} مورد)</span><span class="ins-sub" id="txSubE">۰</span></summary>${TX_EXEMPT.map((t,i)=>row(t,'e',i)).join('')}</details>
+      <details><summary><span>کالا و مزایای غیرنقدی (${insFa(TX_GOODS.length)} مورد)</span><span class="ins-sub" id="txSubK">۰</span></summary><p class="ins-hint">کالا تا سقف ۲/۱۲ معافیت سالانه (۸۰۰٬۰۰۰٬۰۰۰ ریال در سال، حدود ۶۶٬۶۶۶٬۶۶۷ ریال در ماه) معاف است؛ مازاد آن با نرخ مقطوع ۱۰٪ مالیات می‌شود.</p>${TX_GOODS.map((t,i)=>row(t,'k',i)).join('')}</details>
+    </div>
+    <table class="tx-res" aria-live="polite"><thead><tr><th></th><th>ماهانه</th><th>سالانه</th></tr></thead><tbody>${R.map((t,i)=>`<tr${i===6?' class="fin"':''}><td id="txL${i+1}">${t}</td><td id="txM${i+1}">۰</td><td id="txA${i+1}">۰</td></tr>`).join('')}</tbody></table>
+  </div>`;
+  showSurface('rgba(110,198,255,.18)');
+  surfaceBody.classList.add('fit');
+  const $ = id=>surfaceBody.querySelector('#'+id);
+  const table = $('insTable'), ded = $('txDed'), inputs = Array.from(table.querySelectorAll('input'));
+  const calc = ()=>{
+    let Ta = 0n, Ins = 0n, E = 0n, G = 0n;
+    inputs.forEach(i=>{ const n = BigInt(i.dataset.v || '0'); if(i.dataset.g === 'a'){ Ta += n; if(i.dataset.i) Ins += n; } else if(i.dataset.g === 'e') E += n; else G += n; });
+    const D = ded.checked ? (Ins*7n + 50n)/100n : 0n, P = Ta > D ? Ta - D : 0n;
+    const Ga = G*12n, exA = Ga < TX_CAP_A ? Ga : TX_CAP_A, excA = Ga - exA;
+    const pm = txProg(P,1n), pa = txProg(P*12n,12n), fm = (excA + 60n)/120n, fa = (excA + 5n)/10n;
+    const M = [Ta+E+G, E + (exA+6n)/12n, (excA+6n)/12n, P, pm, fm, pm+fm];
+    const A = [(Ta+E+G)*12n, E*12n + exA, excA, P*12n, pa, fa, pa+fa];
+    M.forEach((n,i)=>{ $('txM'+(i+1)).textContent = insFa(n); $('txA'+(i+1)).textContent = insFa(A[i]); });
+    $('txL4').textContent = ded.checked ? 'مشمول مالیات (پس از بیمه)' : 'مبلغ مشمول مالیات';
+    $('txSubA').textContent = insFa(Ta); $('txSubE').textContent = insFa(E); $('txSubK').textContent = insFa(G);
+  };
+  const fmt = inp=>{
+    const digitsBefore = insLatin(inp.value.slice(0, inp.selectionStart || 0)).replace(/\D/g,'').length;
+    const raw = insLatin(inp.value).replace(/\D/g,'').replace(/^0+(?=\d)/,'').slice(0,12);
+    inp.dataset.v = raw; inp.value = raw ? insFa(raw) : '';
+    let c = 0, cnt = 0; while(c < inp.value.length && cnt < digitsBefore){ if(FA_D.includes(inp.value[c])) cnt++; c++; }
+    try{ inp.setSelectionRange(c,c); }catch(e){}
+  };
+  table.addEventListener('input', e=>{ if(e.target.tagName === 'INPUT'){ fmt(e.target); calc(); } });
+  table.addEventListener('keydown', e=>{
+    if(e.key !== 'Enter' || e.target.tagName !== 'INPUT') return;
+    e.preventDefault();
+    const next = inputs[inputs.indexOf(e.target) + 1];
+    if(next){ const d = next.closest('details'); if(d) d.open = true; next.focus(); } else e.target.blur();
+  });
+  ded.addEventListener('change', calc);
+  $('txClear').addEventListener('click', ()=>{ inputs.forEach(i=>{ i.value = ''; i.dataset.v = ''; }); calc(); });
 }
 function closeSurface(){
   viewLevel='home';
@@ -2119,14 +2265,16 @@ surfaceBody.addEventListener('scroll', wakeProx, {passive:true});
 /* Hash routing: every section has its own link and the browser/phone back button works.
    #intro  #skills  #jobs  #self  #contact  #certs  #certs/faradars  #certs/topic-hr */
 function go(h){ if(location.hash === '#'+h || (!h && !location.hash)) route(); else location.hash = h; }
-function goBack(){ go(viewLevel==='issuer' || viewLevel==='topic' ? 'certs' : viewLevel==='job' ? 'jobs' : viewLevel==='process' ? 'processes' : ''); }
+function goBack(){ go(viewLevel==='issuer' || viewLevel==='topic' ? 'certs' : viewLevel==='job' ? 'jobs' : viewLevel==='tool' ? 'tools' : viewLevel==='process' ? 'processes' : ''); }
 function route(){
   let h = ''; try{ h = decodeURIComponent(location.hash.slice(1)); }catch(e){}
   setViewerOpen(false);
   const [a, b] = h.split('/');
   if(a === 'simple'){ openSimple(); return; }
   closeSimple();
-  if(a === 'jobs' && b && JOBS.some(j=>j.key===b)){ openJob(b); }
+  if(a === 'tools' && b === 'insurance'){ openInsurance(); }
+  else if(a === 'tools' && b === 'tax'){ openTax(); }
+  else if(a === 'jobs' && b && JOBS.some(j=>j.key===b)){ openJob(b); }
   else if(a === 'processes' && b && PROCESSES.some(p=>p.key===b)){ openProcess(b); }
   else if(a === 'certs'){
     if(b && ISSUERS.some(i=>i.key===b)) openIssuer(b);
@@ -2634,7 +2782,7 @@ iconize(document.body);
 }
 
 /* public version label (settings panel + simple view); change only here */
-const APP_VERSION = '۱٫۵٫۶';
+const APP_VERSION = '۱٫۶٫۰';
 document.querySelectorAll('.ver-line').forEach(e=>{ e.innerHTML = 'نسخه <bdi>' + APP_VERSION + '</bdi> · در حال تکمیل'; });
 </script>
 <script>
