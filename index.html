@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="version" content="1.8.1">
+<meta name="version" content="1.8.2">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>سید امین حسینی | کارشناس منابع انسانی</title>
 <meta name="description" content="رزومه تعاملی سید امین حسینی، کارشناس منابع انسانی و امور پرسنلی (Generalist HR) در اصفهان: جذب و استخدام، قراردادها، حقوق و دستمزد و بیمه تامین اجتماعی.">
@@ -24,8 +24,8 @@
 var START_DEFAULTS={theme:'dark',speed:1,haptic:true,gyro:true,glow:0.5,galaxy:100,orbits:50,constellation:0};
 /* themes: order = order of the stops on the settings slider (left to right). To add a theme, add one object here; the slider grows by itself. */
 var THEMES=[
- {key:'light',name:'روشن',icon:'☀️',light:1,pal:{'bg-0':'#eaece8','bg-1':'#f4f5f2','star':'#192228','dim':'#59656a','panel':'#f7f7f4','p-intro':'#25736e','p-skills':'#25736e','p-certs':'#25736e','p-jobs':'#25736e','p-self':'#25736e','p-contact':'#25736e','acc':'#25736e','chip-t':'#25736e','acc2':'#9f712d','t1':'#121a1f','t2':'#2b363c','t3':'#364349','line':'rgba(25,34,40,.18)','fill':'rgba(25,34,40,.05)','fill-h':'rgba(25,34,40,.10)','fill-line':'rgba(25,34,40,.26)','card-line':'rgba(25,34,40,.22)','bar-avg':'rgba(25,34,40,.28)','float-bg':'rgba(247,247,244,.98)','float-bg-h':'#ffffff','ink-line':'rgba(25,34,40,.46)','grid':'rgba(25,34,40,.06)','grid2':'rgba(25,34,40,.11)','sh':'#212b31','neb1':'119,97,194','neb2':'76,181,188','neb3':'209,128,156','neb4':'129,150,224','neb5':'186,200,238','halo':'39,120,115'}},
- {key:'dark',name:'تاریک',icon:'🌙',light:0,pal:{'bg-0':'#0e1923','bg-1':'#13212f','star':'#eaf0f1','dim':'#8da1a8','panel':'#12202d','p-intro':'#61c8c0','p-skills':'#61c8c0','p-certs':'#61c8c0','p-jobs':'#61c8c0','p-self':'#61c8c0','p-contact':'#61c8c0','acc':'#61c8c0','chip-t':'#61c8c0','acc2':'#dab56c','t1':'#f6fbfb','t2':'#d3dfe1','t3':'#bccccf','line':'rgba(234,240,241,.16)','fill':'rgba(234,240,241,.05)','fill-h':'rgba(234,240,241,.10)','fill-line':'rgba(234,240,241,.22)','card-line':'rgba(234,240,241,.16)','bar-avg':'rgba(234,240,241,.30)','float-bg':'rgba(14,25,35,.97)','float-bg-h':'#12202d','ink-line':'rgba(234,240,241,.40)','grid':'rgba(234,240,241,.045)','grid2':'rgba(234,240,241,.085)','sh':'#000000','neb1':'119,97,194','neb2':'76,181,188','neb3':'209,128,156','neb4':'129,150,224','neb5':'186,200,238','halo':'197,214,242'}},
+ {key:'light',name:'روشن',icon:'☀️',light:1,pal:{'bg-0':'#ccd0cf','bg-1':'#dfe2e1','star':'#06141b','dim':'#41535f','panel':'#dfe2e1','p-intro':'#253745','p-skills':'#253745','p-certs':'#253745','p-jobs':'#253745','p-self':'#253745','p-contact':'#253745','acc':'#253745','chip-t':'#253745','acc2':'#4a5c6a','t1':'#06141b','t2':'#11212d','t3':'#253745','line':'rgba(37,55,69,.18)','fill':'rgba(37,55,69,.06)','fill-h':'rgba(37,55,69,.12)','fill-line':'rgba(37,55,69,.26)','card-line':'rgba(37,55,69,.20)','bar-avg':'rgba(37,55,69,.30)','float-bg':'rgba(223,226,225,.98)','float-bg-h':'#e8ebea','ink-line':'rgba(37,55,69,.45)','grid':'rgba(37,55,69,.06)','grid2':'rgba(37,55,69,.11)','sh':'#06141b','neb1':'155,168,171','neb2':'74,92,106','neb3':'204,208,207','neb4':'37,55,69','neb5':'155,168,171','halo':'74,92,106'}},
+ {key:'dark',name:'تاریک',icon:'🌙',light:0,pal:{'bg-0':'#06141b','bg-1':'#11212d','star':'#ccd0cf','dim':'#9ba8ab','panel':'#11212d','p-intro':'#9ba8ab','p-skills':'#9ba8ab','p-certs':'#9ba8ab','p-jobs':'#9ba8ab','p-self':'#9ba8ab','p-contact':'#9ba8ab','acc':'#9ba8ab','chip-t':'#ccd0cf','acc2':'#ccd0cf','t1':'#ccd0cf','t2':'#b4bdbf','t3':'#9ba8ab','line':'rgba(155,168,171,.18)','fill':'rgba(204,208,207,.05)','fill-h':'rgba(204,208,207,.10)','fill-line':'rgba(155,168,171,.28)','card-line':'rgba(155,168,171,.20)','bar-avg':'rgba(204,208,207,.30)','float-bg':'rgba(6,20,27,.97)','float-bg-h':'#11212d','ink-line':'rgba(155,168,171,.45)','grid':'rgba(155,168,171,.04)','grid2':'rgba(155,168,171,.08)','sh':'#000000','neb1':'37,55,69','neb2':'74,92,106','neb3':'17,33,45','neb4':'155,168,171','neb5':'204,208,207','halo':'155,168,171'}},
  {key:'royal',name:'آبی سلطنتی',icon:'👑',light:0,pal:{'bg-0':'#04061a','bg-1':'#0a1150','star':'#e8eeff','dim':'#9aa9e0','panel':'#191970','p-intro':'#5aa2ff','p-skills':'#5aa2ff','p-certs':'#5aa2ff','p-jobs':'#5aa2ff','p-self':'#5aa2ff','p-contact':'#5aa2ff','acc':'#5aa2ff','chip-t':'#5aa2ff','acc2':'#d8b968','t1':'#ffffff','t2':'#d3dcff','t3':'#b9c6f6','line':'rgba(200,214,255,.18)','fill':'rgba(200,214,255,.06)','fill-h':'rgba(200,214,255,.12)','fill-line':'rgba(200,214,255,.26)','card-line':'rgba(200,214,255,.20)','bar-avg':'rgba(200,214,255,.32)','float-bg':'rgba(25,25,112,.97)','float-bg-h':'#22228c','ink-line':'rgba(200,214,255,.44)','grid':'rgba(160,185,255,.05)','grid2':'rgba(160,185,255,.095)','sh':'#000000','neb1':'38,70,215','neb2':'10,120,235','neb3':'92,60,200','neb4':'60,110,255','neb5':'150,190,255','halo':'140,185,255'}},
  {key:'nitro',name:'Nitro Orange',icon:'🔥',light:0,pal:{'bg-0':'#0e0907','bg-1':'#1b0f09','star':'#fff0e6','dim':'#caa998','panel':'#1d120c','p-intro':'#fb5607','p-skills':'#fb5607','p-certs':'#fb5607','p-jobs':'#fb5607','p-self':'#fb5607','p-contact':'#fb5607','acc':'#fb5607','chip-t':'#fb5607','acc2':'#ffbe0b','t1':'#fffaf6','t2':'#f2ddd0','t3':'#dec5b6','line':'rgba(255,225,205,.16)','fill':'rgba(255,225,205,.05)','fill-h':'rgba(255,225,205,.10)','fill-line':'rgba(255,225,205,.22)','card-line':'rgba(255,225,205,.16)','bar-avg':'rgba(255,225,205,.30)','float-bg':'rgba(19,11,7,.97)','float-bg-h':'#26160f','ink-line':'rgba(255,205,175,.40)','grid':'rgba(255,170,120,.045)','grid2':'rgba(255,170,120,.09)','sh':'#000000','neb1':'251,86,7','neb2':'255,190,11','neb3':'255,0,110','neb4':'255,128,64','neb5':'255,214,176','halo':'255,205,168'}}
 ];
@@ -43,6 +43,8 @@ function applyPal(p){var s=themeSeg(p),A=s[0].p,B=s[1].p,f=s[2],st=document.docu
  var bg=o['bg-0'],mc=document.getElementById('themeColor');if(mc)mc.content='#'+[0,1,2].map(function(i){return('0'+Math.round(bg[i]).toString(16)).slice(-2)}).join('')}
 
 (function(){var d=document.documentElement;
+var DEV_KEY=(window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark',saved='';try{saved=localStorage.getItem('ro-theme-pick')||''}catch(e){}
+var known=THEMES.some(function(t){return t.key===saved});window.FIRST_VISIT=!known;window.DEV_KEY=DEV_KEY;START_DEFAULTS.theme=known?saved:DEV_KEY;
 var ti=0;THEMES.forEach(function(t,i){if(t.key===START_DEFAULTS.theme)ti=i});applyPal(ti);var lt=lightAt(ti);d.setAttribute('data-theme',lt>=.5?'light':'dark');d.setAttribute('data-skin',THEMES[ti].key);d.style.setProperty('--t',lt);d.style.setProperty('--tp',ti);d.style.setProperty('--glw',START_DEFAULTS.glow);d.style.setProperty('--orb',START_DEFAULTS.orbits/100);d.style.setProperty('--gal',START_DEFAULTS.galaxy/100);
 var lite=matchMedia('(pointer:coarse)').matches||(navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4;
 d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('ro-font')}catch(e){}d.setAttribute('data-font',fn==='nazanin'?'nazanin':'vazir');d.style.setProperty('--f',fn==='nazanin'?0:1);})()</script>
@@ -834,6 +836,9 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .s-more .s-grip{display:none;}
   .s-more .s-drawer>summary::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--acc);}
   .s-more .s-chev{width:6px;height:6px;}
+  /* dark and light are neutral (slate palette); colour belongs to the coloured themes */
+  html[data-skin="dark"]{--sun:#ccd0cf;}
+  html[data-skin="light"]{--sun:#4a5c6a;}
 /* fallback for browsers without color-mix(): fixed palettes per theme, discrete label colours */
 @supports not (color:color-mix(in srgb,red 50%,blue)){
   :root{--bg-0:#080b11;--bg-1:#0f1521;--star:#eff1f4;--dim:#8b92a0;--panel:#121829;--p-intro:#84c2ea;--p-skills:#6dc8c0;--p-certs:#b198dc;--p-jobs:#db8c86;--p-self:#8f94ca;--p-contact:#d77cab;--t1:#ffffff;--t2:#dde1ea;--t3:#d1d6e1;--line:rgba(255,255,255,.12);--fill:rgba(255,255,255,.06);--fill-h:rgba(255,255,255,.12);--fill-line:rgba(255,255,255,.14);--card-line:rgba(255,255,255,.08);--bar-avg:rgba(255,255,255,.32);--float-bg:rgba(18,24,41,.9);--float-bg-h:rgba(18,24,41,1);--chip-t:#c8e2f5;--acc:#61c8c0;--acc2:#dab56c;--ink-line:rgba(234,240,241,.40);--grid:rgba(234,240,241,.045);--grid2:rgba(234,240,241,.085);}
@@ -1085,6 +1090,24 @@ main#app{display:contents;}
 #themeToggle .s-thumb{width:calc((100% - 8px)/var(--n));transform:translateX(calc(var(--tp,1)*100%));transition:none;}
 #themeToggle .s-opt{font-size:16px;text-align:center;color:color-mix(in srgb,var(--star) calc((1 - var(--w,0))*100%),var(--bg-0) calc(var(--w,0)*100%));}
 #themeToggle:focus-visible{outline:2px solid var(--acc);outline-offset:2px;}
+
+/* first-open theme card */
+.tc{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.55);opacity:0;transition:opacity .5s ease;}
+.tc[hidden]{display:none;}
+.tc.show{opacity:1;}
+.tc.leave{opacity:0;transition:opacity 1s ease;pointer-events:none;}
+.tc-box{width:min(340px,100%);padding:18px 16px 14px;border:1px solid var(--ink-line);border-radius:4px;background:var(--panel);color:var(--t1);}
+.tc-box h2{margin:0 0 4px;font-size:17px;font-weight:800;text-align:center;}
+.tc-sub{margin:0 0 14px;text-align:center;font-size:12.5px;color:var(--dim);}
+.tc-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tc-opt{position:relative;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:88px;padding:10px;border:1px solid var(--bd);border-radius:4px;background:radial-gradient(120% 120% at 30% 20%,var(--b1),var(--b0));color:var(--tx);cursor:pointer;}
+.tc-opt .tc-ic{font-size:22px;line-height:1;}
+.tc-opt .tc-name{font-size:13px;font-weight:700;}
+.tc-opt::after{content:"";position:absolute;inset-inline:22%;bottom:7px;height:3px;border-radius:2px;background:var(--ac);}
+.tc-opt:focus-visible{outline:2px solid var(--ac);outline-offset:2px;}
+.tc-act{display:flex;gap:8px;margin-top:12px;}
+.tc-act .back-btn{flex:1;justify-content:center;font-size:12.5px;padding:0 6px;min-height:40px;}
+@media print{ .tc{display:none !important;} }
 </style>
 </head>
 <body>
@@ -1107,7 +1130,7 @@ main#app{display:contents;}
     <div class="settings-backdrop" id="settingsBackdrop" hidden></div>
     <button type="button" class="settings-btn" id="settingsBtn" aria-label="تنظیمات" aria-haspopup="true" aria-expanded="false" aria-controls="settingsPanel">⚙️</button>
     <span class="settings-cap" aria-hidden="true">تنظیمات</span>
-    <span class="ver-tag" aria-hidden="true">v.1.8.1</span>
+    <span class="ver-tag" aria-hidden="true">v.1.8.2</span>
     <div class="settings-panel" id="settingsPanel" hidden>
       <div class="settings-title">تنظیمات</div>
       <div class="s-speed-head" style="margin-bottom:8px;"><span>تم</span><output id="themeName">تاریک</output></div>
@@ -1285,6 +1308,17 @@ main#app{display:contents;}
 
 <!-- ZOOM OVERLAY -->
 </main>
+<div id="themeCard" class="tc" role="dialog" aria-modal="true" aria-labelledby="tcTitle" hidden>
+  <div class="tc-box">
+    <h2 id="tcTitle">تم را انتخاب کنید</h2>
+    <p class="tc-sub">بعداً هم از تنظیمات می‌شود عوضش کرد.</p>
+    <div class="tc-grid" id="tcGrid"></div>
+    <div class="tc-act">
+      <button type="button" class="back-btn" id="tcDefault">ادامه با حالت پیش‌فرض</button>
+      <button type="button" class="back-btn" id="tcRandom">انتخاب تصادفی</button>
+    </div>
+  </div>
+</div>
 <div id="callGuard" class="cg" role="dialog" aria-modal="true" aria-labelledby="cgText" hidden>
   <div class="cg-box">
     <p id="cgText">الان خارج از ساعت ۸ تا ۱۸ است. مطمئنید می‌خواهید همین حالا تماس بگیرید؟ در این ساعت‌ها پیام (واتساپ، تلگرام یا ایمیل) مناسب‌تر است.</p>
@@ -2654,18 +2688,24 @@ function setPos(p){
   themeOpts.forEach((o, i)=>o.style.setProperty('--w', Math.max(0, 1 - Math.abs(p - i)).toFixed(2)));
   themeName.textContent = THEMES[near].name; themeToggle.setAttribute('aria-valuenow', near); themeToggle.setAttribute('aria-valuetext', THEMES[near].name);
 }
-function animateTo(idx){
+function animateTo(idx, dur){
   cancelAnimationFrame(themeRaf);
-  const from = themePos, t0 = performance.now(), ms = 120 + 200*Math.abs(idx - from);
+  const from = themePos, t0 = performance.now(), ms = dur || (120 + 200*Math.abs(idx - from));
   if(reduceMotion || from === idx){ setPos(idx); return; }
   (function step(now){
     const k = Math.min(1, (now - t0)/ms), e = k < .5 ? 4*k*k*k : 1 - Math.pow(-2*k + 2, 3)/2;
     setPos(from + (idx - from)*e); if(k < 1) themeRaf = requestAnimationFrame(step);
   })(t0);
 }
-function applyTheme(t, save, instant){
+function applyTheme(t, save, instant, dur){
   let idx = typeof t === 'number' ? t : THEMES.findIndex(x=>x.key === t); if(idx < 0) idx = Math.max(0, THEMES.findIndex(x=>x.key === 'dark'));
-  cancelAnimationFrame(themeRaf); instant ? setPos(idx) : animateTo(idx);
+  if(save){ try{ localStorage.setItem('ro-theme-pick', THEMES[idx].key); }catch(e){} }   // remembered: the first-open card is shown only once
+  cancelAnimationFrame(themeRaf); instant ? setPos(idx) : animateTo(idx, dur);
+}
+/* random pick for the first-open card: colourful themes are 50% more likely than plain light / dark */
+function randomThemeIndex(){
+  const w = THEMES.map(t=>(t.key === 'light' || t.key === 'dark') ? 1 : 1.5); let r = Math.random()*w.reduce((a, b)=>a + b, 0);
+  for(let i = 0; i < w.length; i++){ r -= w[i]; if(r < 0) return i; } return w.length - 1;
 }
 /* the slider: a tap on a stop animates there, a drag scrubs through the themes live (the whole page blends between neighbours), release settles on the nearest stop */
 let drag = null;
@@ -2915,8 +2955,26 @@ iconize(document.body);
 }
 
 /* public version label (settings panel + simple view); change only here */
-const APP_VERSION = '۱٫۸٫۱';
+const APP_VERSION = '۱٫۸٫۲';
 document.querySelectorAll('.ver-line').forEach(e=>{ e.innerHTML = 'نسخه <bdi>' + APP_VERSION + '</bdi> · در حال تکمیل'; });
+
+/* ---------- first open: choose a theme (shown once per browser; afterwards the settings slider is enough) ---------- */
+if(typeof FIRST_VISIT !== 'undefined' && FIRST_VISIT){
+  const card = document.getElementById('themeCard'), grid = document.getElementById('tcGrid'); let done = false;
+  grid.innerHTML = THEMES.map((t, i)=>{ const p = t.pal;
+    return '<button type="button" class="tc-opt" data-i="'+i+'" style="--b0:'+p['bg-0']+';--b1:'+p['bg-1']+';--ac:'+p['acc']+';--tx:'+p['star']+';--bd:'+p['ink-line']+'"><span class="tc-ic">'+t.icon+'</span><span class="tc-name">'+t.name+'</span></button>'; }).join('');
+  iconize(grid);
+  const choose = i=>{
+    if(done) return; done = true; applyTheme(i, true, false, 1000);        // the page fades from the old theme into the new one in 1 second
+    card.classList.add('leave'); setTimeout(()=>{ card.hidden = true; }, reduceMotion ? 0 : 1050);
+  };
+  const devIdx = Math.max(0, THEMES.findIndex(t=>t.key === DEV_KEY));
+  grid.addEventListener('click', e=>{ const b = e.target.closest('.tc-opt'); if(b) choose(+b.dataset.i); });
+  document.getElementById('tcDefault').addEventListener('click', ()=>choose(devIdx));
+  document.getElementById('tcRandom').addEventListener('click', ()=>choose(randomThemeIndex()));
+  card.addEventListener('keydown', e=>{ if(e.key === 'Escape'){ e.preventDefault(); choose(devIdx); } });
+  setTimeout(()=>{ card.hidden = false; requestAnimationFrame(()=>{ card.classList.add('show'); const f = grid.querySelector('.tc-opt'); if(f) f.focus(); }); }, 500);
+}
 </script>
 <script>
 /* achievement cards: open from the home stats; backdrop click, Esc, X or the home button closes */
