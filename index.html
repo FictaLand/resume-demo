@@ -597,6 +597,40 @@ d.setAttribute('data-q',lite?'lite':'full');var fn;try{fn=localStorage.getItem('
   .jc-in{position:sticky;top:0;z-index:3;background:var(--bg-0) !important;box-shadow:0 10px 14px -10px rgba(0,0,0,.45);}
   .jc-in:focus{outline:2px solid var(--acc,var(--p-intro));}
 
+  /* ===== payslip tool (single employee) ===== */
+  .wg{display:flex;flex-direction:column;gap:10px;padding-bottom:76px;}
+  .wg-card{border:1px solid var(--ink-line,var(--fill-line));border-radius:3px;background:var(--panel);}
+  .wg-card>summary{cursor:pointer;list-style:none;padding:10px 12px;font-weight:700;font-size:14px;color:var(--t1);}
+  .wg-card>summary::-webkit-details-marker{display:none;}
+  .wg-card>summary::before{content:"▸ ";color:var(--dim);} .wg-card[open]>summary::before{content:"▾ ";}
+  .wg-card .tx-ded{padding:6px 12px;}
+  .wg-h{display:block;font-weight:400;font-size:11px;color:var(--dim);line-height:1.5;}
+  .wg-sel{font:inherit;font-size:14px;padding:7px 9px;max-width:48%;border:1px solid var(--ink-line,var(--fill-line));border-radius:3px;background:var(--fill);color:var(--t1);}
+  .wg-row2{display:flex;align-items:center;gap:6px;width:min(52%,210px);} .wg-row2 input{width:100% !important;}
+  .wg-mini{flex:none;font:inherit;font-size:11px;padding:6px 8px;border:1px solid var(--acc,var(--p-intro));background:transparent;color:var(--acc,var(--p-intro));border-radius:3px;cursor:pointer;white-space:nowrap;}
+  .wg-seg{display:flex;margin:4px 12px 8px;border:1px solid var(--ink-line,var(--fill-line));border-radius:3px;overflow:hidden;}
+  .wg-seg label{flex:1;text-align:center;padding:8px;cursor:pointer;font-size:13px;color:var(--t2);}
+  .wg-seg input{position:absolute;opacity:0;pointer-events:none;}
+  .wg-seg label.on{background:var(--acc,var(--p-intro));color:var(--bg-0);font-weight:700;}
+  .wg-fix{margin:2px 12px 10px;font-size:12px;color:var(--t2);} .wg-fix summary{cursor:pointer;color:var(--dim);}
+  .wg-fix div{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dashed rgba(128,128,128,.25);}
+  .wg-fix b{direction:ltr;unicode-bidi:isolate;color:var(--t1);}
+  .wg-warn{margin:0;padding:8px 12px;font-size:12px;line-height:1.8;color:var(--t1);border:1px solid #d9822b;background:rgba(217,130,43,.12);border-radius:3px;}
+  .ws{border:1px solid var(--acc,var(--p-intro));border-radius:3px;background:var(--panel);overflow:hidden;}
+  .ws-head{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;background:linear-gradient(135deg,rgba(var(--sect),.32),rgba(var(--sect),.06));border-bottom:1px solid var(--ink-line,var(--fill-line));}
+  .ws-head b{font-size:16px;color:var(--t1);} .ws-head span{font-size:12px;color:var(--t2);text-align:left;}
+  .ws-meta{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;padding:8px 12px;font-size:12px;color:var(--t2);border-bottom:1px dashed rgba(128,128,128,.3);}
+  .ws-meta b{color:var(--t1);font-weight:600;}
+  .ws table{width:100%;border-collapse:collapse;font-size:12.5px;color:var(--t2);}
+  .ws td{padding:6px 12px;border-top:1px solid rgba(128,128,128,.16);vertical-align:top;}
+  .ws td:last-child{text-align:left;direction:ltr;unicode-bidi:isolate;white-space:nowrap;font-weight:700;color:var(--t1);}
+  .ws small{display:block;color:var(--dim);font-size:10.5px;line-height:1.55;font-weight:400;}
+  .ws tr.sec td{background:rgba(var(--sect),.20);font-weight:700;color:var(--t1);font-size:12px;}
+  .ws tr.tot td{font-weight:800;color:var(--t1);background:rgba(128,128,128,.12);}
+  .ws tr.net td{font-size:15px;font-weight:800;background:var(--acc,var(--p-intro));color:var(--bg-0);}
+  .ws-foot{padding:8px 12px;font-size:11.5px;line-height:1.9;color:var(--t2);border-top:1px dashed rgba(128,128,128,.3);}
+  .ws-foot b{color:var(--t1);}
+
   /* ===== PRINT (plain, single-column resume) ===== */
   #printResume{display:none;}
   @media print{
@@ -2120,7 +2154,7 @@ const CONTENT = {
   },
   tools: { title:'ابزارها', halo:'rgba(132,194,234,.18)', html:`<div class="tl-list">
       <button type="button" class="card tl-item tl-open" data-tool="tax"><h3>🧮 محاسبه مالیات حقوق</h3><span class="tl-badge ok">آماده</span></button>
-      <div class="card tl-item"><h3>🧮 محاسبه دستمزد</h3><span class="tl-badge">در حال تکمیل</span></div>
+      <button type="button" class="card tl-item tl-open" data-tool="wage"><h3>🧮 محاسبه دستمزد</h3><span class="tl-badge ok">آماده</span></button>
       <button type="button" class="card tl-item tl-open" data-tool="insurance"><h3>🧮 محاسبه حق بیمه تامین اجتماعی</h3><span class="tl-badge ok">آماده</span></button>
       <button type="button" class="card tl-item tl-open" data-tool="jobcode"><h3>🔎 جست‌وجوی کد شغل تامین اجتماعی</h3><span class="tl-badge ok">آماده</span></button>
     </div>` },
@@ -2330,6 +2364,140 @@ function openTax(){
   ded.addEventListener('change', calc);
   $('txClear').addEventListener('click', ()=>{ inputs.forEach(i=>{ i.value = ''; i.dataset.v = ''; }); calc(); });
 }
+/* ---------- tool: payslip for ONE employee, ordinary labor-office contract, 1405 (all amounts in rials) ---------- */
+const WG = { minDaily:5541850, senDaily:5000000/30, housing:30000000, bon:22000000, marriage:5000000, child:16625550, dayH:7.33, otX:1.4, nightX:0.35, holX:1.4, capX:7 };
+const WG_MONTHS = [['فروردین',31],['اردیبهشت',31],['خرداد',31],['تیر',31],['مرداد',31],['شهریور',31],['مهر',30],['آبان',30],['آذر',30],['دی',30],['بهمن',30],['اسفند',29]];
+const wgTax = x => Number(txProg(BigInt(Math.max(0, Math.round(x))), 1n));
+const wgF = n => insFa(String(+(+n).toFixed(2)).replace('.', '٫').replace(/٫/g, '.')).replace(/\./g, '٫');
+function openWage(){
+  surfaceTitle.textContent = 'ابزارها ← محاسبه دستمزد';
+  viewLevel = 'tool';
+  const mon = WG_MONTHS.map((m,i)=>`<option value="${i}"${i===7?' selected':''}>${m[0]} (${insFa(m[1])} روز)</option>`).join('');
+  const inp = (id,label,hint,mode,extra)=>`<div class="ins-row"><label for="${id}">${label}${hint?`<small class="wg-h">${hint}</small>`:''}</label>${extra?`<div class="wg-row2"><input id="${id}" type="text" inputmode="${mode}" autocomplete="off" dir="ltr" placeholder="۰">${extra}</div>`:`<input id="${id}" type="text" inputmode="${mode}" autocomplete="off" dir="ltr" placeholder="۰">`}</div>`;
+  const fixRows = [['حداقل مزد روزانه',WG.minDaily],['حق مسکن (ماهانه)',WG.housing],['بن کارگری (ماهانه)',WG.bon],['حق تاهل (ماهانه)',WG.marriage],['حق اولاد هر فرزند (ماهانه)',WG.child],['پایه سنوات (ماهانه، ≈ ۱۶۶٬۶۶۶ روزانه)',5000000]];
+  surfaceBody.innerHTML = `<div class="wg">
+    <details class="wg-card" open><summary>تنظیمات فیش</summary>
+      <div class="ins-row"><label for="wgName">نام (اختیاری)</label><input id="wgName" type="text" autocomplete="off" placeholder="نام و نام خانوادگی" style="direction:rtl;text-align:right"></div>
+      <div class="ins-row"><label for="wgMon">ماه (۱۴۰۵)</label><select id="wgMon" class="wg-sel">${mon}</select></div>
+      <label class="tx-ded"><input type="checkbox" id="wgMar"><span>متاهل</span></label>
+      ${inp('wgKids','تعداد فرزندان تحت تکفل','','numeric')}
+      <label class="tx-ded"><input type="checkbox" id="wgSen"><span>بیش از ۳۶۵ روز سابقه متوالی در این کارگاه دارد (پایه سنوات)</span></label>
+      <label class="tx-ded"><input type="checkbox" id="wgDed" checked><span>کسر حق بیمه سهم کارگر از مبلغ مشمول مالیات</span></label>
+      <details class="wg-fix"><summary>ارقام ثابت مصوب ۱۴۰۵ (قابل ورود نیستند)</summary>${fixRows.map(r=>`<div><span>${r[0]}</span><b>${insFa(r[1])}</b></div>`).join('')}</details>
+    </details>
+    <details class="wg-card" open><summary>مزد</summary>
+      ${inp('wgFix','حقوق ثابت روزانه (ریال)','مزد روزانه قرارداد؛ نباید کمتر از حداقل مزد باشد','numeric','<button type="button" class="wg-mini" id="wgMin">حداقل مزد</button>')}
+      ${inp('wgSpec','حق تخصص / جذب ماهانه (ریال)','اختیاری؛ جزو مزد مبنا','numeric')}
+    </details>
+    <details class="wg-card" open><summary>کارکرد</summary>
+      <div class="wg-seg" id="wgSeg"><label class="on"><input type="radio" name="wgMode" value="d" checked>روزانه</label><label><input type="radio" name="wgMode" value="h">ساعتی</label></div>
+      <div id="wgBoxD">
+        ${inp('wgDays','روز کارکرد','شامل جمعه‌ها و تعطیلات رسمی پرداختی؛ ماه کامل = تعداد روزهای ماه','numeric','<button type="button" class="wg-mini" id="wgFull">کل ماه</button>')}
+        ${inp('wgPart','ساعت کارکرد روز ناقص','اگر روز آخر کامل نبود؛ باقیمانده‌ی آن روز به مرخصی استحقاقی منظور می‌شود','decimal')}
+        ${inp('wgLeave','مرخصی استحقاقی (روز)','با حقوق؛ جزو روزهای پرداختی','numeric')}
+      </div>
+      <div id="wgBoxH" hidden>${inp('wgHours','ساعت کارکرد عادی','مزد ساعتی = مزد روزانه ÷ ۷٫۳۳','decimal')}</div>
+      ${inp('wgOT','اضافه‌کاری (ساعت)','۱٫۴ برابر مزد ساعتی مبنا','decimal')}
+      ${inp('wgNight','شب‌کاری (ساعت)','۳۵٪ اضافه بر مزد ساعتی مبنا','decimal')}
+      ${inp('wgHol','جمعه‌کاری / تعطیل‌کاری (ساعت)','۱٫۴ برابر مزد ساعتی مبنا','decimal')}
+      ${inp('wgOther','سایر کسورات (ریال)','مساعده، وام، ...','numeric')}
+    </details>
+    <div id="wgOut"></div>
+  </div>`;
+  showSurface('rgba(110,198,255,.18)');
+  const $ = id=>surfaceBody.querySelector('#'+id);
+  const dec = id => Number(insLatin($(id).value).replace(/[٫,]/g,'.')) || 0;
+  const fmtInt = (inp,max)=>{
+    const before = insLatin(inp.value.slice(0, inp.selectionStart || 0)).replace(/\D/g,'').length;
+    const raw = insLatin(inp.value).replace(/\D/g,'').replace(/^0+(?=\d)/,'').slice(0,max);
+    inp.dataset.v = raw; inp.value = raw ? insFa(raw) : '';
+    let c = 0, k = 0; while(c < inp.value.length && k < before){ if(FA_D.includes(inp.value[c])) k++; c++; }
+    try{ inp.setSelectionRange(c,c); }catch(e){}
+  };
+  const fmtDec = inp=>{
+    let t = insLatin(inp.value).replace(/[٫,]/g,'.').replace(/[^0-9.]/g,''); const i = t.indexOf('.'); if(i >= 0) t = t.slice(0,i+1) + t.slice(i+1).replace(/\./g,'');
+    t = t.replace(/^0+(?=\d)/,'').slice(0,6); inp.dataset.v = t; inp.value = t.replace(/\d/g,d=>FA_D[d]).replace('.','٫');
+  };
+  const MAXD = {wgKids:2, wgDays:2, wgLeave:2, wgFix:12, wgSpec:12, wgOther:12};
+  const calc = ()=>{
+    const M = WG_MONTHS[+$('wgMon').value][1], mode = surfaceBody.querySelector('input[name=wgMode]:checked').value;
+    const num = id => +($(id).dataset.v || 0);
+    const fixedD = num('wgFix'), spec = num('wgSpec'), kids = num('wgKids'), other = num('wgOther');
+    const married = $('wgMar').checked, sen = $('wgSen').checked, dedIns = $('wgDed').checked;
+    const warn = [], notes = [];
+    let D = 0, leaveDays = 0;
+    if(mode === 'd'){
+      const wd = num('wgDays'), ph = Math.min(dec('wgPart'), 24), lv = num('wgLeave');
+      const dw = wd + (ph > 0 ? 1 : 0), rem = ph > 0 ? Math.max(0, WG.dayH - ph) : 0;
+      D = dw + lv; leaveDays = lv + rem/WG.dayH;
+      if(ph > 0) notes.push(`روز ${insFa(wd+1)} ناقص بود؛ ${wgF(rem)} ساعت باقیمانده‌ی آن روز به مرخصی استحقاقی منظور شد (روز کامل پرداخت می‌شود).`);
+      if(D > M){ warn.push(`جمع روزهای کارکرد و مرخصی (${insFa(D)}) از تعداد روزهای ماه (${insFa(M)}) بیشتر است؛ سقف ${insFa(M)} روز اعمال شد.`); D = M; }
+    } else {
+      const h = dec('wgHours'); D = h / WG.dayH;
+      if(D > M){ warn.push(`ساعت کارکرد از سقف ماه (${wgF(M*WG.dayH)} ساعت) بیشتر است؛ سقف اعمال شد.`); D = M; }
+    }
+    if(fixedD && fixedD < WG.minDaily) warn.push(`حقوق ثابت روزانه از حداقل مزد مصوب ۱۴۰۵ (${insFa(WG.minDaily)} ریال) کمتر است.`);
+    if(!fixedD) warn.push('حقوق ثابت روزانه را وارد کنید.');
+    else if(!D) warn.push('کارکرد را وارد کنید.');
+    const R = Math.round, rate = D / M;
+    const seniority = sen ? R(WG.senDaily * D) : 0, fixed = R(fixedD * D), special = R(spec * rate);
+    const housing = R(WG.housing * rate), bon = R(WG.bon * rate), mar = married ? R(WG.marriage * rate) : 0, child = R(kids * WG.child * rate);
+    const baseDaily = fixedD + (sen ? WG.senDaily : 0) + spec / M, hourly = baseDaily / WG.dayH;
+    const ot = dec('wgOT'), nt = dec('wgNight'), hl = dec('wgHol');
+    const otA = R(ot * hourly * WG.otX), ntA = R(nt * hourly * WG.nightX), hlA = R(hl * hourly * WG.holX);
+    const items = [
+      ['حقوق ثابت', `${wgF(D)} روز × ${insFa(fixedD)}`, fixed, 1],
+      ['مزد سنوات (پایه سنوات)', `${wgF(D)} روز × ${insFa(R(WG.senDaily))}`, seniority],
+      ['حق تخصص / جذب', `${insFa(spec)} × ${wgF(D)}/${insFa(M)}`, special],
+      ['حق مسکن', `${insFa(WG.housing)} × ${wgF(D)}/${insFa(M)}`, housing, 1],
+      ['بن کارگری (اقلام مصرفی خانوار)', `${insFa(WG.bon)} × ${wgF(D)}/${insFa(M)}`, bon, 1],
+      ['حق تاهل', `${insFa(WG.marriage)} × ${wgF(D)}/${insFa(M)}`, mar],
+      [`حق اولاد (${insFa(kids)} فرزند)`, `${insFa(kids)} × ${insFa(WG.child)} × ${wgF(D)}/${insFa(M)}`, child],
+      ['اضافه‌کاری', `${wgF(ot)} ساعت × ${insFa(R(hourly * WG.otX))}`, otA],
+      ['شب‌کاری', `${wgF(nt)} ساعت × ${insFa(R(hourly * WG.nightX))}`, ntA],
+      ['جمعه‌کاری / تعطیل‌کاری', `${wgF(hl)} ساعت × ${insFa(R(hourly * WG.holX))}`, hlA]
+    ];
+    const gross = items.reduce((n,x)=>n + x[2], 0);
+    const insRaw = gross - child;                                   // child allowance is outside the insurance base
+    const cap = R(WG.capX * WG.minDaily * D), insBase = Math.min(insRaw, cap);
+    if(insRaw > cap) notes.push(`سقف مزد مشمول بیمه (۷ برابر حداقل مزد: ${insFa(cap)} ریال) اعمال شد.`);
+    const wIns = R(insBase * 7 / 100), eIns = R(insBase * 23 / 100);
+    const taxBase = Math.max(0, gross - (dedIns ? wIns : 0)), tax = wgTax(taxBase);
+    const ded = wIns + tax + other, net = gross - ded;
+    const baseAmt = fixed + seniority + special;
+    const row = (x)=> (x[2] > 0 || x[3]) ? `<tr><td>${x[0]}<small>${x[1]}</small></td><td>${insFa(x[2])}</td></tr>` : '';
+    const mname = WG_MONTHS[+$('wgMon').value][0], nm = $('wgName').value.trim();
+    $('wgOut').innerHTML = `${warn.map(w=>`<p class="wg-warn">${w}</p>`).join('')}
+      <div class="ws"><div class="ws-head"><b>فیش حقوقی</b><span>${mname} ۱۴۰۵${nm?` · ${nm.replace(/</g,'&lt;')}`:''}</span></div>
+      <div class="ws-meta"><span>نوع قرارداد: <b>عادی (اداره کار)</b></span><span>مبنای کارکرد: <b>${mode==='d'?'روزانه':'ساعتی'}</b></span><span>روزهای پرداختی: <b>${wgF(D)}</b> از ${insFa(M)}</span><span>مرخصی استفاده‌شده: <b>${wgF(leaveDays)} روز</b></span></div>
+      <table><tbody>
+        <tr class="sec"><td>مزایا</td><td>ریال</td></tr>${items.map(row).join('')}
+        <tr class="tot"><td>جمع ناخالص (حقوق و مزایا)</td><td>${insFa(gross)}</td></tr>
+        <tr class="sec"><td>کسورات</td><td>ریال</td></tr>
+        <tr><td>حق بیمه سهم کارگر (۷٪)<small>۷٪ × ${insFa(insBase)}</small></td><td>${insFa(wIns)}</td></tr>
+        <tr><td>مالیات حقوق<small>مشمول مالیات ${insFa(taxBase)} · جدول ماهانه ۱۴۰۵</small></td><td>${insFa(tax)}</td></tr>
+        ${other ? `<tr><td>سایر کسورات</td><td>${insFa(other)}</td></tr>` : ''}
+        <tr class="tot"><td>جمع کسورات</td><td>${insFa(ded)}</td></tr>
+        <tr class="net"><td>خالص پرداختی</td><td>${insFa(net)}</td></tr>
+      </tbody></table>
+      <div class="ws-foot">مزد مبنا (حقوق ثابت + مزد سنوات + حق تخصص/جذب): <b>${insFa(baseAmt)}</b> ریال، روزانه <b>${insFa(R(baseDaily))}</b> ریال<br>مبلغ مشمول بیمه: <b>${insFa(insBase)}</b> · بیمه سهم کارفرما (۲۳٪): <b>${insFa(eIns)}</b> · جمع بیمه (۳۰٪): <b>${insFa(wIns + eIns)}</b><br>جمع هزینه کارفرما (ناخالص + بیمه کارفرما): <b>${insFa(gross + eIns)}</b> ریال${notes.map(n=>`<br>• ${n}`).join('')}</div></div>`;
+  };
+  surfaceBody.querySelector('.wg').addEventListener('input', e=>{
+    const t = e.target; if(t.tagName !== 'INPUT' || t.type === 'checkbox' || t.type === 'radio' || t.id === 'wgName'){ calc(); return; }
+    if(t.getAttribute('inputmode') === 'decimal') fmtDec(t); else fmtInt(t, MAXD[t.id] || 12);
+    calc();
+  });
+  surfaceBody.querySelector('.wg').addEventListener('change', e=>{
+    if(e.target.name === 'wgMode'){
+      const h = e.target.value === 'h'; $('wgBoxD').hidden = h; $('wgBoxH').hidden = !h;
+      surfaceBody.querySelectorAll('#wgSeg label').forEach(l=>l.classList.toggle('on', l.querySelector('input').checked));
+    }
+    calc();
+  });
+  $('wgMin').addEventListener('click', ()=>{ const i = $('wgFix'); i.value = insFa(WG.minDaily); i.dataset.v = String(WG.minDaily); calc(); });
+  $('wgFull').addEventListener('click', ()=>{ const i = $('wgDays'), M = WG_MONTHS[+$('wgMon').value][1]; i.value = insFa(M); i.dataset.v = String(M); calc(); });
+  calc();
+}
 function closeSurface(){
   viewLevel='home';
   stage.classList.remove('hidden');
@@ -2475,6 +2643,7 @@ function route(){
   if(a === 'tools' && b === 'jobcode'){ openJobCode(); }
   else if(a === 'tools' && b === 'insurance'){ openInsurance(); }
   else if(a === 'tools' && b === 'tax'){ openTax(); }
+  else if(a === 'tools' && b === 'wage'){ openWage(); }
   else if(a === 'jobs' && b && JOBS.some(j=>j.key===b)){ openJob(b); }
   else if(a === 'processes' && b && PROCESSES.some(p=>p.key===b)){ openProcess(b); }
   else if(a === 'certs'){
